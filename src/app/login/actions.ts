@@ -7,9 +7,6 @@ export async function signInWithDiscord(formData: FormData) {
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "discord",
-    options: {
-      redirectTo: "https://code-nest-web.vercel.app/auth/callback",
-    },
   });
 
   if (data.url) {
