@@ -4,21 +4,32 @@ import { Textarea } from "@nextui-org/react";
 import { Select, SelectSection, SelectItem } from "@nextui-org/select";
 
 export default function Editor() {
-  const [components, setComponents] = useState([{ value: "", language: "", filename: "" }]);
+  const [components, setComponents] = useState([
+    { value: "", language: "", filename: "" },
+  ]);
 
-  const handleChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newComponents = [...components];
     newComponents[index].value = event.target.value;
     setComponents(newComponents);
   };
-  
-  const handleLanguageChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
+
+  const handleLanguageChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const newComponents = [...components];
     newComponents[index].language = event.target.value;
     setComponents(newComponents);
   };
-  
-  const handleFilenameChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleFilenameChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newComponents = [...components];
     newComponents[index].filename = event.target.value;
     setComponents(newComponents);
