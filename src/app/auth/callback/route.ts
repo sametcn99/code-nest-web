@@ -7,6 +7,7 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get("next") ?? "/";
+  console.log("origin", origin);
   console.log("code", code);
   console.log("next", next);
   if (code) {
