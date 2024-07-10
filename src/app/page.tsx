@@ -1,9 +1,9 @@
-import Editor from "@/components/editor/Editor";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <main>
-      <Editor />
+      <Link href="/login">Click To Login</Link>
     </main>
   );
 }
