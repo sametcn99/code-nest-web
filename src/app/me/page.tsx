@@ -8,5 +8,5 @@ export default async function PrivatePage() {
   if (error || !data?.user) {
     redirect("/login");
   }
-  return <p>Hello {data.user.email}</p>;
+  return <p>Hello {data.user.email} {data.user.id {data.user.username}}</p>;
 }
