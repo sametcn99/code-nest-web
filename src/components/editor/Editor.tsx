@@ -1,12 +1,13 @@
 "use client";
+import { Button, Textarea } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Textarea } from "@nextui-org/react";
-import { Select, SelectSection, SelectItem } from "@nextui-org/select";
+import { postData } from "./actions";
 
 export default function Editor() {
-  const [components, setComponents] = useState([
-    { value: "", language: "", filename: "" },
-  ]);
+  const [components, setComponents] = useState<FileTypes[]>([]);
+  const [focused, setFocused] = useState(false);
+  const router = useRouter();
 
   const handleChange = (
     index: number,
@@ -14,15 +15,6 @@ export default function Editor() {
   ) => {
     const newComponents = [...components];
     newComponents[index].value = event.target.value;
-    setComponents(newComponents);
-  };
-
-  const handleLanguageChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const newComponents = [...components];
-    newComponents[index].language = event.target.value;
     setComponents(newComponents);
   };
 
@@ -36,75 +28,64 @@ export default function Editor() {
   };
 
   const addComponent = () => {
-    setComponents([...components, { value: "", language: "", filename: "" }]);
+    if (components.length >= 5) return;
+    setComponents([...components, { value: "", filename: "" }]);
   };
 
   const saveComponents = () => {
-    console.log("Components Data:", components);
+    postData(components).then((res) => {
+      if (res !== null) {
+        router.push(res.pathname);
+      } else {
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+      }
+    });
   };
 
-  const languages = [
-    { key: "javascript", value: "babel", label: "JavaScript" },
-    { key: "html", value: "html", label: "HTML" },
-    { key: "css", value: "css", label: "CSS" },
-    { key: "python", value: "python", label: "Python" },
-    { key: "java", value: "java", label: "Java" },
-    { key: "cpp", value: "cpp", label: "C++" },
-    { key: "ruby", value: "ruby", label: "Ruby" },
-  ];
+  const handleRemove = (index: number) => {
+    if (components.length === 1) return;
+    const newComponents = [...components];
+    newComponents.splice(index, 1);
+    setComponents(newComponents);
+  };
 
   return (
-    <section className="max-w-xs min-w-[30rem]">
+    <section className="max-w-2xl min-w-[30rem] mx-auto">
       {components.map((component, index) => (
-        <div key={index} className="mb-4">
-          <input
-            type="text"
-            placeholder="Enter file name"
-            value={component.filename}
-            onChange={(e) => handleFilenameChange(index, e)}
-            className="mb-2 p-2 border rounded w-full"
-          />
-          <Select
-            onChange={(e) => handleLanguageChange(index, e)}
-            aria-label="Select Language"
-            placeholder="Select Language"
-            value={component.language}
-          >
-            <SelectSection title="Programming Languages">
-              {languages.map((lang) => (
-                <SelectItem key={lang.key} value={lang.value}>
-                  {lang.label}
-                </SelectItem>
-              ))}
-            </SelectSection>
-          </Select>
+        <div key={index} className="p-2 bg-neutral-900 rounded-xl ">
+          <div className="flex flex-row">
+            <input
+              type="text"
+              placeholder="Dosya adı"
+              value={component.filename}
+              onChange={(e) => handleFilenameChange(index, e)}
+              className="mb-2 p-2 border rounded-xl w-full"
+            />
+            <Button className="w-2" onClick={() => handleRemove(index)}>
+              X
+            </Button>
+          </div>
           <Textarea
             label="Code"
             variant="bordered"
-            placeholder="Enter your code"
+            placeholder="Kodunuzu buraya yapıştırın"
             value={component.value}
             onChange={(e) => handleChange(index, e)}
+            onFocusChange={(focus) => {
+              setFocused(focus);
+            }}
             disableAnimation
             disableAutosize
             aria-label="Code Editor"
             classNames={{
-              input: "resize-y min-h-[30rem]",
+              base: "resize-y min-h-[25rem]",
+              input: "resize-y min-h-[25rem]",
             }}
           />
         </div>
       ))}
-      <button
-        onClick={addComponent}
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
-      >
-        +
-      </button>
-      <button
-        onClick={saveComponents}
-        className="mt-4 ml-4 p-2 bg-green-500 text-white rounded"
-      >
-        Save
-      </button>
+      <Button onClick={addComponent}>+</Button>
+      <Button onClick={saveComponents}>Save</Button>
     </section>
   );
 }

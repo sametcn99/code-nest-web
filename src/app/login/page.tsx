@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/utils/supabase/server";
-import { signInWithDiscord } from "./actions";
 import { redirect } from "next/navigation";
+import { signInWithDiscord } from "./actions";
 
 export default async function LoginPage() {
   const supabase = createClient();

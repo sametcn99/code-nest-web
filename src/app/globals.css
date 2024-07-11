@@ -20,3 +20,7 @@
     text-wrap: balance;
   }
 }
+
+.nav-item {
+  @apply font-bold text-2xl hover:scale-105 transition-all duration-500;
+}

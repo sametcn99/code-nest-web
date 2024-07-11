@@ -1,6 +1,6 @@
 "use server";
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export async function signInWithDiscord(formData: FormData) {
   const supabase = createClient();
