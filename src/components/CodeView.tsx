@@ -5,6 +5,9 @@ import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
 import { SlUserFollow } from "react-icons/sl";
 import { Tables } from "../../types/supabase";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { getFileExtension } from "@/lib/file-extensions-by-langs";
 
 export default function CodeView({
   content,
@@ -59,11 +62,17 @@ export default function CodeView({
           <Tabs aria-label="Options" variant={"underlined"}>
             {content.map((file, index) => (
               <Tab key={index} title={file.filename}>
-                <Card className="bg-opacity-10 backdrop-blur-sm">
-                  <CardBody className="min-h-96 overflow-x-scroll">
+                {getFileExtension(file.filename) ? (
+                  <SyntaxHighlighter language="javascript" style={irBlack}>
                     {file.value}
-                  </CardBody>
-                </Card>
+                  </SyntaxHighlighter>
+                ) : (
+                  <Card>
+                    <CardBody>
+                      <p>{file.value}</p>
+                    </CardBody>
+                  </Card>
+                )}
               </Tab>
             ))}
           </Tabs>
