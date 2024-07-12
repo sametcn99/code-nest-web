@@ -1,9 +1,6 @@
 import CodeView from "@/components/CodeView";
 import { createClient } from "@/lib/utils/supabase/server";
-import { Button, Card, CardFooter } from "@nextui-org/react";
-import Image from "next/image";
 import { Tables } from "../../../../types/supabase";
-import Link from "next/link";
 
 export default async function Page({
   params,

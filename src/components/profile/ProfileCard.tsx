@@ -1,6 +1,5 @@
-import { Avatar, Card, CardHeader } from "@nextui-org/react";
+import { Card, CardHeader } from "@nextui-org/react";
 import Image from "next/image";
-import React from "react";
 import { Database } from "../../../types/supabase";
 
 export default function ProfileCard({

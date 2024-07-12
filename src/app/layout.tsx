@@ -1,9 +1,9 @@
 import Navbar from "@/components/Navbar";
+import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
 import { NextUIProvider } from "@nextui-org/system";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -59,7 +59,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${font.className} dark`}>
         <NextUIProvider>
-          <section className="relative z-10 flex h-screen flex-col items-center overflow-hidden bg-zinc-950">
+          <section className="relative z-10 flex h-screen flex-col gap-40 items-center overflow-hidden bg-zinc-950">
             <BackgroundCellCore />
             <Navbar />
             {children}

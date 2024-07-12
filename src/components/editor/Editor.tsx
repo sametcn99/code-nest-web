@@ -2,9 +2,9 @@
 import { Button, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { postData } from "./actions";
 import { FaEdit } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { postData } from "./actions";
 
 export default function Editor() {
   const router = useRouter();

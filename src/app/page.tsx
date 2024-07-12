@@ -8,7 +8,7 @@ export default async function Home() {
   const user = data;
 
   return (
-    <main className="mx-auto flex h-[60%] w-fit flex-col place-items-center justify-center gap-2">
+    <main className="mx-auto flex w-fit flex-col place-items-center justify-center gap-2">
       <div>
         <h1 className="flex w-full items-center justify-center text-6xl font-semibold">
           CODENEST
