@@ -2,7 +2,11 @@ import { createClient } from "@/lib/utils/supabase/client";
 import { generateRandomNumber } from "@/lib/utils/utils";
 import { Database } from "../../../types/supabase";
 
-export const postData = async (filesData: FileTypes[]): Promise<URL | null> => {
+export const postData = async (
+  filesData: FileTypes[],
+  title: string,
+  description: string,
+): Promise<URL | null> => {
   const supabase = createClient();
   const auth = await supabase.auth.getUser();
   const content_id = generateRandomNumber(8);
@@ -36,11 +40,12 @@ export const postData = async (filesData: FileTypes[]): Promise<URL | null> => {
 
   const data = {
     user_id: user_id,
-    user_name: username.full_name,
-    content: JSON.stringify(filesData),
+    content: filesData,
     created_at: new Date(),
     content_id: content_id,
-    sub: user.sub,
+    title: title,
+    description: description,
+    star_count: 0,
   };
 
   const { error, statusText, status } = await supabase

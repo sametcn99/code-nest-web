@@ -12,7 +12,8 @@ export default function Editor() {
     { value: "", filename: "" },
   ]);
   const [fileTitleFocused, setFileTitleFocused] = useState(0);
-
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [focusedComponent, setFocusedComponent] = useState<FileTypes>({
     value: "",
     filename: "",
@@ -38,7 +39,7 @@ export default function Editor() {
   };
 
   const saveComponents = () => {
-    postData(components).then((res) => {
+    postData(components, title, description).then((res) => {
       if (res !== null) {
         router.push(res.pathname);
       } else {
@@ -57,6 +58,25 @@ export default function Editor() {
   return (
     <section className="mx-auto w-full min-w-[30rem] backdrop-blur-sm">
       <div className="rounded-xl p-2">
+        <div>
+          <h1 className="text-2xl font-bold">Editor</h1>
+          <p className="text-sm text-gray-500">
+            Kodlarınızı buraya yapıştırın ve kaydedin.
+          </p>
+        </div>
+        <div>
+          <input
+            value={title}
+            placeholder="Başlık girin"
+            onChange={(e) => setTitle(e.target.value)}
+            className="h-10 w-32 rounded-xl bg-transparent px-3 focus:outline-none"
+          />
+          <Textarea
+            value={description}
+            placeholder="Açıklama girin"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
         <div className="flex flex-row place-items-center justify-between gap-2">
           <div className="inline-flex gap-2">
             {components.map((component, index) => (
@@ -101,6 +121,7 @@ export default function Editor() {
           disableAnimation
           disableAutosize
           maxRows={500}
+          maxLength={10000}
           // Textarea bileşenindeki onChange handler'ını güncelleyin
           onChange={(e) => {
             const newValue = e.target.value;
