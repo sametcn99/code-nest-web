@@ -81,7 +81,6 @@ export default function CodeView({
                       wordBreak: "break-all",
                       whiteSpace: "pre-wrap",
                       width: "100%", // Ensure it takes the full width of its container
-                      overflowX: "scroll", // Allow horizontal scrolling on overflow
                     },
                   }}
                   wrapLines={true}
@@ -91,7 +90,6 @@ export default function CodeView({
                     wordBreak: "break-all",
                     whiteSpace: "pre-wrap",
                     width: "100%", // Ensure it takes the full width of its container
-                    overflowX: "scroll", // Allow horizontal scrolling on overflow
                   }}
                   useInlineStyles={true}
                   language="javascript"

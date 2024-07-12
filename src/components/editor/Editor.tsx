@@ -56,20 +56,20 @@ export default function Editor() {
   };
 
   return (
-    <section className="mx-auto w-full min-w-[30rem] backdrop-blur-sm">
-      <div className="rounded-xl p-2">
+    <section className="mx-auto w-full min-w-[20rem] px-4 backdrop-blur-sm">
+      <div className="flex flex-col gap-6 rounded-xl">
         <div>
           <h1 className="text-2xl font-bold">Editor</h1>
           <p className="text-sm text-gray-500">
             Kodlarınızı buraya yapıştırın ve kaydedin.
           </p>
         </div>
-        <div>
-          <input
+        <div className="flex flex-col gap-4">
+          <Textarea
             value={title}
             placeholder="Başlık girin"
             onChange={(e) => setTitle(e.target.value)}
-            className="h-10 w-32 rounded-xl bg-transparent px-3 focus:outline-none"
+            className="h-10 w-full rounded-xl bg-transparent focus:outline-none"
           />
           <Textarea
             value={description}
@@ -81,7 +81,7 @@ export default function Editor() {
           <div className="inline-flex gap-2">
             {components.map((component, index) => (
               <div
-                className="inline-flex justify-start gap-2 rounded-2xl border"
+                className="inline-flex w-full justify-start gap-2 rounded-xl border"
                 key={index}
               >
                 <input
@@ -92,19 +92,19 @@ export default function Editor() {
                     setFileTitleFocused(index);
                   }}
                   onChange={(e) => handleFilenameChange(index, e)}
-                  className="h-10 w-32 rounded-xl bg-transparent px-3 focus:outline-none"
+                  className="h-10 w-full bg-transparent px-3 focus:outline-none"
                 />
                 <button
                   className="h-10 w-10"
                   onClick={() => handleRemove(index)}
-                  title="Remove Component"
+                  title="Edit File"
                 >
                   <FaEdit />
                 </button>
                 <button
                   className="h-10 w-10"
                   onClick={() => handleRemove(index)}
-                  title="Remove Component"
+                  title="Remove File"
                 >
                   <IoCloseCircleSharp />
                 </button>
@@ -138,7 +138,9 @@ export default function Editor() {
           }}
         />
       </div>
-      <Button onClick={saveComponents}>Save</Button>
+      <Button onClick={saveComponents} className="mt-4 w-full">
+        Save
+      </Button>
     </section>
   );
 }

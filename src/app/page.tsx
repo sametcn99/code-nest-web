@@ -28,7 +28,7 @@ export default async function Home() {
   });
 
   return (
-    <section className="flex flex-col gap-20">
+    <section className="mt-20 flex w-full flex-col place-items-center gap-40">
       <main className="mx-auto flex w-fit flex-col place-items-center justify-center gap-2">
         <div>
           <h1 className="flex w-full flex-row flex-wrap-reverse items-center justify-center gap-2 text-6xl font-semibold">
