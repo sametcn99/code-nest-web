@@ -5,6 +5,7 @@ import { NextUIProvider } from "@nextui-org/system";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -66,6 +67,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </section>
+          <Analytics />
         </NextUIProvider>
       </body>
     </html>
