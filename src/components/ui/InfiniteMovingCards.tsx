@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils/cn";
 import React, { useEffect, useState } from "react";
 import { Card, CardFooter, Image, Button } from "@nextui-org/react";
+import Link from "next/link";
 
 export const InfiniteMovingCards = ({
   items,
@@ -22,7 +23,7 @@ export const InfiniteMovingCards = ({
 
   useEffect(() => {
     addAnimation();
-  }, []);
+  });
   const [start, setStart] = useState(false);
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
@@ -84,22 +85,24 @@ export const InfiniteMovingCards = ({
         )}
       >
         {items.map((item, idx) => (
-          <Card
-            isFooterBlurred
-            radius="lg"
-            key={idx}
-            className="rounded-2x relative min-h-32 w-[350px] flex-shrink-0 place-items-center border border-b-0 border-slate-700 px-8 py-6 md:w-[450px]"
-          >
-            <p className="absolute top-0 -rotate-12 select-none text-3xl opacity-5">
-              {item.content[0].value}
-            </p>
-            <CardFooter className="absolute bottom-1 z-10 mx-4 flex w-fit flex-col overflow-hidden rounded-large border-1 border-slate-800 py-1 shadow-small before:rounded-xl before:bg-white/10">
-              <p className="text-lg font-bold text-white/80">{item.title}</p>
-              <p className="text-justify">
-                {item.description.substring(0, 40)}
+          <Link href={`/code/${item.id}`} key={idx}>
+            <Card
+              isFooterBlurred
+              radius="lg"
+              key={idx}
+              className="rounded-2x relative min-h-32 w-[350px] flex-shrink-0 place-items-center border border-b-0 border-slate-700 px-8 py-6 transition-all duration-500 hover:scale-102 md:w-[450px]"
+            >
+              <p className="absolute top-0 -rotate-12 select-none text-3xl opacity-5">
+                {item.content[0].value}
               </p>
-            </CardFooter>
-          </Card>
+              <CardFooter className="absolute bottom-1 z-10 mx-4 flex w-fit flex-col overflow-hidden rounded-large border-1 border-slate-800 py-1 shadow-small before:rounded-xl before:bg-white/10">
+                <p className="text-lg font-bold text-white/80">{item.title}</p>
+                <p className="text-justify">
+                  {item.description.substring(0, 40)}
+                </p>
+              </CardFooter>
+            </Card>
+          </Link>
         ))}
       </ul>
     </div>

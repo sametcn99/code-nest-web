@@ -4,6 +4,7 @@ type FileTypes = {
 };
 
 type Content = {
+  id: number;
   title: string;
   description: string;
   content: FileTypes[];
