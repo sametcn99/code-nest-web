@@ -1,16 +1,16 @@
 "use client";
-import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
-import Image from "next/image";
-import Link from "next/link";
-import { IoMdStar } from "react-icons/io";
-import { SlUserFollow } from "react-icons/sl";
-import { Tables } from "../../types/supabase";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import {
   getFileExtension,
   getLangByFileExtension,
 } from "@/lib/file-extensions-by-langs";
+import { Card, Tab, Tabs } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
+import { IoMdStar } from "react-icons/io";
+import { SlUserFollow } from "react-icons/sl";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Tables } from "../../types/supabase";
 
 export default function CodeView({
   content,
@@ -73,10 +73,25 @@ export default function CodeView({
                   </span>
                 </div>
                 <SyntaxHighlighter
-                  className="break-all bg-transparent"
+                  key={index}
+                  CodeTag={Card}
+                  codeTagProps={{
+                    style: {
+                      backgroundColor: "transparent",
+                      wordBreak: "break-all",
+                      whiteSpace: "pre-wrap",
+                      width: "100%", // Ensure it takes the full width of its container
+                      overflowX: "scroll", // Allow horizontal scrolling on overflow
+                    },
+                  }}
+                  wrapLines={true}
+                  wrapLongLines={true}
                   customStyle={{
                     backgroundColor: "transparent",
                     wordBreak: "break-all",
+                    whiteSpace: "pre-wrap",
+                    width: "100%", // Ensure it takes the full width of its container
+                    overflowX: "scroll", // Allow horizontal scrolling on overflow
                   }}
                   useInlineStyles={true}
                   language="javascript"
