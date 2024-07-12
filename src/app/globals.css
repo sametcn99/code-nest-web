@@ -7,7 +7,7 @@
   --background-rgb: rgb(12, 12, 22);
   --color-text-muted: rgb(153, 153, 153);
 
-  --selection-color: rgb(55, 73, 92);
+  --selection-color: rgb(166, 189, 219);
   --selection-background: rgb(55, 73, 92);
   color: var(--foreground-rgb);
   background: var(--background-rgb);
