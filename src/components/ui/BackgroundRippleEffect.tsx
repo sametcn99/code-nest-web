@@ -1,15 +1,14 @@
 "use client";
-import type { NextPage } from "next";
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
+import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 
 export const BackgroundCellAnimation = () => {
   return (
-    <div className="relative h-screen bg-slate-950 flex justify-center overflow-hidden">
+    <div className="relative flex h-screen justify-center overflow-hidden bg-slate-950">
       <BackgroundCellCore />
-      <div className="relative z-50 mt-40 pointer-events-none select-none">
-        <h1 className="md:text-2xl lg:text-7xl font-medium text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-400 pointer-events-none">
+      <div className="pointer-events-none relative z-50 mt-40 select-none">
+        <h1 className="pointer-events-none bg-gradient-to-b from-neutral-100 to-neutral-400 bg-clip-text text-center font-medium text-transparent md:text-2xl lg:text-7xl">
           Background cell animation <br />
           with framer motion
         </h1>
@@ -36,10 +35,10 @@ export const BackgroundCellCore = () => {
     <div
       ref={ref}
       onMouseMove={handleMouseMove}
-      className="h-full absolute inset-0 -z-10"
+      className="absolute inset-0 -z-10 h-full"
     >
-      <div className="absolute h-[25rem] inset-y-0  overflow-hidden">
-        <div className="absolute h-full w-full pointer-events-none -bottom-2 z-40 bg-slate-950 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
+      <div className="absolute inset-y-0 h-[25rem] overflow-hidden">
+        <div className="pointer-events-none absolute -bottom-2 z-40 h-full w-full bg-slate-950 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
         <div
           className="absolute inset-0 z-20 bg-transparent"
           style={{
@@ -82,11 +81,11 @@ const Pattern = ({
   const [clickedCell, setClickedCell] = useState<any>(null);
 
   return (
-    <div className={cn("flex flex-row  relative z-30", className)}>
+    <div className={cn("relative z-30 flex flex-row", className)}>
       {matrix.map((row, rowIdx) => (
         <div
           key={`matrix-row-${rowIdx}`}
-          className="flex flex-col  relative z-20 border-b"
+          className="relative z-20 flex flex-col border-b"
         >
           {row.map((_, colIdx) => {
             // Removed the unused 'column' variable and replaced it with '_'
@@ -94,8 +93,8 @@ const Pattern = ({
               <div
                 key={`matrix-col-${colIdx}`}
                 className={cn(
-                  "bg-transparent border-l border-b border-neutral-600",
-                  cellClassName
+                  "border-b border-l border-neutral-600 bg-transparent",
+                  cellClassName,
                 )}
                 onClick={() => setClickedCell([rowIdx, colIdx])}
               >
@@ -117,7 +116,7 @@ const Pattern = ({
                           1 -
                             Math.sqrt(
                               Math.pow(clickedCell[0] - rowIdx, 2) +
-                                Math.pow(clickedCell[1] - colIdx, 2)
+                                Math.pow(clickedCell[1] - colIdx, 2),
                             ) *
                               0.1,
                           0,
@@ -128,12 +127,12 @@ const Pattern = ({
                           duration:
                             Math.sqrt(
                               Math.pow(clickedCell[0] - rowIdx, 2) +
-                                Math.pow(clickedCell[1] - colIdx, 2)
+                                Math.pow(clickedCell[1] - colIdx, 2),
                             ) * 0.2,
                         }
                       : {},
                   }}
-                  className="bg-[rgba(14,165,233,0.3)] h-12 w-12" //  rgba(14, 165, 233, 0.15) for a more subtle effect
+                  className="h-12 w-12 bg-[rgba(14,165,233,0.3)]" //  rgba(14, 165, 233, 0.15) for a more subtle effect
                 ></motion.div>
               </div>
             );

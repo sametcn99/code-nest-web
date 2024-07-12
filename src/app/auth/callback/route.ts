@@ -24,7 +24,7 @@ export async function GET(request: Request) {
             cookieStore.delete({ name, ...options });
           },
         },
-      }
+      },
     );
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {

@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.className} dark`}>
         <NextUIProvider>
-          <section className="relative flex justify-center items-center h-screen bg-slate-950 overflow-hidden z-10">
+          <section className="relative z-10 flex h-screen items-center justify-center overflow-hidden bg-slate-950">
             <BackgroundCellCore />
             <Navbar />
             {children}

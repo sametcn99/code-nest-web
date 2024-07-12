@@ -21,7 +21,7 @@ export default function UserButton({
         <div>
           <Dropdown>
             <DropdownTrigger>
-              <div className="inline-flex gap-2 font-bold text-2xl hover:scale-102 rounded-2xl transition-all duration-500 hover:cursor-pointer">
+              <div className="inline-flex gap-2 rounded-2xl text-2xl font-bold transition-all duration-500 hover:scale-102 hover:cursor-pointer">
                 <span>Profil</span>
                 <Avatar
                   src={avatar_url}
