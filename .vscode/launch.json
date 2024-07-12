@@ -1,46 +1,28 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "Next.js: Node",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 9229,
-      "restart": true,
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "pwa-chrome",
-      "request": "launch",
-      "name": "Next.js: Chrome",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "breakOnLoad": true,
-      "skipFiles": ["node_modules/**"]
-    },
-    {
-      "type": "pwa-msedge",
-      "request": "launch",
-      "name": "Next.js: Edge",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "breakOnLoad": true,
-      "skipFiles": ["node_modules/**"]
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Next.js: Fullstack Debug",
-      "configurations": ["Next.js: Node", "Next.js: Chrome"]
-    },
-    {
-      "name": "Next.js: Fullstack Debug - Edge",
-      "configurations": ["Next.js: Node", "Next.js: Edge"]
-    }
-  ]
-}
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Next.js: debug server-side",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "npm run dev"
+      },
+      {
+        "name": "Next.js: debug client-side",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:3000"
+      },
+      {
+        "name": "Next.js: debug full stack",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "npm run dev",
+        "serverReadyAction": {
+          "pattern": "- Local:.+(https?://.+)",
+          "uriFormat": "%s",
+          "action": "debugWithChrome"
+        }
+      }
+    ]
+  }

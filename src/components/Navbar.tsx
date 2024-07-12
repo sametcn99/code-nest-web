@@ -1,13 +1,13 @@
 import { createClient } from "@/lib/utils/supabase/server";
 import Link from "next/link";
-import SignOut from "./SignOut";
+import UserButton from "./UserButton";
 
 export default async function Navbar() {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
   return (
     <>
-      <div className="flex flex-row justify-between p-2">
+      <div className="flex flex-row justify-between p-2 sticky top-0">
         <div className="inline-flex gap-2">
           <Link href={"/"} className="nav-item">
             Ana Sayfa
@@ -17,18 +17,10 @@ export default async function Navbar() {
           </Link>
         </div>
         <div className="inline-flex gap-2">
-          {data?.user ? (
-            <>
-              <Link href={"/me"} className="nav-item">
-                Profil
-              </Link>
-              <SignOut />
-            </>
-          ) : (
-            <Link href={"/login"} className="nav-item">
-              Login
-            </Link>
-          )}
+          <UserButton
+            avatar_url={data?.user?.user_metadata.avatar_url}
+            username={data.user?.user_metadata.full_name}
+          />
         </div>
       </div>
     </>

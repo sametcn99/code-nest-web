@@ -5,7 +5,9 @@ import { useState } from "react";
 import { postData } from "./actions";
 
 export default function Editor() {
-  const [components, setComponents] = useState<FileTypes[]>([]);
+  const [components, setComponents] = useState<FileTypes[]>([
+    { value: "", filename: "" },
+  ]);
   const [focused, setFocused] = useState(false);
   const router = useRouter();
 
@@ -52,18 +54,21 @@ export default function Editor() {
   return (
     <section className="max-w-2xl min-w-[30rem] mx-auto">
       {components.map((component, index) => (
-        <div key={index} className="p-2 bg-neutral-900 rounded-xl ">
-          <div className="flex flex-row">
+        <div key={index} className="p-2 backdrop-blur-sm rounded-xl ">
+          <div className="flex flex-row gap-2 place-items-center">
             <input
               type="text"
               placeholder="Dosya adı"
               value={component.filename}
               onChange={(e) => handleFilenameChange(index, e)}
-              className="mb-2 p-2 border rounded-xl w-full"
+              className="border rounded-xl w-full bg-transparent h-10 px-3 "
             />
-            <Button className="w-2" onClick={() => handleRemove(index)}>
+            <button
+              className="border-gray-500 border p-2 rounded-xl w-10 h-10"
+              onClick={() => handleRemove(index)}
+            >
               X
-            </Button>
+            </button>
           </div>
           <Textarea
             label="Code"

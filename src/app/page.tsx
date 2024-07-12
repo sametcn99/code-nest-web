@@ -1,21 +1,30 @@
-export default function Home() {
+import Link from "next/link";
+
+export default async function Home() {
   return (
-    <main className="font-montserrat p-0 m-0 h-screen bg-[#12131A] w-full">
-    <div className="bg-transparent h-[85%] w-full flex items-center justify-center">
-        <div>
-        <h1 className="text-[52px] w-full flex items-center justify-center text-[#e5e7ebe7] font-semibold">CODENEST</h1>            <p className="mt-[-17px] mb-[13px] text-[22px] w-full flex items-center justify-center text-[#e5e7ebb9]">Projeleri Keşfet, Paylaş ve İş Birliği Yap</p>
-            <div className="h-auto flex items-center justify-center px-[25px] gap-[15px]">
-                <button className="rounded-[0.75rem] flex px-[25px] h-[41px] items-center cursor-pointer justify-center gap-[0.5rem] text-[#E5E7EB] border border-[rgba(255,255,255,0.137)] text-[14px] font-montserrat bg-[#1619239f] backdrop-blur-[10px] transition-all duration-200 ease-in-out z-[9999] hover:text-[rgba(255,255,255,0.774)] hover:bg-[rgba(255,255,255,0.082)]">
-                    Başlayın
-                </button>
-                <button className="rounded-[0.75rem] flex px-[25px] h-[41px] items-center cursor-pointer justify-center gap-[0.5rem] text-[#E5E7EB] border border-[rgba(255,255,255,0.137)] text-[14px] font-montserrat bg-[#1619239f] backdrop-blur-[10px] transition-all duration-200 ease-in-out z-[9999] hover:text-[rgba(255,255,255,0.774)] hover:bg-[rgba(255,255,255,0.082)]">
-                    Giriş Yap
-                </button>
-            </div>
-        </div>
-    </div>
-</main>
-
-
+    <main className="mx-auto flex flex-col justify-center place-items-center min-h-screen">
+      <div>
+        <h1 className="text-6xl w-full flex items-center justify-center font-semibold">
+          CODENEST
+        </h1>
+        <p className="my-2 text-2xl w-full flex items-center justify-center text-muted">
+          Projeleri Keşfet, Paylaş ve İş Birliği Yap
+        </p>
+      </div>
+      <div className="h-auto flex items-center justify-center px-[1.5625rem] gap-[0.9375rem]">
+        <Link
+          href={"/new"}
+          className="rounded-2xl flex px-6 h-10 items-center cursor-pointer justify-center text-gray-200 border border-gray-500  font-montserrat transition-all duration-200 ease-in-out  hover:text-gray-500"
+        >
+          Başlayın
+        </Link>
+        <Link
+          href={"/login"}
+          className="rounded-2xl flex px-6 h-10 items-center cursor-pointer justify-center text-gray-200 border border-gray-500  font-montserrat transition-all duration-200 ease-in-out  hover:text-gray-500"
+        >
+          Giriş Yap
+        </Link>
+      </div>
+    </main>
   );
 }
