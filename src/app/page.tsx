@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/utils/supabase/server";
+import Image from "next/image";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
 
@@ -10,8 +11,15 @@ export default async function Home() {
   return (
     <main className="mx-auto flex w-fit flex-col place-items-center justify-center gap-2">
       <div>
-        <h1 className="flex w-full items-center justify-center text-6xl font-semibold">
+        <h1 className="flex w-full flex-row flex-wrap-reverse items-center justify-center gap-2 text-6xl font-semibold">
           CODENEST
+          <Image
+            src="/icons/favicon.ico"
+            width={50}
+            height={50}
+            alt="logo"
+            className="pointer-events-none select-none"
+          />
         </h1>
         <p className="my-2 flex w-full items-center justify-center text-2xl text-muted">
           Projeleri Keşfet, Paylaş ve İş Birliği Yap
