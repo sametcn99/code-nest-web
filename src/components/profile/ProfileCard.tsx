@@ -1,34 +1,22 @@
-import { Card, CardHeader } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import Image from "next/image";
 import { Database } from "../../../types/supabase";
 
 export default function ProfileCard({
   userMetadata,
 }: {
-  userMetadata: Database["public"]["Tables"]["profiles"]["Row"] | UserMetadata;
+  userMetadata: Database["public"]["Tables"]["profiles"]["Row"];
 }) {
   return (
-    <>
-      <Card>
-        <CardHeader className="flex flex-row">
-          {userMetadata.avatar_url ? (
-            <Image
-              alt="User Profile Picture"
-              width={200}
-              height={200}
-              src={userMetadata.avatar_url}
-              className="rounded-2xl"
-            />
-          ) : (
-            <></>
-          )}
-          <div>
+    <Card className="flex flex-row p-4 gap-4">
+      {userMetadata.avatar_url && (
+      <Image src={userMetadata.avatar_url} width={100} height={100} alt="user avatar" className="rounded-2xl" />
+      )}
+        <div className="flex flex-col">
             <h2 className="text-3xl font-bold">{userMetadata.full_name}</h2>
             <p>{userMetadata.email}</p>
             <p>Discord ID: {userMetadata.sub}</p>
-          </div>
-        </CardHeader>
-      </Card>
-    </>
+        </div>
+    </Card>
   );
 }
