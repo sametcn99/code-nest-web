@@ -5,7 +5,10 @@ type FileTypes = {
 
 type Content = {
   id: number;
+  created_at: string;
   title: string;
+  star_count: number;
+  user_id: number;
   description: string;
   content: FileTypes[];
 };

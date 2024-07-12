@@ -18,6 +18,9 @@ export default async function Home() {
   const items = contents?.map((content) => {
     return {
       id: content.content_id,
+      created_at: content.created_at,
+      star_count: content.star_count,
+      user_id: content.user_id,
       title: content.title,
       description: content.description,
       content: content.content,
