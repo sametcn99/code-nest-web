@@ -7,7 +7,7 @@ export default async function Navbar() {
   const { data } = await supabase.auth.getUser();
   return (
     <>
-      <div className="flex w-full flex-row justify-between p-2">
+      <div className="flex w-[75%] flex-row justify-between p-2">
         <div className="inline-flex gap-2">
           <Link href={"/"} className="nav-item">
             Ana Sayfa
