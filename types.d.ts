@@ -3,6 +3,12 @@ type FileTypes = {
   filename: string;
 };
 
+type Content = {
+  title: string;
+  description: string;
+  content: FileTypes[];
+};
+
 type UserMetadata = {
   iss: string;
   sub: string;
