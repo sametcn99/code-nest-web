@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils/cn";
-import React, { useEffect, useState } from "react";
-import { Card, CardFooter, Image, Button } from "@nextui-org/react";
+import { Card, CardFooter } from "@nextui-org/react";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 export const InfiniteMovingCards = ({
   items,

@@ -1,14 +1,9 @@
 import { cn } from "@/lib/utils/cn";
+import { FaCloud, FaHeart } from "react-icons/fa";
 import { FaTerminal } from "react-icons/fa6";
-import { SlSupport } from "react-icons/sl";
-import { FaHeart } from "react-icons/fa";
+import { FiDollarSign } from "react-icons/fi";
 import { GrHelpBook } from "react-icons/gr";
 import { TbEaseInOut } from "react-icons/tb";
-import { FiDollarSign } from "react-icons/fi";
-import { FaCloud } from "react-icons/fa";
-import { TbAdjustmentsExclamation } from "react-icons/tb";
-import { TbRouteAltLeft } from "react-icons/tb";
-import { title } from "process";
 
 export function FeaturesSectionDemo() {
   const features = [

@@ -1,7 +1,7 @@
+import ContentCard from "@/components/Contents/ContentCard";
 import ProfileCard from "@/components/profile/ProfileCard";
 import { createClient } from "@/lib/utils/supabase/server";
-import { Database, Tables } from "../../../../types/supabase";
-import ContentCard from "@/components/Contents/ContentCard";
+import { Tables } from "../../../../types/supabase";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const supabase = createClient();
@@ -25,10 +25,10 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <main className="mx-auto w-[60%]">
       <ProfileCard userMetadata={user} />
-      <div className="grid grid-cols-3 gap-4 mt-4">
-      {contents.map((content, index) => (
-        <ContentCard content={content} key={index} />
-      ))}
+      <div className="mt-4 grid grid-cols-3 gap-4">
+        {contents.map((content, index) => (
+          <ContentCard content={content} key={index} />
+        ))}
       </div>
     </main>
   );

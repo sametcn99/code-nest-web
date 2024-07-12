@@ -1,11 +1,10 @@
 import Navbar from "@/components/Navbar";
 import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
+import Footer from "@/components/ui/Footer";
 import { NextUIProvider } from "@nextui-org/system";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/ui/Footer";
-import { FloatingNavbar } from "@/components/ui/FloatingNavbar";
 
 const font = Montserrat({ subsets: ["latin"] });
 

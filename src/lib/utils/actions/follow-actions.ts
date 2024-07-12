@@ -1,4 +1,3 @@
-import { PostgrestResponse } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
 
 export const followAction = async (

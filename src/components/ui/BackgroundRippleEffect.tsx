@@ -1,7 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils/cn";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 export const BackgroundCellCore = () => {
   return (

@@ -1,12 +1,11 @@
-import React from 'react';
-import { createClient } from '@/lib/utils/supabase/client';
+import { createClient } from "@/lib/utils/supabase/client";
 
 export default function SignOut() {
   const supabase = createClient();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    window.location.href = '/login';
+    window.location.href = "/login";
   };
 
   return (

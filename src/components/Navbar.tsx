@@ -1,6 +1,4 @@
 import { createClient } from "@/lib/utils/supabase/server";
-import Link from "next/link";
-import UserButton from "./UserButton";
 import { FloatingNavbar } from "./ui/FloatingNavbar";
 
 export default async function Navbar() {
