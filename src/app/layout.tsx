@@ -5,7 +5,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const font = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
@@ -57,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} dark`}>
+      <body className={`${font.className} dark`}>
         <NextUIProvider>
           <section className="relative z-10 flex h-screen flex-col items-center overflow-hidden bg-zinc-950">
             <BackgroundCellCore />

@@ -100,6 +100,7 @@ export default function Editor() {
           value={focusedComponent.value}
           disableAnimation
           disableAutosize
+          maxRows={500}
           // Textarea bileşenindeki onChange handler'ını güncelleyin
           onChange={(e) => {
             const newValue = e.target.value;
