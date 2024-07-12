@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: rgb(255, 255, 255);
-  --background-rgb: rgb(22, 24, 37);
+  --background-rgb: rgb(12, 12, 22);
   --color-text-muted: rgb(153, 153, 153);
 
   --selection-color: rgb(55, 73, 92);
@@ -20,7 +20,7 @@
 }
 
 .nav-item {
-  @apply font-bold text-2xl hover:scale-105 transition-all duration-500 select-none cursor-pointer;
+  @apply cursor-pointer select-none text-2xl font-bold transition-all duration-500 hover:scale-105;
 }
 
 ::-moz-selection {

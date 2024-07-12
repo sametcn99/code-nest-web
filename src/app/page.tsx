@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <main className="mx-auto flex w-fit flex-col place-items-center justify-center">
+    <main className="mx-auto flex h-[60%] w-fit flex-col place-items-center justify-center">
       <div>
         <h1 className="flex w-full items-center justify-center text-6xl font-semibold">
           CODENEST

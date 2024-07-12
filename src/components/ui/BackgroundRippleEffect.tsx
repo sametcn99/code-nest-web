@@ -38,7 +38,7 @@ export const BackgroundCellCore = () => {
       className="absolute inset-0 -z-10 h-full"
     >
       <div className="absolute inset-y-0 h-[25rem] overflow-hidden">
-        <div className="pointer-events-none absolute -bottom-2 z-40 h-full w-full bg-slate-950 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
+        <div className="pointer-events-none absolute -bottom-2 z-40 h-full w-full bg-zinc-950 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
         <div
           className="absolute inset-0 z-20 bg-transparent"
           style={{
