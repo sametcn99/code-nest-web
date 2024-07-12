@@ -3,6 +3,7 @@ import { NextUIProvider } from "@nextui-org/system";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -20,8 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.className} dark`}>
         <NextUIProvider>
-          <Navbar />
-          {children}
+          <section className="relative flex justify-center items-center h-screen bg-slate-950 overflow-hidden z-10">
+            <BackgroundCellCore />
+            <Navbar />
+            {children}
+          </section>
         </NextUIProvider>
       </body>
     </html>
