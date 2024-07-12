@@ -18,7 +18,7 @@ export default async function Home() {
             width={50}
             height={50}
             alt="logo"
-            className="pointer-events-none select-none"
+            className="hover:-rotate-45 tranisition-all duration-700 ease-in-out"
           />
         </h1>
         <p className="my-2 flex w-full items-center justify-center text-2xl text-muted">
