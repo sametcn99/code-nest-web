@@ -9,30 +9,60 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      comments: {
+        Row: {
+          comment: string | null
+          content_id: number | null
+          created_at: string
+          id: number
+          user_id: string | null
+        }
+        Insert: {
+          comment?: string | null
+          content_id?: number | null
+          created_at?: string
+          id?: number
+          user_id?: string | null
+        }
+        Update: {
+          comment?: string | null
+          content_id?: number | null
+          created_at?: string
+          id?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       files: {
         Row: {
           content: Json
           content_id: number
           created_at: string
+          description: string
           id: string
+          star_count: number
+          title: string
           user_id: string
-          user_name: string
         }
         Insert: {
           content: Json
           content_id: number
           created_at?: string
+          description: string
           id?: string
+          star_count: number
+          title: string
           user_id: string
-          user_name: string
         }
         Update: {
           content?: Json
           content_id?: number
           created_at?: string
+          description?: string
           id?: string
+          star_count?: number
+          title?: string
           user_id?: string
-          user_name?: string
         }
         Relationships: []
       }
@@ -40,27 +70,36 @@ export type Database = {
         Row: {
           avatar_url: string | null
           email: string | null
+          followers: string[] | null
+          followers_count: number | null
+          followings: string[] | null
           full_name: string | null
           id: string
-          sub: string | null
+          sub: string
           username: string | null
           website: string | null
         }
         Insert: {
           avatar_url?: string | null
           email?: string | null
+          followers?: string[] | null
+          followers_count?: number | null
+          followings?: string[] | null
           full_name?: string | null
           id: string
-          sub?: string | null
+          sub: string
           username?: string | null
           website?: string | null
         }
         Update: {
           avatar_url?: string | null
           email?: string | null
+          followers?: string[] | null
+          followers_count?: number | null
+          followings?: string[] | null
           full_name?: string | null
           id?: string
-          sub?: string | null
+          sub?: string
           username?: string | null
           website?: string | null
         }
