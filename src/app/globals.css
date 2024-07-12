@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: rgb(255, 255, 255);
-  --background-rgb: rgb(12, 12, 22);
+  --background-rgb: rgb(9, 9, 12);
   --color-text-muted: rgb(153, 153, 153);
 
   --selection-color: rgb(166, 189, 219);
@@ -32,4 +32,10 @@
 ::selection {
   color: var(--selection-color);
   background: var(--selection-background);
+}
+
+@media (max-width: 768px) {
+  .syntax-highlighter {
+    font-size: 12px; /* Smaller font size on smaller screens */
+  }
 }

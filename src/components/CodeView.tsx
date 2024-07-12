@@ -7,7 +7,10 @@ import { SlUserFollow } from "react-icons/sl";
 import { Tables } from "../../types/supabase";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { getFileExtension } from "@/lib/file-extensions-by-langs";
+import {
+  getFileExtension,
+  getLangByFileExtension,
+} from "@/lib/file-extensions-by-langs";
 
 export default function CodeView({
   content,
@@ -62,17 +65,26 @@ export default function CodeView({
           <Tabs aria-label="Options" variant={"underlined"}>
             {content.map((file, index) => (
               <Tab key={index} title={file.filename}>
-                {getFileExtension(file.filename) ? (
-                  <SyntaxHighlighter language="javascript" style={irBlack}>
-                    {file.value}
-                  </SyntaxHighlighter>
-                ) : (
-                  <Card>
-                    <CardBody>
-                      <p>{file.value}</p>
-                    </CardBody>
-                  </Card>
-                )}
+                <div className="py-2 pl-4 font-bold">
+                  <span>
+                    {getLangByFileExtension(
+                      getFileExtension(file.filename) ?? "",
+                    )}
+                  </span>
+                </div>
+                <SyntaxHighlighter
+                  className="break-all bg-transparent"
+                  customStyle={{
+                    backgroundColor: "transparent",
+                    wordBreak: "break-all",
+                  }}
+                  useInlineStyles={true}
+                  language="javascript"
+                  style={irBlack}
+                  showLineNumbers
+                >
+                  {file.value}
+                </SyntaxHighlighter>
               </Tab>
             ))}
           </Tabs>

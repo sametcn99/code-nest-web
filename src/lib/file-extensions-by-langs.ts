@@ -1,4 +1,4 @@
-export const fileExtensionsByLangs = {
+export const fileExtensionsByLangs: { [key: string]: string[] } = {
   accesslog: ["log"],
   apache: ["apache"],
   arduino: ["ino"],
@@ -61,8 +61,22 @@ export const fileExtensionsByLangs = {
 
 export const getFileExtension = (filename: string): string | null => {
   const ext = filename.split(".").pop();
-  if (!ext) {
+  console.log("ext", ext);
+  if (ext === undefined) {
     return null;
   }
   return ext;
+};
+
+export const getLangByFileExtension = (filename: string): string | null => {
+  const ext = getFileExtension(filename);
+  if (!ext) {
+    return null;
+  }
+  for (const lang in fileExtensionsByLangs) {
+    if (fileExtensionsByLangs[lang].includes(ext)) {
+      return lang;
+    }
+  }
+  return null;
 };
