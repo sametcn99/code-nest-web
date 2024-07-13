@@ -76,7 +76,7 @@ export default async function Home() {
         </Link>
       </main>
       <FeaturesSectionDemo />
-      <InfiniteMovingCards items={items as unknown as Content[]} />
+      <InfiniteMovingCards speed={300} items={items as unknown as Content[]} />
     </section>
   );
 }

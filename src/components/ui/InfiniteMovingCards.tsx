@@ -5,19 +5,38 @@ import { Card, CardFooter } from "@nextui-org/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
+type InfiniteMovingCardsProps = {
+  /**
+   * Displayed items in the moving cards component.
+   */
+  items: Content[];
+  /**
+   * Direction of the movement, can be 'left' or 'right'.
+   * @default "left"
+   */
+  direction?: "left" | "right";
+  /**
+   * Speed of the animation in seconds.
+   */
+  speed: number;
+  /**
+   * Whether the animation should pause when the mouse hovers over.
+   * @default true
+   */
+  pauseOnHover?: boolean;
+  /**
+   * Additional CSS class names for styling.
+   */
+  className?: string;
+};
+
 export const InfiniteMovingCards = ({
   items,
   direction = "left",
-  speed = "fast",
+  speed,
   pauseOnHover = true,
   className,
-}: {
-  items: Content[];
-  direction?: "left" | "right";
-  speed?: "fast" | "normal" | "slow";
-  pauseOnHover?: boolean;
-  className?: string;
-}) => {
+}: InfiniteMovingCardsProps) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);
 
@@ -35,9 +54,11 @@ export const InfiniteMovingCards = ({
           scrollerRef.current.appendChild(duplicatedItem);
         }
       });
-
+      containerRef.current.style.setProperty(
+        "--animation-duration",
+        `${speed}s`,
+      );
       getDirection();
-      getSpeed();
       setStart(true);
     }
   }
@@ -56,17 +77,7 @@ export const InfiniteMovingCards = ({
       }
     }
   };
-  const getSpeed = () => {
-    if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
-    }
-  };
+
   return (
     <div
       ref={containerRef}
