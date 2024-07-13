@@ -72,32 +72,27 @@ export default function CodeView({
                     )}
                   </span>
                 </div>
-                <SyntaxHighlighter
-                  key={index}
-                  CodeTag={Card}
-                  codeTagProps={{
-                    style: {
+                <div className="">
+                  <SyntaxHighlighter
+                    key={index}
+                    CodeTag={Card}
+                    codeTagProps={{
+                      style: {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                    wrapLongLines={true}
+                    customStyle={{
                       backgroundColor: "transparent",
-                      wordBreak: "break-all",
-                      whiteSpace: "pre-wrap",
-                      width: "100%", // Ensure it takes the full width of its container
-                    },
-                  }}
-                  wrapLines={true}
-                  wrapLongLines={true}
-                  customStyle={{
-                    backgroundColor: "transparent",
-                    wordBreak: "break-all",
-                    whiteSpace: "pre-wrap",
-                    width: "100%", // Ensure it takes the full width of its container
-                  }}
-                  useInlineStyles={true}
-                  language="javascript"
-                  style={irBlack}
-                  showLineNumbers
-                >
-                  {file.value}
-                </SyntaxHighlighter>
+                    }}
+                    useInlineStyles={true}
+                    language="javascript"
+                    style={irBlack}
+                    // showLineNumbers bunu ekleyince responsive bozuluyor daha sonra düzelt
+                  >
+                    {file.value}
+                  </SyntaxHighlighter>
+                </div>
               </Tab>
             ))}
           </Tabs>
