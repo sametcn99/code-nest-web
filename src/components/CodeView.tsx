@@ -11,6 +11,7 @@ import { LuCopy, LuStar } from "react-icons/lu";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Tables } from "../../types/supabase";
+import { useEffect, useState } from "react";
 
 export default function CodeView({
   content,
@@ -25,6 +26,14 @@ export default function CodeView({
   description: string;
   starCount: number;
 }) {
+  const [isUserDeleted, setIsUserDeleted] = useState(false);
+
+  useEffect(() => {
+    if (user.id === null || user.id === "0") {
+      setIsUserDeleted(true);
+    }
+  }, [user]);
+
   // Check if data is an array before calling map
   if (!Array.isArray(content)) {
     console.error("Expected data to be an array, received:", typeof content);
@@ -47,11 +56,26 @@ export default function CodeView({
           <Link
             href={`/user/${user.sub}`}
             className="inline-flex gap-2 text-lg font-bold text-muted"
+            onClick={(e) => {
+              if (isUserDeleted) {
+                e.preventDefault();
+              }
+            }}
           >
             <span className="ml-2 font-medium text-[#FFF]">
               @{user.full_name}
             </span>
-            <HiOutlineUserAdd size={"20"} />
+            <Button
+              isIconOnly
+              className="bg-transparent"
+              onClick={(e) => {
+                if (isUserDeleted) {
+                  e.preventDefault();
+                }
+              }}
+            >
+              <HiOutlineUserAdd size={"20"} />
+            </Button>
           </Link>
         </div>
       </div>
