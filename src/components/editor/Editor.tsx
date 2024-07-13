@@ -56,7 +56,7 @@ export default function Editor() {
   };
 
   return (
-    <section className="mx-auto	 w-3/5 p-6 min-w-[20rem] rounded-xl backdrop-blur-sm "  >
+    <section className="mx-auto w-3/5 min-w-[20rem] rounded-xl p-6 backdrop-blur-sm">
       <div className="flex flex-col gap-6 rounded-xl">
         <div>
           <h1 className="text-2xl font-bold">Editor</h1>
@@ -69,11 +69,11 @@ export default function Editor() {
             value={title}
             placeholder="Başlık girin"
             onChange={(e) => setTitle(e.target.value)}
-            className="h-10 w-full rounded-xl bg-transparent resize-none	 focus:outline-none"
+            className="h-10 w-full resize-none rounded-xl bg-transparent focus:outline-none"
           />
           <Textarea
             value={description}
-            className="resize-none	"
+            className="resize-none"
             placeholder="Açıklama girin"
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -115,7 +115,7 @@ export default function Editor() {
           <Button onClick={addComponent}>+</Button>
         </div>
         <Textarea
-        className="resize-none	"
+          className="resize-none"
           label="Code"
           variant="bordered"
           placeholder="Kodunuzu buraya yapıştırın"

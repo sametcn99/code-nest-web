@@ -17,6 +17,9 @@
   .text-balance {
     text-wrap: balance;
   }
+  .hide-first-letter::first-letter {
+    @apply invisible;
+  }
 }
 
 .nav-item {

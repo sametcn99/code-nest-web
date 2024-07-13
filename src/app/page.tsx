@@ -27,19 +27,23 @@ export default async function Home() {
     };
   });
 
+  const project_name = "CodeNest";
+
   return (
     <section className="mt-20 flex w-full flex-col place-items-center gap-40">
       <main className="mx-auto flex w-fit flex-col place-items-center justify-center gap-2">
         <div>
           <h1 className="flex w-full flex-row flex-wrap-reverse items-center justify-center gap-2 text-6xl font-semibold">
-            CODENEST
             <Image
               src="/icons/favicon.ico"
               width={45}
               height={45}
-              alt="logo"
+              alt="logo of the project and same with first letter of the project name"
               className="tranisition-all select-none duration-700 ease-in-out hover:-rotate-45 hover:scale-110"
             />
+            <span className="text-gray-400">
+              {project_name.toUpperCase().slice(1, project_name.length)}
+            </span>
           </h1>
           <p className="my-2 flex w-full items-center justify-center text-2xl text-muted">
             Projeleri Keşfet, Paylaş ve İş Birliği Yap

@@ -32,7 +32,7 @@ export default function CodeView({
   }
 
   return (
-    <div className="place-items-left flex w-full flex-col justify-center gap-4 ">
+    <div className="place-items-left flex w-full flex-col justify-center gap-4">
       <div className="flex flex-row place-items-center justify-center rounded-xl">
         {user.avatar_url && (
           <Image
@@ -63,7 +63,7 @@ export default function CodeView({
         <Tabs aria-label="Options" variant={"underlined"}>
           {content.map((file, index) => (
             <Tab key={index} title={file.filename} className="">
-              <div className="inline-flex place-items-center gap-2 py-2 pl-4 font-bold ">
+              <div className="inline-flex place-items-center gap-2 py-2 pl-4 font-bold">
                 <div className="cursor-default hover:text-yellow-400">
                   {getLangByFileExtension(
                     getFileExtension(file.filename) ?? "",
