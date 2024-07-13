@@ -24,10 +24,10 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (!user) return <div>User not found</div>;
   return (
     <main className="mx-auto w-[60%]">
-      <ProfileCard userMetadata={user} />
+      <ProfileCard userMetadata={user} auth={false}/>
       <div className="mt-4 grid grid-cols-3 gap-4">
         {contents.map((content, index) => (
-          <ContentCard content={content} key={index} />
+          <ContentCard content={content} key={index} auth={false} />
         ))}
       </div>
     </main>

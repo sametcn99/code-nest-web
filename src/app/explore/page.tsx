@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <main className="mx-auto grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {data.map((file) => (
-        <ContentCard key={file.id} content={file} />
+        <ContentCard key={file.id} content={file} auth={false} />
       ))}
     </main>
   );

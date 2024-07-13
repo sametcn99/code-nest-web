@@ -2,10 +2,10 @@ import Navbar from "@/components/Navbar";
 import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
 import Footer from "@/components/ui/Footer";
 import { NextUIProvider } from "@nextui-org/system";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react";
 
 const font = Montserrat({ subsets: ["latin"] });
 
