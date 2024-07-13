@@ -1,18 +1,21 @@
 "use client";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import Link from "next/link";
-import { Tables } from "../../../types/supabase";
+import { removeContent } from "@/lib/utils/actions/post-actions";
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import Link from "next/link";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { createClient } from "@/lib/utils/supabase/client";
+import { Tables } from "../../../types/supabase";
 
 export default function ContentCard({
   content,
@@ -22,11 +25,13 @@ export default function ContentCard({
   auth: boolean;
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const supabase = createClient();
 
   const onRemove = async () => {
-    await supabase.from("files").delete().eq("content_id", content.content_id);
-    onOpenChange();
+    const res = await removeContent(content.content_id);
+    if (res) {
+      onOpenChange();
+      location.reload();
+    }
   };
 
   return (

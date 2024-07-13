@@ -15,9 +15,24 @@ export default async function Page({
     .eq("content_id", params.project)
     .single();
 
-  const user = (
+  let user = (
     await supabase.from("profiles").select("*").eq("id", data.user_id).single()
   ).data as unknown as Tables<"profiles">;
+
+  if (user === null) {
+    user = {
+      id: "0",
+      avatar_url: "",
+      full_name: "unknown",
+      username: "unknown",
+      email: "unknown@unknown.com",
+      followers: null,
+      followers_count: null,
+      followings: null,
+      sub: "",
+      website: null,
+    };
+  }
 
   if (error) return <div>{error.message}</div>;
 

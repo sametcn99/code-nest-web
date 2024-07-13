@@ -61,7 +61,6 @@ export const fileExtensionsByLangs: { [key: string]: string[] } = {
 
 export const getFileExtension = (filename: string): string | null => {
   const ext = filename.split(".").pop();
-  console.log("ext", ext);
   if (ext === undefined) {
     return null;
   }

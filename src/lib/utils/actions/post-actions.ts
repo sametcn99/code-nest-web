@@ -1,10 +1,10 @@
-import { createClient } from "../supabase/server";
+import { createClient } from "../supabase/client";
 
-export const removeContent = async (content_id: string): Promise<boolean> => {
+export const removeContent = async (content_id: number): Promise<boolean> => {
   const supabase = createClient();
 
   // Delete the content with the given content_id
-  const { error } = await supabase
+  const { error, data } = await supabase
     .from("files")
     .delete()
     .eq("content_id", content_id);
@@ -13,12 +13,12 @@ export const removeContent = async (content_id: string): Promise<boolean> => {
     console.error("Error removing content:", error);
     return false;
   } else {
-    console.log("Content removed successfully", { content_id });
+    console.log("Content removed successfully", { content_id, data });
     return true;
   }
 };
 
-export const removeComment = async (comment_id: string): Promise<boolean> => {
+export const removeComment = async (comment_id: number): Promise<boolean> => {
   const supabase = createClient();
 
   // Delete the comment with the given comment_id
