@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/utils/supabase/client";
 import { generateRandomNumber } from "@/lib/utils/utils";
-import { Database } from "../../../types/supabase";
 
 export const postData = async (
   filesData: FileTypes[],
@@ -11,27 +10,6 @@ export const postData = async (
   const auth = await supabase.auth.getUser();
   const content_id = generateRandomNumber(8);
   const user_id = auth.data.user?.id;
-
-  // get username from profiles table by user id
-  const { data: username, error: profileError } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", user_id)
-    .single();
-
-  const user: Database["public"]["Tables"]["profiles"]["Row"] = (await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user_id)
-    .single()
-    .then(
-      ({ data }) => data,
-    )) as Database["public"]["Tables"]["profiles"]["Row"];
-
-  if (profileError) {
-    console.error("Profile error:", profileError);
-    return null;
-  }
 
   if (!auth) {
     console.error("User not found");

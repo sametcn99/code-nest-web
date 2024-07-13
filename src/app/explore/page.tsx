@@ -13,10 +13,18 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {data.map((file) => (
-        <ContentCard key={file.id} content={file} auth={false} />
-      ))}
-    </main>
+    <section className="mx-auto flex flex-col place-items-center gap-5">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold">Keşfet</h1>
+        <h2 className="text-2xl font-bold">
+          Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
+        </h2>
+      </div>
+      <main className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {data.map((file) => (
+          <ContentCard key={file.id} content={file} auth={false} />
+        ))}
+      </main>
+    </section>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { Card } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import Link from "next/link";
 import { Tables } from "../../../types/supabase";
 import {
@@ -31,7 +31,7 @@ export default function ContentCard({
 
   return (
     <Card className="relative min-h-40 w-full p-4 transition-all duration-700 hover:scale-101">
-      <h2 className="inline-flex justify-between text-2xl font-bold">
+      <CardHeader className="inline-flex justify-between text-2xl font-bold">
         {content.title}
         {auth && (
           <>
@@ -64,11 +64,16 @@ export default function ContentCard({
             </Modal>
           </>
         )}
-      </h2>
-      <Link href={`/code/${content.content_id}`}>
+      </CardHeader>
+      <CardBody>
         <p className="text-muted">{content.description}</p>
-        <p>{new Date(content.created_at).toISOString()}</p>
-      </Link>
+        <p>{new Date(content.created_at).toUTCString()}</p>
+      </CardBody>
+      <CardFooter>
+        <Link className="w-full" href={`/code/${content.content_id}`}>
+          <Button className="w-full">Kodu Görüntüle</Button>
+        </Link>
+      </CardFooter>
     </Card>
   );
 }
