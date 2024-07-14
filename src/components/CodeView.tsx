@@ -13,6 +13,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Tables } from "../../types/supabase";
 import { toast } from "sonner";
+import { formatDate } from "@/lib/utils/utils";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -73,10 +74,11 @@ export default function CodeView({
           {content.title}
         </p>
         <p className="text-muted">{content.description}</p>
+        <p className="text-muted">{formatDate(new Date(content.created_at))}</p>
         <Tabs aria-label="Options" variant={"underlined"}>
           {files?.map((file, index) => (
             <Tab key={index} title={file.filename} className="">
-              <div className="inline-flex w-full place-items-center gap-2 rounded-xl border-b-gray-500 border-b py-2 pl-4 font-bold">
+              <div className="inline-flex w-full place-items-center gap-2 rounded-xl border-b border-b-gray-500 py-2 pl-4 font-bold">
                 <div className="cursor-default hover:text-yellow-400">
                   {getLangFromFileExtension(
                     getFileExtension(file.filename) ?? "",
