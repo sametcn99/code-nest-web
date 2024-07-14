@@ -20,7 +20,7 @@ export default async function Page({
 
   let user = (
     await supabase.from("profiles").select("*").eq("id", data.user_id).single()
-  ).data as unknown as Tables<"profiles">;
+  ).data as Tables<"profiles">;
 
   if (user === null) {
     user = {
@@ -38,17 +38,5 @@ export default async function Page({
   }
 
   // Adjusted to match the expected prop types of the Editor component
-  return (
-    <>
-      {data && user && !error && (
-        <CodeView
-          content={data.content}
-          user={user}
-          title={data.title}
-          description={data.description}
-          starCount={data.star_count}
-        />
-      )}
-    </>
-  );
+  return <>{data && user && <CodeView content={data} user={user} />}</>;
 }

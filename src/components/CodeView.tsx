@@ -12,19 +12,14 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Tables } from "../../types/supabase";
 import { useEffect, useState } from "react";
+import { downloadContents } from "@/lib/utils/actions/post-actions";
 
 export default function CodeView({
   content,
   user,
-  title,
-  description,
-  starCount,
 }: {
-  content: FileTypes[];
+  content: Tables<"files">;
   user: Tables<"profiles">;
-  title: string;
-  description: string;
-  starCount: number;
 }) {
   const [isUserDeleted, setIsUserDeleted] = useState(false);
 
@@ -34,11 +29,7 @@ export default function CodeView({
     }
   }, [user]);
 
-  // Check if data is an array before calling map
-  if (!Array.isArray(content)) {
-    console.error("Expected data to be an array, received:", typeof content);
-    return null; // or return a placeholder component
-  }
+  const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
 
   return (
     <div className="place-items-left flex w-full flex-col justify-center gap-4">
@@ -80,11 +71,11 @@ export default function CodeView({
       </div>
       <div className="flex flex-col place-items-center justify-center">
         <p className="flex flex-row flex-wrap gap-2 text-2xl font-bold">
-          {title}
+          {content.title}
         </p>
-        <p className="text-muted">{description}</p>
+        <p className="text-muted">{content.description}</p>
         <Tabs aria-label="Options" variant={"underlined"}>
-          {content.map((file, index) => (
+          {files?.map((file, index) => (
             <Tab key={index} title={file.filename} className="">
               <div className="inline-flex place-items-center gap-2 py-2 pl-4 font-bold">
                 <div className="cursor-default hover:text-yellow-400">
@@ -97,7 +88,7 @@ export default function CodeView({
                   startContent={<LuStar size={"17.5"} />}
                   className="bg-transparent hover:text-red-600"
                 >
-                  {starCount}
+                  {content.star_count}
                 </Button>
                 <Button
                   title="Copy"
@@ -113,6 +104,9 @@ export default function CodeView({
                   title="Download"
                   isIconOnly
                   className="bg-transparent hover:text-purple-600"
+                  onClick={async () => {
+                    await downloadContents(content.content_id);
+                  }}
                 >
                   <HiDownload size={"17.5"} className="cursor-pointer" />
                 </Button>

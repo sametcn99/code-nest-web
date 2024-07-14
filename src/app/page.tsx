@@ -43,7 +43,7 @@ export default async function Home() {
             href={"/new"}
             className="flex h-10 cursor-pointer items-center justify-center rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
           >
-            Başlayın
+            Paylaşmaya Başlayın
           </Link>
           {!user.user ? (
             <Link
