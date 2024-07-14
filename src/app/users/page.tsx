@@ -1,8 +1,5 @@
-import UnderMaintance from '@/components/UnderMaintance'
-import React from 'react'
+import UnderMaintance from "@/components/UnderMaintance";
 
 export default function Page() {
-  return (
-  <UnderMaintance />
-  )
+  return <UnderMaintance />;
 }

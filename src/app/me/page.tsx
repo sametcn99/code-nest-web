@@ -1,8 +1,8 @@
+import ContentCard from "@/components/Contents/ContentCard";
 import ProfileCard from "@/components/profile/ProfileCard";
 import { createClient } from "@/lib/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Tables } from "../../../types/supabase";
-import ContentCard from "@/components/Contents/ContentCard";
 
 export default async function PrivatePage() {
   const supabase = createClient();
@@ -22,8 +22,7 @@ export default async function PrivatePage() {
     .eq("user_id", user.id);
 
   return (
-    <main className="mx-auto   w-[60%] ">
-      
+    <main className="mx-auto w-[60%]">
       {userMetadata && (
         <ProfileCard user={user as Tables<"profiles">} auth={true} />
       )}
@@ -35,4 +34,3 @@ export default async function PrivatePage() {
     </main>
   );
 }
-

@@ -4,8 +4,8 @@ import { createClient } from "@/lib/utils/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
-import { Tables } from "../../types/supabase";
 import { RiFileEditLine } from "react-icons/ri";
+import { Tables } from "../../types/supabase";
 
 export default async function Home() {
   const supabase = createClient();

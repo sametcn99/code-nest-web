@@ -1,8 +1,8 @@
 import ContentCard from "@/components/Contents/ContentCard";
 import ProfileCard from "@/components/profile/ProfileCard";
 import { createClient } from "@/lib/utils/supabase/server";
-import { Tables } from "../../../../types/supabase";
 import { notFound } from "next/navigation";
+import { Tables } from "../../../../types/supabase";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const supabase = createClient();

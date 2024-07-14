@@ -5,9 +5,8 @@ import { NextUIProvider } from "@nextui-org/system";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "sonner";
-import { cn } from "@/lib/utils/cn";
+import "./globals.css";
 
 const font = Montserrat({ subsets: ["latin"] });
 

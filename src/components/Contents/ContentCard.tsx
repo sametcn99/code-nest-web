@@ -1,6 +1,7 @@
 "use client";
 import { removeContent } from "@/lib/utils/actions/post-actions";
 import { cn } from "@/lib/utils/cn";
+import { createClient } from "@/lib/utils/supabase/client";
 import { formatDate } from "@/lib/utils/utils";
 import {
   Button,
@@ -15,14 +16,12 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Tables } from "../../../types/supabase";
-import { createClient } from "@/lib/utils/supabase/client";
-import { useEffect, useState } from "react";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import { BiFolderMinus } from "react-icons/bi";
 
 /**
  * Defines the prop types for the ContentCard component.
@@ -80,7 +79,7 @@ export default function ContentCard({
       {user && (
         <Card
           className={cn(
-            "relative min-h-40 w-full cursor-pointer p-2 transition-all  duration-700 hover:scale-101 ",
+            "relative min-h-40 w-full cursor-pointer p-2 transition-all duration-700 hover:scale-101",
             className,
           )}
         >
@@ -96,10 +95,10 @@ export default function ContentCard({
                 />
               )}
               <div>
-              <p className="mr-2  text-base font-normal">{user.username}</p>
-              <p className="mb-2 mr-auto text-muted  text-xs	font-light	">
-              {formatDate(new Date(content.created_at))}
-              </p>
+                <p className="mr-2 text-base font-normal">{user.username}</p>
+                <p className="mb-2 mr-auto text-xs font-light text-muted">
+                  {formatDate(new Date(content.created_at))}
+                </p>
               </div>
             </div>
 
@@ -108,9 +107,10 @@ export default function ContentCard({
                 <button
                   title="Remove Content"
                   onClick={onOpen}
-                  className="absolute right-4 top-4 z-50 h-fit w-fit bg-transparent hover:text-red-600 " >
-                  <IoCloseCircleOutline size={"18.5"} className="mt-5 "/>
-                  </button>
+                  className="absolute right-4 top-4 z-50 h-fit w-fit bg-transparent hover:text-red-600"
+                >
+                  <IoCloseCircleOutline size={"18.5"} className="mt-5" />
+                </button>
                 <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                   <ModalContent>
                     {(onClose) => (
@@ -143,10 +143,10 @@ export default function ContentCard({
             <p className="text-sm">{content.description}</p>
           </CardBody>
           <CardFooter className="flex flex-col">
-            
             <Link className="w-full" href={`/code/${content.content_id}`}>
-            <Button className="mt-3 w-full bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 text-white py-2 px-4 rounded-xl	">
-            Kodu Görüntüle</Button>
+              <Button className="mt-3 w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-white">
+                Kodu Görüntüle
+              </Button>
             </Link>
           </CardFooter>
         </Card>

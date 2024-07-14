@@ -4,6 +4,7 @@ import {
   updateBio,
   updateUserName,
 } from "@/lib/utils/actions/user-actions";
+import { isValidBannerUrl } from "@/lib/utils/validators/image-validate";
 import {
   Button,
   Card,
@@ -18,11 +19,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BiEdit } from "react-icons/bi";
+import { TbEdit } from "react-icons/tb";
 import { Tables } from "../../../types/supabase";
 import RichTextRender from "../ui/RichTextRender";
-import { TbEdit } from "react-icons/tb";
-import { isValidBannerUrl } from "@/lib/utils/validators/image-validate";
 
 /**
  * Props for the ProfileCard component.
@@ -130,7 +129,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
         {auth && (
           <Button
             isIconOnly
-            className="absolute right-3 top-3 z-30  hover:text-red-600  bg-opacity-50 backdrop-blur hover:bg-opacity-25 hover:backdrop-blur"
+            className="absolute right-3 top-3 z-30 bg-opacity-50 backdrop-blur hover:bg-opacity-25 hover:text-red-600 hover:backdrop-blur"
             onPress={onOpen}
           >
             <TbEdit size={20} />
@@ -205,7 +204,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
                 {auth && (
                   <Button
                     isIconOnly
-                    className="bg-transparent hover:text-blue-600 "
+                    className="bg-transparent hover:text-blue-600"
                     onClick={() => setIsUserNameEditing(true)}
                   >
                     <TbEdit size={20} />
@@ -247,7 +246,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
               </div>
               <Button
                 isIconOnly
-                className="absolute right-1 top-1 mr-2 mt-2  bg-transparent hover:text-blue-600 "
+                className="absolute right-1 top-1 mr-2 mt-2 bg-transparent hover:text-blue-600"
                 onClick={() => setIsBioEditing(true)}
               >
                 <TbEdit size={20} />
