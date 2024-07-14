@@ -3,6 +3,7 @@ import {
   getFileExtension,
   getLangFromFileExtension,
 } from "@/lib/file-extensions-by-langs";
+import { downloadContents } from "@/lib/utils/actions/post-actions";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,8 +12,6 @@ import { LuCopy, LuStar } from "react-icons/lu";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Tables } from "../../types/supabase";
-import { useEffect, useState } from "react";
-import { downloadContents } from "@/lib/utils/actions/post-actions";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */

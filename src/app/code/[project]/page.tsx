@@ -1,7 +1,7 @@
 import CodeView from "@/components/CodeView";
 import { createClient } from "@/lib/utils/supabase/server";
-import { Tables } from "../../../../types/supabase";
 import { notFound } from "next/navigation";
+import { Tables } from "../../../../types/supabase";
 
 export default async function Page({
   params,
