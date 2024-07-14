@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="mx-auto w-[60%]">
-      <ProfileCard userMetadata={user} auth={false} />
+      <ProfileCard user={user} auth={false} />
       <div className="mt-4 grid grid-cols-3 gap-4">
         {contents.map((content, index) => (
           <ContentCard content={content} key={index} auth={false} />
