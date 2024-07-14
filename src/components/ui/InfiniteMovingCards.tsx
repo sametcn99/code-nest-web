@@ -1,17 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils/cn";
-import { Card, CardFooter } from "@nextui-org/react";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import ContentCard from "../Contents/ContentCard";
 import { Tables } from "../../../types/supabase";
+import ContentCard from "../Contents/ContentCard";
 
 type InfiniteMovingCardsProps = {
   /**
    * Displayed items in the moving cards component.
    */
-  items: Content[];
+  items: Tables<"files">[];
   /**
    * Direction of the movement, can be 'left' or 'right'.
    * @default "left"
@@ -100,7 +98,7 @@ export const InfiniteMovingCards = ({
         {items.map((item, idx) => (
           <li key={idx}>
             <ContentCard
-              content={item as unknown as Tables<"files">}
+              content={item }
               auth={false}
               className="min-h-80 w-80"
             />

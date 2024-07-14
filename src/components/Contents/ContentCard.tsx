@@ -1,5 +1,7 @@
 "use client";
 import { removeContent } from "@/lib/utils/actions/post-actions";
+import { cn } from "@/lib/utils/cn";
+import { formatDate } from "@/lib/utils/utils";
 import {
   Button,
   Card,
@@ -16,18 +18,25 @@ import {
 import Link from "next/link";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Tables } from "../../../types/supabase";
-import { cn } from "@/lib/utils/cn";
-import { formatDate } from "@/lib/utils/utils";
+
+/**
+ * Defines the prop types for the ContentCard component.
+ */
+type ContentCardProps = {
+  /** Specifies the content type, using the structure of the "files" table from the database. */
+  content: Tables<"files">
+
+  /** Indicates whether the user is authenticated. */
+  auth: boolean;
+  /** Optional CSS class name for styling the component. */
+  className?: string;
+};
 
 export default function ContentCard({
   content,
   auth,
   className,
-}: {
-  content: Tables<"files">;
-  auth: boolean;
-  className?: string;
-}) {
+}: ContentCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onRemove = async () => {

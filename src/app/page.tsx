@@ -4,6 +4,7 @@ import { createClient } from "@/lib/utils/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
+import { Tables } from "../../types/supabase";
 
 export default async function Home() {
   const supabase = createClient();
@@ -15,17 +16,7 @@ export default async function Home() {
     .select("*", { count: "exact" })
     .limit(10);
 
-  const items = contents?.map((content) => {
-    return {
-      id: content.content_id,
-      created_at: content.created_at,
-      star_count: content.star_count,
-      user_id: content.user_id,
-      title: content.title,
-      description: content.description,
-      content: content.content,
-    };
-  });
+
 
   const project_name = "CodeNest";
 
@@ -76,7 +67,7 @@ export default async function Home() {
         </Link>
       </main>
       <FeaturesSectionDemo />
-      <InfiniteMovingCards speed={300} items={items as unknown as Content[]} />
+      <InfiniteMovingCards speed={300} items={contents as Tables<"files">[]} />
     </section>
   );
 }
