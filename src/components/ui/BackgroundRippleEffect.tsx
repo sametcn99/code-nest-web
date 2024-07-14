@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export const BackgroundCellCore = () => {
   return (
     <div className="absolute inset-0 -z-10 h-full overflow-hidden">
-      <div className="absolute inset-y-0 h-[35rem] overflow-hidden">
+      <div className="absolute inset-y-0 h-[50rem] overflow-hidden">
         <div className="pointer-events-none absolute -bottom-2 z-40 h-full w-full bg-zinc-950 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
         <div
           className="absolute inset-0 z-20 bg-transparent"
