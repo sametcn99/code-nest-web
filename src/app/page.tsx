@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
 import { Tables } from "../../types/supabase";
+import { RiFileEditLine } from "react-icons/ri";
 
 export default async function Home() {
   const supabase = createClient();
@@ -41,9 +42,9 @@ export default async function Home() {
         <div className="flex h-auto items-center justify-center gap-[0.9375rem] px-[1.5625rem]">
           <Link
             href={"/new"}
-            className="flex h-10 cursor-pointer items-center justify-center rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
+            className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
           >
-            Paylaşmaya Başlayın
+            <RiFileEditLine size={20} /> <span>Paylaşmaya Başlayın</span>
           </Link>
           {!user.user ? (
             <Link
