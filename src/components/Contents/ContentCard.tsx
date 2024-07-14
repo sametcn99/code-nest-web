@@ -16,13 +16,17 @@ import {
 import Link from "next/link";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Tables } from "../../../types/supabase";
+import { cn } from "@/lib/utils/cn";
+import { formatDate } from "@/lib/utils/utils";
 
 export default function ContentCard({
   content,
   auth,
+  className,
 }: {
   content: Tables<"files">;
   auth: boolean;
+  className?: string;
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -35,7 +39,12 @@ export default function ContentCard({
   };
 
   return (
-    <Card className="relative min-h-40 w-full p-4 transition-all duration-700 hover:scale-101">
+    <Card
+      className={cn(
+        "relative min-h-40 w-full p-4 transition-all duration-700 hover:scale-101",
+        className,
+      )}
+    >
       <CardHeader className="inline-flex justify-between text-2xl font-bold">
         {content.title}
         {auth && (
@@ -52,7 +61,7 @@ export default function ContentCard({
                 {(onClose) => (
                   <>
                     <ModalHeader className="flex flex-col gap-1">
-                      Dosyayı Silmek istediğinize emin misiniz?
+                      Silmek istediğinize emin misiniz?
                     </ModalHeader>
                     <ModalBody></ModalBody>
                     <ModalFooter>
@@ -71,10 +80,10 @@ export default function ContentCard({
         )}
       </CardHeader>
       <CardBody>
-        <p className="text-muted">{content.description}</p>
-        <p>{new Date(content.created_at).toUTCString()}</p>
+        <p>{content.description}</p>
       </CardBody>
-      <CardFooter>
+      <CardFooter className="flex flex-col">
+        <p className="text-muted">{formatDate(new Date(content.created_at))}</p>
         <Link className="w-full" href={`/code/${content.content_id}`}>
           <Button className="w-full">Kodu Görüntüle</Button>
         </Link>

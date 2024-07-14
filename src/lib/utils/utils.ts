@@ -8,3 +8,19 @@ export function generateRandomNumber(digitCount: number): number {
 
   return Math.floor(min + Math.random() * (max - min + 1));
 }
+
+export const formatDate = (date: Date): string => {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = diffMs / (24 * 60 * 60 * 1000);
+
+  if (diffDays < 1) {
+    const diffHours = diffMs / (60 * 60 * 1000);
+    if (diffHours < 1) {
+      const diffMinutes = diffMs / (60 * 1000);
+      return `${Math.floor(diffMinutes)} dakika önce`;
+    }
+    return `${Math.floor(diffHours)} saat önce`;
+  }
+  return date.toUTCString();
+};
