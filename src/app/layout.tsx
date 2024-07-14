@@ -62,7 +62,7 @@ export default function RootLayout({
       <body className={`${font.className} dark`}>
         <NextUIProvider>
           <BackgroundCellCore />
-          <section className="relative flex h-screen flex-col gap-20 px-2">
+          <section className="relative flex min-h-screen flex-col gap-20 px-2">
             <Navbar />
             {children}
             <Footer />

@@ -23,6 +23,6 @@ const navItems = [
   },
   {
     name: "Topluluk",
-    link: "https://discord.gg/PtP372mA",
+    link: "community",
   },
 ];

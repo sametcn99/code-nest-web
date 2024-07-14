@@ -58,7 +58,7 @@ export default async function Home() {
           )}
         </div>
         <Link
-          href={"https://discord.gg/PtP372mA"}
+          href={"/community"}
           className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
         >
           <FaDiscord size={22} />
