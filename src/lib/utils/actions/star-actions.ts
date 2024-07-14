@@ -1,6 +1,11 @@
 import { createClient } from "../supabase/server";
 
-// Function to modify the star count based on the action type
+/**
+ * Modifies the star count for a content entry based on the action.
+ * @param {string} content_id - The ID of the content whose star count is being modified.
+ * @param {"Add" | "Remove"} action - The action to perform ("Add" to increment, "Remove" to decrement).
+ * @returns {Promise<boolean>} - Returns true if the star count was modified successfully, false otherwise.
+ */
 export const starCountChange = async (
   content_id: string,
   action: "Add" | "Remove",

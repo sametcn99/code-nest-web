@@ -1,6 +1,12 @@
 import JSZip from "jszip";
 import acceptableImageSources from "../image-sources";
 
+/**
+ * Generates a random number with the specified number of digits.
+ * @param digitCount The number of digits in the generated random number.
+ * @returns The generated random number.
+ * @throws Error if digitCount is less than 1.
+ */
 export function generateRandomNumber(digitCount: number): number {
   if (digitCount < 1) {
     throw new Error("Digit count must be at least 1");
@@ -12,6 +18,11 @@ export function generateRandomNumber(digitCount: number): number {
   return Math.floor(min + Math.random() * (max - min + 1));
 }
 
+/**
+ * Formats a date into a human-readable string indicating how long ago it was.
+ * @param date The date to format.
+ * @returns A string representing the formatted date.
+ */
 export const formatDate = (date: Date): string => {
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
@@ -83,6 +94,11 @@ export const triggerDownload = (url: string, filename: string): void => {
   document.body.removeChild(a); // Clean up
 };
 
+/**
+ * Validates whether a given URL points to a GIF image.
+ * @param url The URL to validate.
+ * @returns A promise that resolves to true if the URL points to a valid GIF image, otherwise false.
+ */
 export async function isValidGifUrl(url = ""): Promise<boolean> {
   try {
     if (url === "") {

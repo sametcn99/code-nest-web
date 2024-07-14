@@ -1,3 +1,6 @@
+/**
+ * List of acceptable image sources.
+ */
 const acceptableImageSources: URL[] = [
   new URL("https://cdn.discordapp.com"),
   new URL("https://nextui.org"),

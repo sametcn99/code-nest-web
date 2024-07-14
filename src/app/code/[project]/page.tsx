@@ -36,6 +36,9 @@ export default async function Page({
       followings: null,
       sub: "",
       website: null,
+      banner_url: "",
+      bio: "",
+      followings_count: null,
     };
   }
 

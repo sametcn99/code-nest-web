@@ -24,6 +24,13 @@ type UpdateBioParams = {
   userId: string;
 };
 
+/**
+ * Updates the banner URL for a user profile.
+ * @param {Object} params - The parameters object.
+ * @param {string} params.bannerUrl - The new banner URL to be set for the user.
+ * @param {string} params.userId - The unique identifier of the user whose banner URL is to be updated.
+ * @returns {Promise<boolean>} - Returns true if the banner URL was updated successfully, false otherwise.
+ */
 export async function updateBannerUrl({
   bannerUrl,
   userId,
@@ -54,6 +61,13 @@ export async function updateBannerUrl({
   }
 }
 
+/**
+ * Updates the username for a user profile.
+ * @param {Object} params - The parameters object.
+ * @param {string} params.username - The new username to be set for the user.
+ * @param {string} params.userId - The unique identifier of the user whose username is to be updated.
+ * @returns {Promise<boolean>} - Returns true if the username was updated successfully, false otherwise.
+ */
 export async function updateUserName({
   username,
   userId,
@@ -104,6 +118,13 @@ export async function updateUserName({
   }
 }
 
+/**
+ * Updates the bio for a user profile.
+ * @param {Object} params - The parameters object.
+ * @param {string} params.bio - The new bio to be set for the user.
+ * @param {string} params.userId - The unique identifier of the user whose bio is to be updated.
+ * @returns {Promise<boolean>} - Returns true if the bio was updated successfully, false otherwise.
+ */
 export const updateBio = async ({
   bio,
   userId,

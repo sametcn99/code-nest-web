@@ -23,11 +23,24 @@ import { BiEdit } from "react-icons/bi";
 import { Tables } from "../../../types/supabase";
 import RichTextRender from "../ui/RichTextRender";
 
+/**
+ * Props for the ProfileCard component.
+ */
 type ProfileCardProps = {
+  /** The user profile data. */
   user: Tables<"profiles">;
+
+  /** Indicates whether the user is authenticated. */
   auth: boolean;
 };
 
+/**
+ * Renders a profile card component.
+ *
+ * @component
+ * @param {ProfileCardProps} props - The component props.
+ * @returns {JSX.Element} The rendered profile card.
+ */
 export default function ProfileCard({ user, auth }: ProfileCardProps) {
   const [isUserNameEditing, setIsUserNameEditing] = useState(false);
   const [username, setUsername] = useState(user.username);

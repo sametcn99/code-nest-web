@@ -5,7 +5,7 @@ import { FiDollarSign } from "react-icons/fi";
 import { GrHelpBook } from "react-icons/gr";
 import { TbEaseInOut } from "react-icons/tb";
 
-export function FeaturesSectionDemo() {
+export default function FeaturesSectionDemo() {
   const features = [
     {
       title: "Geliştiriciler için Yapıldı",

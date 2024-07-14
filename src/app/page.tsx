@@ -1,4 +1,4 @@
-import { FeaturesSectionDemo } from "@/components/ui/Features";
+import FeaturesSectionDemo from "@/components/ui/Features";
 import { InfiniteMovingCards } from "@/components/ui/InfiniteMovingCards";
 import { createClient } from "@/lib/utils/supabase/server";
 import Image from "next/image";

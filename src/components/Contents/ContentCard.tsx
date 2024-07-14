@@ -32,6 +32,10 @@ type ContentCardProps = {
   className?: string;
 };
 
+/**
+ * Represents a card component for displaying content.
+ * @component
+ */
 export default function ContentCard({
   content,
   auth,

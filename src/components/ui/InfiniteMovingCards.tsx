@@ -10,26 +10,41 @@ type InfiniteMovingCardsProps = {
    * Displayed items in the moving cards component.
    */
   items: Tables<"files">[];
+
   /**
    * Direction of the movement, can be 'left' or 'right'.
    * @default "left"
    */
   direction?: "left" | "right";
+
   /**
    * Speed of the animation in seconds.
    */
   speed: number;
+
   /**
    * Whether the animation should pause when the mouse hovers over.
    * @default true
    */
   pauseOnHover?: boolean;
+
   /**
    * Additional CSS class names for styling.
    */
   className?: string;
 };
 
+/**
+ * Renders a component that displays infinite moving cards.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array} props.items - The array of items to display as cards.
+ * @param {string} [props.direction="left"] - The direction of the card movement. Can be "left" or "right".
+ * @param {number} props.speed - The speed of the card movement in seconds.
+ * @param {boolean} [props.pauseOnHover=true] - Determines whether the card movement should pause on hover.
+ * @param {string} [props.className] - Additional CSS class names for the component.
+ * @returns {JSX.Element} The rendered component.
+ */
 export const InfiniteMovingCards = ({
   items,
   direction = "left",
@@ -43,7 +58,12 @@ export const InfiniteMovingCards = ({
   useEffect(() => {
     addAnimation();
   });
+
   const [start, setStart] = useState(false);
+
+  /**
+   * Adds the animation to the scroller.
+   */
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
@@ -54,14 +74,20 @@ export const InfiniteMovingCards = ({
           scrollerRef.current.appendChild(duplicatedItem);
         }
       });
+
       containerRef.current.style.setProperty(
         "--animation-duration",
         `${speed}s`,
       );
+
       getDirection();
       setStart(true);
     }
   }
+
+  /**
+   * Sets the animation direction based on the specified direction prop.
+   */
   const getDirection = () => {
     if (containerRef.current) {
       if (direction === "left") {
@@ -82,7 +108,7 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller w-full relative flex max-w-7xl flex-col place-items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller relative flex w-full max-w-7xl flex-col place-items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className,
       )}
     >
@@ -98,7 +124,7 @@ export const InfiniteMovingCards = ({
         {items.map((item, idx) => (
           <li key={idx}>
             <ContentCard
-              content={item }
+              content={item}
               auth={false}
               className="min-h-80 w-80"
             />

@@ -10,13 +10,31 @@ type RichTextRenderProps = {
 
   /**Class name for the link element */
   linkClassName?: React.HTMLProps<HTMLParagraphElement>["className"];
+
+  /**Link target */
+  target?: "_blank" | "_self" | "_parent" | "_top";
 };
 
+/**
+ * Renders rich text content with support for links and email addresses.
+ *
+ * @param content - The rich text content to render.
+ * @param className - The CSS class name for the rendered content.
+ * @param linkClassName - The CSS class name for the rendered links.
+ * @param target - The target attribute for the rendered links.
+ */
 const RichTextRender: React.FC<RichTextRenderProps> = ({
   content,
   className = "",
   linkClassName = "",
+  target = "_blank",
 }) => {
+  /**
+   * Renders a text string with embedded links.
+   *
+   * @param text - The text string to render.
+   * @returns The rendered text with embedded links.
+   */
   const renderText = (text: string) => {
     const linkRegex = /(https?:\/\/[^\s]+)/g;
     const links = text.match(linkRegex);
@@ -31,7 +49,7 @@ const RichTextRender: React.FC<RichTextRenderProps> = ({
               key={index}
               href={links[index - 1]}
               className={linkClassName}
-              target="_blank"
+              target={target}
               rel="noopener noreferrer"
             >
               {links[index - 1]}
@@ -44,6 +62,11 @@ const RichTextRender: React.FC<RichTextRenderProps> = ({
     }
   };
 
+  /**
+   * Renders the rich text content.
+   *
+   * @returns The rendered rich text content.
+   */
   const renderContent = () => {
     const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
     const paragraphs = content.split("\n");
@@ -52,7 +75,12 @@ const RichTextRender: React.FC<RichTextRenderProps> = ({
       <p key={index} className={className}>
         {paragraph.split(emailRegex).map((item, index) =>
           emailRegex.test(item) ? (
-            <a key={index} href={`mailto:${item}`} className={linkClassName}>
+            <a
+              key={index}
+              href={`mailto:${item}`}
+              className={linkClassName}
+              target={target}
+            >
               {item}
             </a>
           ) : (

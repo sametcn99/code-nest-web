@@ -59,6 +59,11 @@ export const fileExtensionsByLangs: { [key: string]: string[] } = {
   yaml: ["yaml"],
 };
 
+/**
+ * Retrieves the file extension from a given filename.
+ * @param filename - The name of the file.
+ * @returns The file extension or null if the filename doesn't have an extension.
+ */
 export const getFileExtension = (filename: string): string | null => {
   const ext = filename.split(".").pop();
   if (ext === undefined) {
@@ -67,6 +72,11 @@ export const getFileExtension = (filename: string): string | null => {
   return ext;
 };
 
+/**
+ * Retrieves the programming language based on the file extension.
+ * @param filename - The name of the file.
+ * @returns The programming language associated with the file extension, or "Dil Bilinmiyor" if the language is unknown.
+ */
 export const getLangFromFileExtension = (filename: string): string => {
   const ext = getFileExtension(filename);
   if (!ext) {
