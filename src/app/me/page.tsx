@@ -22,9 +22,11 @@ export default async function PrivatePage() {
     .eq("user_id", user.id);
 
   return (
-    <main className="mx-auto">
-      {userMetadata && <ProfileCard userMetadata={userMetadata} auth={true} />}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <main className="mx-auto ">
+      {userMetadata && (
+        <ProfileCard user={user as Tables<"profiles">} auth={true} />
+      )}
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {contents.data?.map((content, index) => (
           <ContentCard content={content} auth={true} key={index} />
         ))}

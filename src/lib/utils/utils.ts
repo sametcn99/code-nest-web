@@ -1,4 +1,5 @@
 import JSZip from "jszip";
+import acceptableImageSources from "../image-sources";
 
 export function generateRandomNumber(digitCount: number): number {
   if (digitCount < 1) {
@@ -81,3 +82,50 @@ export const triggerDownload = (url: string, filename: string): void => {
   URL.revokeObjectURL(url);
   document.body.removeChild(a); // Clean up
 };
+
+export async function isValidGifUrl(url = ""): Promise<boolean> {
+  try {
+    if (url === "") {
+      throw new Error("URL Boş Olamaz");
+    }
+    // URL'nin doğru bir formatta olup olmadığını kontrol edin
+    const urlObj = new URL(url);
+
+    // URL'nin bir GIF dosyasına işaret edip etmediğini kontrol edin
+    if (!urlObj.pathname.endsWith(".gif")) {
+      throw new Error("Geçersiz dosya türü");
+    }
+
+    if (
+      acceptableImageSources.some((source) => urlObj.origin !== source.origin)
+    ) {
+      throw new Error(
+        "Geçesiz kaynak\nKabul edilen kaynaklar: " +
+          acceptableImageSources.map((source) => source.origin).join(", "),
+      );
+    }
+
+    // HTTP isteği yaparak dosyanın mevcut olup olmadığını ve türünü kontrol edin
+    const response = await fetch(url, { method: "HEAD" });
+
+    // Durum kodunu kontrol edin
+    if (!response.ok) {
+      throw new Error(
+        "Geçesiz kaynak\nKabul edilen kaynaklar: " +
+          acceptableImageSources.map((source) => source.origin).join(", "),
+      );
+    }
+
+    // İçerik türünü kontrol edin
+    const contentType = response.headers.get("Content-Type");
+    if (contentType !== "image/gif") {
+      throw new Error("Geçersiz dosya türü");
+    }
+
+    return true;
+  } catch (error) {
+    alert(error);
+    console.error("Error:", error);
+    return false;
+  }
+}

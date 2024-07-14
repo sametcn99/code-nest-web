@@ -1,39 +1,273 @@
-import { Card } from "@nextui-org/react";
+"use client";
+import {
+  updateBannerUrl,
+  updateBio,
+  updateUserName,
+} from "@/lib/utils/actions/user-actions";
+import { isValidGifUrl } from "@/lib/utils/utils";
+import {
+  Button,
+  Card,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Textarea,
+  useDisclosure,
+} from "@nextui-org/react";
 import Image from "next/image";
-import { Database } from "../../../types/supabase";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { BiEdit } from "react-icons/bi";
+import { Tables } from "../../../types/supabase";
+import RichTextRender from "../ui/RichTextRender";
 
-export default function ProfileCard({
-  userMetadata,
-  auth,
-}: {
-  userMetadata: Database["public"]["Tables"]["profiles"]["Row"];
+type ProfileCardProps = {
+  user: Tables<"profiles">;
   auth: boolean;
-}) {
+};
+
+export default function ProfileCard({ user, auth }: ProfileCardProps) {
+  const [isUserNameEditing, setIsUserNameEditing] = useState(false);
+  const [username, setUsername] = useState(user.username);
+  const [bio, setBio] = useState(user.bio);
+  const [bannerUrl, setBannerUrl] = useState(user.banner_url);
+  const [dummyBannerUrl, setDummyBannerUrl] = useState(user.banner_url);
+  const [isBannerUrlEditing, setIsBannerUrlEditing] = useState(false);
+  const [isChangesSaved, setIsChangesSaved] = useState(true);
+  const [isBioEditing, setIsBioEditing] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  useEffect(() => {
+    if (isUserNameEditing || isBannerUrlEditing || isBioEditing) {
+      setIsChangesSaved(false);
+    }
+  }, [isUserNameEditing, isBannerUrlEditing, isBioEditing]);
+
+  const handleBannerUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDummyBannerUrl(e.target.value);
+  };
+
+  const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBio(e.target.value);
+    setIsBioEditing(true);
+  };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+    setIsUserNameEditing(true);
+  };
+
+  const handleSaveChanges = async () => {
+    // Save changes to the database here.
+    if (dummyBannerUrl === bannerUrl && dummyBannerUrl) {
+      const res = await updateBannerUrl({
+        bannerUrl: dummyBannerUrl,
+        userId: user.id,
+      });
+      if (!res) alert("Bir şeyler ters gitti.");
+    } else if (dummyBannerUrl === "") {
+      alert("Banner URL boş bırakılamaz.");
+    } else {
+      alert("Bir şeyler ters gitti.");
+    }
+
+    if (username !== user.username && username) {
+      // Save changes to the database here.
+      const res = await updateUserName({ username, userId: user.id });
+      if (!res) alert("something went wrong.");
+    } else if (username === "") {
+      alert("Kullanıcı adı kısmı boş bırakılamaz.");
+    }
+
+    if (bio !== user.bio && bio) {
+      // Save changes to the database here.
+      const res = await updateBio({ bio, userId: user.id });
+      if (!res) alert("Bir şeyler ters gitti.");
+    } else if (bio === "") {
+      alert("Biyografi kısmı boş bırakılamaz.");
+    }
+    setIsChangesSaved(true);
+    setIsBioEditing(false);
+    setIsUserNameEditing(false);
+    setIsBannerUrlEditing(false);
+  };
+
+  const handleSaveBannerUrl = async () => {
+    if (!dummyBannerUrl) {
+      setDummyBannerUrl(bannerUrl);
+      alert("Banner URL boş bırakılamaz.");
+      return;
+    }
+    const isValid = await isValidGifUrl(dummyBannerUrl);
+    if (!isValid) {
+      setDummyBannerUrl(bannerUrl);
+      return;
+    }
+    console.log("Banner URL is valid:", dummyBannerUrl);
+    setBannerUrl(dummyBannerUrl);
+    setIsBannerUrlEditing(true);
+  };
+
   return (
-    <Card className="flex flex-row justify-center gap-4 p-4">
-      {userMetadata.avatar_url && (
-        <Image
-          src={userMetadata.avatar_url}
-          width={100}
-          height={100}
-          alt="user avatar"
-          className="h-fit w-fit rounded-2xl"
-        />
-      )}
-      <div className="flex flex-col gap-2">
-        <div>
-          <h2 className="text-3xl font-bold">{userMetadata.full_name}</h2>
-          <p>{userMetadata.email}</p>
-        </div>
-        <p>Discord ID: {userMetadata.sub}</p>
-        <Link
-          href="/signout"
-          className="w-fit rounded-2xl border-2 p-2 text-sm transition-all duration-700 hover:bg-rose-950 hover:bg-opacity-60"
+    <Card className="flex flex-col justify-center gap-4 p-6 shadow-lg">
+      <div className="relative z-20 h-56 w-full overflow-visible rounded-lg">
+        <Button
+          isIconOnly
+          className="absolute right-1 top-1 z-50 bg-opacity-50 hover:bg-opacity-100"
+          onPress={onOpen}
         >
-          Çıkış Yap
-        </Link>
+          <BiEdit size={28} />
+        </Button>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  Banner&apos;ı Düzenle
+                </ModalHeader>
+                <ModalBody>
+                  <Textarea
+                    placeholder="Banner URL"
+                    value={dummyBannerUrl || ""}
+                    onChange={handleBannerUrlChange}
+                    className="w-full"
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Kaydetme
+                  </Button>
+                  <Button
+                    color="primary"
+                    onPress={onClose}
+                    onClick={async () => {
+                      await handleSaveBannerUrl();
+                    }}
+                  >
+                    Kaydet
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+        <Image
+          src={
+            bannerUrl
+              ? bannerUrl
+              : "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWV0M2NyZGRsaTFzYWg3MWpidXo4d3B4aWtuYjc5bTBhd290cXhycCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7bug2wkdhpf7kbFS/giphy.gif"
+          }
+          alt="user banner"
+          fill
+          objectFit="cover"
+          unoptimized
+          className="pointer-events-none select-none rounded-lg border-b"
+        />
+        <div className="absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center">
+          {user.avatar_url && (
+            <Image
+              src={user.avatar_url}
+              width={100}
+              height={100}
+              alt="user avatar"
+              className="pointer-events-none mr-2 h-24 w-24 select-none rounded-full border-4 border-gray-700"
+            />
+          )}
+          <div>
+            {auth && isUserNameEditing ? (
+              <input
+                className="h-10 w-60 bg-transparent text-2xl font-semibold hover:outline-none"
+                placeholder="Kullanıcı adı"
+                onChange={handleUsernameChange}
+                value={username ?? ""}
+              />
+            ) : (
+              <p className="inline-flex h-10 w-60 place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
+                <span>{username ?? "Kullanıcı adı"}</span>
+                {auth && (
+                  <Button
+                    isIconOnly
+                    className="bg-transparent"
+                    onClick={() => setIsUserNameEditing(true)}
+                  >
+                    <BiEdit size={20} />
+                  </Button>
+                )}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
+      <div className="mt-20 flex items-center gap-4">
+        <div className="flex w-full flex-col gap-1">
+          <h2>
+            Discord Adı:{" "}
+            <Link
+              href={`https://discord.com/users/${user.sub}`}
+              className="text-muted hover:underline"
+            >
+              {user.full_name}
+            </Link>
+          </h2>
+          {auth && isBioEditing ? (
+            <Textarea
+              value={bio ?? ""}
+              onChange={handleBioChange}
+              className="w-full"
+              placeholder="Biyografi"
+            />
+          ) : (
+            <></>
+          )}
+          {auth && !isBioEditing ? (
+            <Card className="min-h-24 w-full p-2 text-white">
+              <Card className="min-h-24 w-full p-2 text-white">
+                <RichTextRender
+                  content={bio ?? ""}
+                  linkClassName="hover:underline"
+                />
+              </Card>
+              <Button
+                isIconOnly
+                className="absolute right-1 top-1 bg-transparent"
+                onClick={() => setIsBioEditing(true)}
+              >
+                <BiEdit size={20} />
+              </Button>
+            </Card>
+          ) : (
+            <></>
+          )}
+          {!auth ?? (
+            <Card className="min-h-24 w-full p-2 text-white">
+              <RichTextRender
+                content={bio ?? ""}
+                linkClassName="hover:underline"
+              />
+            </Card>
+          )}
+        </div>
+      </div>
+      {auth && (
+        <div className="inline-flex flex-wrap gap-2 self-end">
+          {!isChangesSaved && (
+            <Button
+              className="w-fit rounded-full border bg-transparent p-2 text-sm transition-all duration-300 hover:bg-green-950"
+              onPress={async () => await handleSaveChanges()}
+            >
+              Değişiklikleri kaydet
+            </Button>
+          )}
+          <Link
+            href="/signout"
+            className="w-fit rounded-full p-2 text-sm transition-all duration-300 hover:bg-red-900"
+          >
+            Çıkış Yap
+          </Link>
+        </div>
+      )}
     </Card>
   );
 }

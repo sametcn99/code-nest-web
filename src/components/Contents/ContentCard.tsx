@@ -24,7 +24,7 @@ import { Tables } from "../../../types/supabase";
  */
 type ContentCardProps = {
   /** Specifies the content type, using the structure of the "files" table from the database. */
-  content: Tables<"files">
+  content: Tables<"files">;
 
   /** Indicates whether the user is authenticated. */
   auth: boolean;
