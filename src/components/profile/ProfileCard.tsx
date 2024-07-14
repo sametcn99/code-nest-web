@@ -4,7 +4,6 @@ import {
   updateBio,
   updateUserName,
 } from "@/lib/utils/actions/user-actions";
-import { isValidGifUrl } from "@/lib/utils/utils";
 import {
   Button,
   Card,
@@ -22,6 +21,8 @@ import { useEffect, useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { Tables } from "../../../types/supabase";
 import RichTextRender from "../ui/RichTextRender";
+import { TbEdit } from "react-icons/tb";
+import { isValidBannerUrl } from "@/lib/utils/validators/image-validate";
 
 /**
  * Props for the ProfileCard component.
@@ -113,7 +114,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
       alert("Banner URL boş bırakılamaz.");
       return;
     }
-    const isValid = await isValidGifUrl(dummyBannerUrl);
+    const isValid = await isValidBannerUrl(dummyBannerUrl);
     if (!isValid) {
       setDummyBannerUrl(bannerUrl);
       return;
@@ -126,13 +127,15 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
   return (
     <Card className="flex flex-col justify-center gap-4 p-6 shadow-lg">
       <div className="relative z-20 h-56 w-full overflow-visible rounded-lg">
-        <Button
-          isIconOnly
-          className="absolute right-1 top-1 z-50 bg-opacity-50 hover:bg-opacity-100"
-          onPress={onOpen}
-        >
-          <BiEdit size={28} />
-        </Button>
+        {auth && (
+          <Button
+            isIconOnly
+            className="absolute right-3 top-3 z-30  hover:text-red-600  bg-opacity-50 backdrop-blur hover:bg-opacity-25 hover:backdrop-blur"
+            onPress={onOpen}
+          >
+            <TbEdit size={20} />
+          </Button>
+        )}
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
           <ModalContent>
             {(onClose) => (
@@ -185,7 +188,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
               width={100}
               height={100}
               alt="user avatar"
-              className="pointer-events-none mr-2 h-24 w-24 select-none rounded-full border-4 border-gray-700"
+              className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
             />
           )}
           <div>
@@ -202,10 +205,10 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
                 {auth && (
                   <Button
                     isIconOnly
-                    className="bg-transparent"
+                    className="bg-transparent hover:text-blue-600 "
                     onClick={() => setIsUserNameEditing(true)}
                   >
-                    <BiEdit size={20} />
+                    <TbEdit size={20} />
                   </Button>
                 )}
               </p>
@@ -236,18 +239,18 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
           )}
           {auth && !isBioEditing ? (
             <Card className="min-h-24 w-full p-2 text-white">
-              <Card className="min-h-24 w-full p-2 text-white">
+              <div className="min-h-24 w-full p-2 text-white">
                 <RichTextRender
                   content={bio ?? ""}
                   linkClassName="hover:underline"
                 />
-              </Card>
+              </div>
               <Button
                 isIconOnly
-                className="absolute right-1 top-1 bg-transparent"
+                className="absolute right-1 top-1 mr-2 mt-2  bg-transparent hover:text-blue-600 "
                 onClick={() => setIsBioEditing(true)}
               >
-                <BiEdit size={20} />
+                <TbEdit size={20} />
               </Button>
             </Card>
           ) : (
@@ -267,7 +270,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
         <div className="inline-flex flex-wrap gap-2 self-end">
           {!isChangesSaved && (
             <Button
-              className="w-fit rounded-full border bg-transparent p-2 text-sm transition-all duration-300 hover:bg-green-950"
+              className="w-fit rounded-full bg-transparent pb-2 pl-6 pr-6 pt-2 text-sm transition-all duration-300 hover:bg-green-950"
               onPress={async () => await handleSaveChanges()}
             >
               Değişiklikleri kaydet
@@ -275,7 +278,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
           )}
           <Link
             href="/signout"
-            className="w-fit rounded-full p-2 text-sm transition-all duration-300 hover:bg-red-900"
+            className="w-fit rounded-full pb-2 pl-6 pr-6 pt-2 text-sm transition-all duration-300 hover:bg-red-900"
           >
             Çıkış Yap
           </Link>

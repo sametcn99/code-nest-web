@@ -12,7 +12,7 @@ export default function Footer() {
       CODENEST, projelerinizi, kodlarınızı ve profillerinizi keşfetmek ve paylaşmak için bir platformdur. Katılın ve portföyünüzü geliştirmek için işbirliği yapın.
       </p>
     </div>
-    <div className="mb-4 md:mb-0">
+    <div className="mb-4 mr-auto md:mb-0">
       <h2 className="text-xl font-bold mb-2 mr-auto">Hızlı Linkler</h2>
       <ul>
         <li><a href="#" className="text-sm hover:underline">Ana Sayfa</a></li>

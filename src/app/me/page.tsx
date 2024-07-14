@@ -22,7 +22,8 @@ export default async function PrivatePage() {
     .eq("user_id", user.id);
 
   return (
-    <main className="mx-auto ">
+    <main className="mx-auto   w-[60%] ">
+      
       {userMetadata && (
         <ProfileCard user={user as Tables<"profiles">} auth={true} />
       )}
@@ -34,3 +35,4 @@ export default async function PrivatePage() {
     </main>
   );
 }
+
