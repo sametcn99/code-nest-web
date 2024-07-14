@@ -12,6 +12,7 @@ import { LuCopy, LuStar } from "react-icons/lu";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Tables } from "../../types/supabase";
+import { toast } from "sonner";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -94,6 +95,7 @@ export default function CodeView({
                   className="bg-transparent hover:text-green-600"
                   onClick={() => {
                     navigator.clipboard.writeText(file.value);
+                    toast.success("Kopyalandı");
                   }}
                 >
                   <LuCopy size={"17.5"} className="cursor-pointer" />
@@ -103,7 +105,7 @@ export default function CodeView({
                   isIconOnly
                   className="bg-transparent hover:text-purple-600"
                   onClick={async () => {
-                    await downloadContents(content.content_id);
+                    const res = await downloadContents(content.content_id);
                   }}
                 >
                   <HiDownload size={"17.5"} className="cursor-pointer" />

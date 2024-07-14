@@ -6,6 +6,8 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { cn } from "@/lib/utils/cn";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -65,6 +67,7 @@ export default function RootLayout({
           <section className="relative flex min-h-screen flex-col gap-20 px-2">
             <Navbar />
             {children}
+            <Toaster theme="dark" />
           </section>
           <Footer />
           <Analytics />

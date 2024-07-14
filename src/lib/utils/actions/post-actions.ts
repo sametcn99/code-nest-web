@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import { createClient } from "../supabase/client";
+import { toast } from "sonner";
 
 /**
  * Removes content from the database based on content_id.
@@ -66,7 +67,9 @@ export const removeComment = async (comment_id: number): Promise<boolean> => {
  * @returns {Promise<boolean>} - Returns true if the content was downloaded successfully, false otherwise.
  * @throws {Error} - Throws an error if there's an issue with downloading the content.
  */
-export const downloadContents = async (content_id: number) => {
+export async function downloadContents(
+  content_id: number,
+): Promise<boolean | undefined> {
   const supabase = createClient();
 
   try {
@@ -121,10 +124,11 @@ export const downloadContents = async (content_id: number) => {
       a.click();
       document.body.removeChild(a); // Clean up
       URL.revokeObjectURL(url);
+      toast.success("Dosya oluşturuldu.");
       return true;
     }
   } catch (error) {
     console.error("An error occurred:", error);
     return false;
   }
-};
+}
