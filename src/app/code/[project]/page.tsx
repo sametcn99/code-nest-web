@@ -18,11 +18,13 @@ export default async function Page({
 
   if (error) return notFound();
 
+  let isUserDeleted = false;
   let user = (
     await supabase.from("profiles").select("*").eq("id", data.user_id).single()
   ).data as Tables<"profiles">;
 
   if (user === null) {
+    isUserDeleted = true;
     user = {
       id: "0",
       avatar_url: "",
@@ -38,5 +40,11 @@ export default async function Page({
   }
 
   // Adjusted to match the expected prop types of the Editor component
-  return <>{data && user && <CodeView content={data} user={user} />}</>;
+  return (
+    <>
+      {data && user && (
+        <CodeView content={data} user={user} isUserDeleted={isUserDeleted} />
+      )}
+    </>
+  );
 }

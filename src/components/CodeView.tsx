@@ -14,21 +14,20 @@ import { Tables } from "../../types/supabase";
 import { useEffect, useState } from "react";
 import { downloadContents } from "@/lib/utils/actions/post-actions";
 
+type CodeViewProps = {
+  /**content` represents the data related to a file, using the "files" table structure. */
+  content: Tables<"files">;
+  /**user` represents the data related to a user, using the "profiles" table structure. */
+  user: Tables<"profiles">;
+  /**isUserDeleted` indicates if the user has been deleted. */
+  isUserDeleted: boolean;
+};
+
 export default function CodeView({
   content,
   user,
-}: {
-  content: Tables<"files">;
-  user: Tables<"profiles">;
-}) {
-  const [isUserDeleted, setIsUserDeleted] = useState(false);
-
-  useEffect(() => {
-    if (user.id === null || user.id === "0") {
-      setIsUserDeleted(true);
-    }
-  }, [user]);
-
+  isUserDeleted,
+}: CodeViewProps) {
   const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
 
   return (
