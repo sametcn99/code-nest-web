@@ -18,6 +18,8 @@ import {
 import Link from "next/link";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Tables } from "../../../types/supabase";
+import { createClient } from "@/lib/utils/supabase/client";
+import { useEffect, useState } from "react";
 
 /**
  * Defines the prop types for the ContentCard component.
@@ -42,6 +44,25 @@ export default function ContentCard({
   className,
 }: ContentCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [user, setUser] = useState<null | Tables<"profiles">[]>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", content.user_id)
+        .single();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setUser(data);
+    };
+
+    fetchUser();
+  }, [content.user_id, supabase]);
 
   const onRemove = async () => {
     const res = await removeContent(content.content_id);
