@@ -1,6 +1,6 @@
 "use server";
 import { createClient } from "@/lib/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export async function signInWithDiscord() {
   const supabase = createClient();
@@ -15,6 +15,6 @@ export async function signInWithDiscord() {
   }
   if (error) {
     console.error("Error signing in with Discord:", error.message);
-    redirect("/error");
+    notFound();
   }
 }

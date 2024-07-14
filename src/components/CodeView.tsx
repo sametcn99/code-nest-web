@@ -1,7 +1,7 @@
 "use client";
 import {
   getFileExtension,
-  getLangByFileExtension,
+  getLangFromFileExtension,
 } from "@/lib/file-extensions-by-langs";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
@@ -42,42 +42,41 @@ export default function CodeView({
 
   return (
     <div className="place-items-left flex w-full flex-col justify-center gap-4">
-      <div className="flex flex-row place-items-center justify-center rounded-xl">
-        {user.avatar_url && (
-          <Image
-            alt="User Avatar"
-            className="cursor-pointer rounded-full object-cover"
-            height={50}
-            src={user.avatar_url}
-            width={50}
-          />
-        )}
-        <div>
-          <Link
-            href={`/user/${user.sub}`}
-            className="inline-flex gap-2 text-lg font-bold text-muted"
-            onClick={(e) => {
-              if (isUserDeleted) {
-                e.preventDefault();
-              }
-            }}
-          >
-            <span className="ml-2 font-medium text-[#FFF]">
-              @{user.full_name}
-            </span>
-            <Button
-              isIconOnly
-              className="bg-transparent"
-              onClick={(e) => {
-                if (isUserDeleted) {
-                  e.preventDefault();
-                }
-              }}
-            >
-              <HiOutlineUserAdd size={"20"} />
-            </Button>
-          </Link>
-        </div>
+      <div className="flex flex-row flex-wrap place-items-center justify-center rounded-xl">
+        <Link
+          href={`/user/${user.sub}`}
+          className="inline-flex gap-2 p-2 px-4 text-lg font-bold"
+          onClick={(e) => {
+            if (isUserDeleted) {
+              e.preventDefault();
+            }
+          }}
+        >
+          {user.avatar_url && (
+            <Image
+              alt="User Avatar"
+              className="cursor-pointer rounded-full object-cover"
+              height={50}
+              src={user.avatar_url}
+              width={50}
+            />
+          )}
+          <div className="ml-2 flex flex-col font-medium">
+            <span>{user.username}</span>
+            <span>@{user.full_name}</span>
+          </div>
+        </Link>
+        <Button
+          isIconOnly
+          className="bg-transparent"
+          onClick={(e) => {
+            if (isUserDeleted) {
+              e.preventDefault();
+            }
+          }}
+        >
+          <HiOutlineUserAdd size={"20"} />
+        </Button>
       </div>
       <div className="flex flex-col place-items-center justify-center">
         <p className="flex flex-row flex-wrap gap-2 text-2xl font-bold">
@@ -89,7 +88,7 @@ export default function CodeView({
             <Tab key={index} title={file.filename} className="">
               <div className="inline-flex place-items-center gap-2 py-2 pl-4 font-bold">
                 <div className="cursor-default hover:text-yellow-400">
-                  {getLangByFileExtension(
+                  {getLangFromFileExtension(
                     getFileExtension(file.filename) ?? "",
                   )}
                 </div>
@@ -104,6 +103,9 @@ export default function CodeView({
                   title="Copy"
                   isIconOnly
                   className="bg-transparent hover:text-green-600"
+                  onClick={() => {
+                    navigator.clipboard.writeText(file.value);
+                  }}
                 >
                   <LuCopy size={"17.5"} className="cursor-pointer" />
                 </Button>

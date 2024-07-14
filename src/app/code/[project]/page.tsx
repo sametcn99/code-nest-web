@@ -1,6 +1,7 @@
 import CodeView from "@/components/CodeView";
 import { createClient } from "@/lib/utils/supabase/server";
 import { Tables } from "../../../../types/supabase";
+import { notFound } from "next/navigation";
 
 export default async function Page({
   params,
@@ -9,11 +10,13 @@ export default async function Page({
 }) {
   const supabase = createClient();
 
-  let { error, data } = await supabase
+  const { error, data } = await supabase
     .from("files")
     .select("*")
     .eq("content_id", params.project)
     .single();
+
+  if (error) return notFound();
 
   let user = (
     await supabase.from("profiles").select("*").eq("id", data.user_id).single()
@@ -34,12 +37,10 @@ export default async function Page({
     };
   }
 
-  if (error) return <div>{error.message}</div>;
-
   // Adjusted to match the expected prop types of the Editor component
   return (
     <>
-      {data && (
+      {data && user && !error && (
         <CodeView
           content={data.content}
           user={user}

@@ -35,3 +35,43 @@ export const removeComment = async (comment_id: number): Promise<boolean> => {
     return true;
   }
 };
+
+export const downloadContents = async (content_id: number): Promise<boolean> => {
+  const supabase = createClient();
+
+  // Download the content with the given content_id
+  const { error, data } = await supabase
+    .from("files")
+    .select("content")
+    .eq("content_id", content_id);
+
+  if (error) {
+    console.error("Error downloading content:", error);
+    return false;
+  } else if (data && data.length > 0) {
+    // Assuming the content is in the first row of the data array
+    const content = data[0].content;
+    if (content) {
+      // Convert the content to a Blob
+      const blob = new Blob([content], { type: 'application/octet-stream' });
+      
+      // Create a URL for the Blob
+      const url = URL.createObjectURL(blob);
+      
+      // Create an anchor element and trigger a download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `content-${content_id}.txt`; // Specify the filename here
+      document.body.appendChild(a); // Append the anchor to the body
+      a.click(); // Trigger the download
+      
+      // Clean up by revoking the Blob URL and removing the anchor element
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      console.log("Content downloaded successfully", { content_id, data });
+      return true;
+    }
+  }
+  return false;
+};

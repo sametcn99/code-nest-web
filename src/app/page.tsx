@@ -11,12 +11,10 @@ export default async function Home() {
   const { data, error } = await supabase.auth.getUser();
   const user = data;
 
-  const { data: contents, count } = await supabase
+  const { data: contents } = await supabase
     .from("files")
     .select("*", { count: "exact" })
     .limit(10);
-
-
 
   const project_name = "CodeNest";
 
