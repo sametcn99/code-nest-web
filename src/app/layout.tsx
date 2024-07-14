@@ -65,8 +65,8 @@ export default function RootLayout({
           <section className="relative flex min-h-screen flex-col gap-20 px-2">
             <Navbar />
             {children}
-            <Footer />
           </section>
+          <Footer />
           <Analytics />
         </NextUIProvider>
       </body>
