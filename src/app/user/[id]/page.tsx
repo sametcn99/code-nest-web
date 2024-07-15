@@ -11,10 +11,13 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { data: user } = await supabase
     .from("profiles")
     .select("*")
-    .eq("sub", params.id)
+    .or(`sub.eq.${params.id},username.eq.${params.id}`)
     .single();
 
   if (!user) return notFound();
+  const authUser = await supabase.auth.getUser();
+  const auth: boolean =
+    authUser && authUser.data.user?.user_metadata.sub === user.sub;
 
   const { data: contentsres } = await supabase
     .from("files")
@@ -27,10 +30,10 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="mx-auto w-[60%]">
-      <ProfileCard user={user} auth={false} />
+      <ProfileCard user={user} auth={auth} />
       <div className="mt-4 grid grid-cols-3 gap-4">
         {contents.map((content, index) => (
-          <ContentCard content={content} key={index} auth={false} />
+          <ContentCard content={content} key={index} auth={auth} />
         ))}
       </div>
     </main>

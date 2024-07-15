@@ -85,7 +85,7 @@ export default function ContentCard({
         >
           <CardHeader className="inline-flex justify-between text-2xl font-bold">
             <Link
-              href={`/user/${user.sub}`}
+              href={`/user/${user.username || user.sub}`}
               className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/20 hover:underline"
             >
               {user.avatar_url && (
