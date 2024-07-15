@@ -18,8 +18,8 @@ export function generateRandomNumber(digitCount: number): number {
 }
 
 /**
- * Formats a date into a human-readable string indicating how long ago it was.
- * @param date The date to format.
+ * Formats a given date into a human-readable string representation.
+ * @param date - The date to be formatted.
  * @returns A string representing the formatted date.
  */
 export const formatDate = (date: Date): string => {
@@ -34,8 +34,13 @@ export const formatDate = (date: Date): string => {
       return `${Math.floor(diffMinutes)} dakika önce`;
     }
     return `${Math.floor(diffHours)} saat önce`;
+  } else if (diffDays < 2) {
+    return "bir gün önce";
+  } else if (diffDays < 3) {
+    return "iki gün önce";
+  } else {
+    return date.toDateString();
   }
-  return date.toUTCString();
 };
 
 /**

@@ -7,6 +7,7 @@ import { Tables } from "../../../../types/supabase";
 export default async function Page({ params }: { params: { id: string } }) {
   const supabase = createClient();
   let contents: Tables<"files">[] = [];
+
   const { data: user } = await supabase
     .from("profiles")
     .select("*")

@@ -84,7 +84,10 @@ export default function ContentCard({
           )}
         >
           <CardHeader className="inline-flex justify-between text-2xl font-bold">
-            <div className="flex items-center">
+            <Link
+              href={`/user/${user.sub}`}
+              className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/20 hover:underline"
+            >
               {user.avatar_url && (
                 <Image
                   src={user.avatar_url}
@@ -94,13 +97,13 @@ export default function ContentCard({
                   className="h-22 w-22 pointer-events-none mb-2 select-none rounded-full border-8 border-[#18181B]"
                 />
               )}
-              <div>
-                <p className="mr-2 text-base font-normal">{user.username}</p>
-                <p className="mb-2 mr-auto text-xs font-light text-muted">
+              <div className="mb-2 ml-2">
+                <p className="text-base font-normal">{user.username}</p>
+                <p className="mr-auto text-xs font-light text-muted">
                   {formatDate(new Date(content.created_at))}
                 </p>
               </div>
-            </div>
+            </Link>
 
             {auth && (
               <>
