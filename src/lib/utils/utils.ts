@@ -72,6 +72,8 @@ export const downloadSingleFile = (file: FileTypes): void => {
  * @param files An array of files to download.
  */
 export const downloadMultipleFilesAsZip = (files: FileTypes[]): void => {
+  const zipName = `${new Date().toDateString()}_codenest_project.zip`;
+
   const zip = new JSZip();
   files.forEach((file) => {
     zip.file(file.filename, file.value);
