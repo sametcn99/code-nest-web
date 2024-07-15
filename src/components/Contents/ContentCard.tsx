@@ -83,7 +83,7 @@ export default function ContentCard({
             className,
           )}
         >
-          <CardHeader className="inline-flex justify-between text-2xl font-bold">
+          <CardHeader className="flex flex-row justify-between text-2xl font-bold">
             <Link
               href={`/user/${user.username || user.sub}`}
               className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/20 hover:underline"
@@ -104,15 +104,14 @@ export default function ContentCard({
                 </p>
               </div>
             </Link>
-
             {auth && (
               <>
                 <button
                   title="Remove Content"
                   onClick={onOpen}
-                  className="absolute right-4 top-4 z-50 h-fit w-fit bg-transparent hover:text-red-600"
+                  className="h-fit w-fit place-self-center bg-transparent hover:text-red-600"
                 >
-                  <IoCloseCircleOutline size={"18.5"} className="mt-5" />
+                  <IoCloseCircleOutline size={"18.5"} className="" />
                 </button>
                 <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                   <ModalContent>
