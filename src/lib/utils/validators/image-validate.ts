@@ -15,6 +15,8 @@ const ACCEPTABLE_IMAGE_SOURCES: URL[] = [
   new URL("https://imgur.com"),
   new URL("https://i.imgur.com"),
   new URL("https://tenor.com"),
+  new URL("https://media1.tenor.com"),
+  new URL("https://c.tenor.com"),
   new URL("https://media.giphy.com"),
   new URL("https://flickr.com"),
   new URL("https://photobucket.com"),

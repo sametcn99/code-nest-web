@@ -18,12 +18,17 @@ const nextConfig = {
         hostname: "unsplash.com",
         protocol: "https",
       },
+      
       {
         hostname: "imgur.com",
         protocol: "https",
       },
       {
         hostname: "tenor.com",
+        protocol: "https",
+      },
+      {
+        hostname: "c.tenor.com",
         protocol: "https",
       },
       {
