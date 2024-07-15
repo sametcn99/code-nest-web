@@ -39,6 +39,7 @@ export default async function Page({
       banner_url: "",
       bio: "",
       followings_count: null,
+      starred_projects: null,
     };
   }
 

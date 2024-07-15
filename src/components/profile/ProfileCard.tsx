@@ -44,7 +44,7 @@ type ProfileCardProps = {
 export default function ProfileCard({ user, auth }: ProfileCardProps) {
   const [isUserNameEditing, setIsUserNameEditing] = useState(false);
   const [username, setUsername] = useState(user.username);
-  const [bio, setBio] = useState(user.bio);
+  const [bio, setBio] = useState(user.bio ?? "");
   const [bannerUrl, setBannerUrl] = useState(user.banner_url);
   const [dummyBannerUrl, setDummyBannerUrl] = useState(user.banner_url);
   const [isBannerUrlEditing, setIsBannerUrlEditing] = useState(false);
@@ -190,7 +190,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
               className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
             />
           )}
-          <div>
+          <div className="flex flex-col">
             {auth && isUserNameEditing ? (
               <input
                 className="h-10 w-60 bg-transparent text-2xl font-semibold hover:outline-none"
@@ -200,7 +200,9 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
               />
             ) : (
               <p className="inline-flex h-10 w-60 place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
-                <span>{username ?? "Kullanıcı adı"}</span>
+                <Link className="hover:underline" href={`/user/${user.sub}`}>
+                  {username ?? "Kullanıcı adı"}
+                </Link>
                 {auth && (
                   <Button
                     isIconOnly
@@ -212,6 +214,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
                 )}
               </p>
             )}
+            <span className="pr-2 text-muted">{user.roles?.join(", ")}</span>
           </div>
         </div>
       </div>
@@ -255,13 +258,13 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
           ) : (
             <></>
           )}
-          {!auth ?? (
-            <Card className="min-h-24 w-full p-2 text-white">
+          {auth === false && (
+            <div className="min-h-24 w-full p-2 text-white">
               <RichTextRender
                 content={bio ?? ""}
                 linkClassName="hover:underline"
               />
-            </Card>
+            </div>
           )}
         </div>
       </div>

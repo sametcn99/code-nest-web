@@ -99,3 +99,19 @@ export const triggerDownload = (url: string, filename: string): void => {
   URL.revokeObjectURL(url);
   document.body.removeChild(a); // Clean up
 };
+
+/**
+ * Truncates a string if it exceeds a certain length.
+ * If the input string is longer than 100 characters, it will be truncated and "..." will be appended.
+ * If the input string is shorter than or equal to 100 characters, it will be returned as is.
+ *
+ * @param input - The string to truncate.
+ * @returns The truncated string.
+ */
+export function truncateString(input: string): string {
+  if (input.length > 100) {
+    return input.substring(0, 100) + "...";
+  } else {
+    return input;
+  }
+}

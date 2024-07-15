@@ -3,7 +3,7 @@ import React from "react";
 /**Rich Text Render component props */
 type RichTextRenderProps = {
   /**Rich text content */
-  content: string;
+  content?: string;
 
   /**Class name for the paragraph element */
   className?: React.HTMLProps<HTMLParagraphElement>["className"];
@@ -24,7 +24,7 @@ type RichTextRenderProps = {
  * @param target - The target attribute for the rendered links.
  */
 const RichTextRender: React.FC<RichTextRenderProps> = ({
-  content,
+  content = "",
   className = "",
   linkClassName = "",
   target = "_blank",

@@ -40,7 +40,7 @@ export type Database = {
           created_at: string
           description: string
           id: string
-          star_count: number
+          starred_by: string[] | null
           title: string
           user_id: string
         }
@@ -50,7 +50,7 @@ export type Database = {
           created_at?: string
           description: string
           id?: string
-          star_count: number
+          starred_by?: string[] | null
           title: string
           user_id: string
         }
@@ -60,7 +60,7 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
-          star_count?: number
+          starred_by?: string[] | null
           title?: string
           user_id?: string
         }
@@ -78,6 +78,8 @@ export type Database = {
           followings_count: number | null
           full_name: string | null
           id: string
+          roles: string[] | null
+          starred_projects: string[] | null
           sub: string
           username: string | null
           website: string | null
@@ -93,6 +95,8 @@ export type Database = {
           followings_count?: number | null
           full_name?: string | null
           id: string
+          roles?: string[] | null
+          starred_projects?: string[] | null
           sub: string
           username?: string | null
           website?: string | null
@@ -108,6 +112,8 @@ export type Database = {
           followings_count?: number | null
           full_name?: string | null
           id?: string
+          roles?: string[] | null
+          starred_projects?: string[] | null
           sub?: string
           username?: string | null
           website?: string | null

@@ -1,6 +1,14 @@
 import { createClient } from "@/lib/utils/supabase/client";
 import { generateRandomNumber } from "@/lib/utils/utils";
 
+/**
+ * Posts data to the server.
+ *
+ * @param filesData - An array of file data.
+ * @param title - The title of the content.
+ * @param description - The description of the content.
+ * @returns A Promise that resolves to a URL or null.
+ */
 export const postData = async (
   filesData: FileTypes[],
   title: string,
@@ -23,12 +31,12 @@ export const postData = async (
     content_id: content_id,
     title: title,
     description: description,
-    star_count: 0,
   };
 
   const { error, statusText, status } = await supabase
     .from("files")
     .insert(data);
+
   if (error) {
     console.error("Error:", error, status, statusText);
     return null;

@@ -2,7 +2,7 @@
 import { removeContent } from "@/lib/utils/actions/post-actions";
 import { cn } from "@/lib/utils/cn";
 import { createClient } from "@/lib/utils/supabase/client";
-import { formatDate } from "@/lib/utils/utils";
+import { formatDate, truncateString } from "@/lib/utils/utils";
 import {
   Button,
   Card,
@@ -86,7 +86,7 @@ export default function ContentCard({
           <CardHeader className="flex flex-row justify-between text-2xl font-bold">
             <Link
               href={`/user/${user.username || user.sub}`}
-              className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/20 hover:underline"
+              className="flex w-full items-center rounded-xl transition-all duration-500"
             >
               {user.avatar_url && (
                 <Image
@@ -142,13 +142,16 @@ export default function ContentCard({
           </CardHeader>
           <CardBody>
             <p className="text-lg font-semibold">{content.title}</p>
-            <p className="text-sm">{content.description}</p>
+            <p className="text-sm text-muted">
+              {truncateString(content.description)}
+            </p>
           </CardBody>
           <CardFooter className="flex flex-col">
-            <Link className="w-full" href={`/code/${content.content_id}`}>
-              <Button className="mt-3 w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-white">
-                Kodu Görüntüle
-              </Button>
+            <Link
+              className="w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white"
+              href={`/code/${content.content_id}`}
+            >
+              Kodu Görüntüle
             </Link>
           </CardFooter>
         </Card>
