@@ -19,7 +19,8 @@ export default async function PrivatePage() {
   const contents = await supabase
     .from("files")
     .select("*")
-    .eq("user_id", user.id);
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
 
   return (
     <main className="mx-auto w-[60%]">
@@ -27,11 +28,9 @@ export default async function PrivatePage() {
         <ProfileCard user={user as Tables<"profiles">} auth={true} />
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {contents.data
-          ?.reverse()
-          .map((content, index) => (
-            <ContentCard content={content} auth={true} key={index} />
-          ))}
+        {contents.data?.map((content, index) => (
+          <ContentCard content={content} auth={true} key={index} />
+        ))}
       </div>
     </main>
   );

@@ -15,6 +15,7 @@ export default async function Home() {
   const { data: contents } = await supabase
     .from("files")
     .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
     .limit(10);
 
   const project_name = "CodeNest";

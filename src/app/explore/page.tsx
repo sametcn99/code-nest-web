@@ -5,7 +5,10 @@ import { Tables } from "../../../types/supabase";
 export default async function Page() {
   const supabase = createClient();
   let files: Tables<"files">;
-  const { data, error } = await supabase.from("files").select("*");
+  const { data, error } = await supabase
+    .from("files")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error(error);
@@ -20,7 +23,7 @@ export default async function Page() {
           Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
         </h2>
       </div>
-      <main className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {data.map((file) => (
           <ContentCard key={file.id} content={file} auth={false} />
         ))}
