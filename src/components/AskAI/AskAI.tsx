@@ -48,7 +48,7 @@ export default function AskAI({
   return (
     <>
       <Button
-        title="AI'ya Sor"
+        title="AI'a Sor"
         className="bg-transparent hover:text-blue-600"
         onClick={async () => {
           isAuth
