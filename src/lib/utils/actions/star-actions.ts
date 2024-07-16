@@ -2,9 +2,9 @@ import { toast } from "sonner";
 import { createClient } from "../supabase/client";
 
 export const addOrRemoveStarToContents = async (
-  content_id: string,
-  starred_by: string[],
-  user_id: string,
+  contentId: string,
+  starredBy: string[],
+  userId: string,
   action: "Add" | "Remove",
 ): Promise<boolean> => {
   if (!(await isAuthenticated())) {
@@ -12,14 +12,24 @@ export const addOrRemoveStarToContents = async (
     return false;
   }
 
-  const updatedStarredBy = updateStarredByList(starred_by, user_id, action);
-  return await updateContentStars(content_id, updatedStarredBy, action);
+  const updatedStarredBy = updateStarredByList(starredBy, userId, action);
+  const contentUpdateSuccess = await updateContentStars(
+    contentId,
+    updatedStarredBy,
+  );
+  const profileUpdateSuccess = await updateStarredProjectsTable(
+    contentId,
+    userId,
+    action,
+  );
+
+  return contentUpdateSuccess && profileUpdateSuccess;
 };
 
 const isAuthenticated = async (): Promise<boolean> => {
   const supabase = createClient();
-  const auth = await supabase.auth.getUser();
-  return !!auth;
+  const { data, error } = await supabase.auth.getUser();
+  return !error && !!data.user;
 };
 
 const displayAuthenticationError = () => {
@@ -27,35 +37,76 @@ const displayAuthenticationError = () => {
 };
 
 const updateStarredByList = (
-  starred_by: string[],
-  user_id: string,
+  starredBy: string[],
+  userId: string,
   action: "Add" | "Remove",
 ): string[] => {
   if (action === "Add") {
-    return [...starred_by, user_id];
+    return [...starredBy, userId];
   } else {
-    return starred_by.filter((id) => id !== user_id);
+    return starredBy.filter((id) => id !== userId);
   }
 };
 
 const updateContentStars = async (
-  content_id: string,
-  starred_by: string[],
-  action: "Add" | "Remove",
+  contentId: string,
+  starredBy: string[],
 ): Promise<boolean> => {
   const supabase = createClient();
   const { error } = await supabase
     .from("files")
-    .update({ starred_by })
-    .match({ id: content_id });
+    .update({ starred_by: starredBy })
+    .eq("id", contentId);
+
+  if (error) {
+    toast.error(`Bir hata oluştu. Lütfen tekrar deneyin.\n${error.message}`);
+    return false;
+  }
+  return true;
+};
+
+const updateStarredProjectsTable = async (
+  projectId: string,
+  userId: string,
+  action: "Add" | "Remove",
+): Promise<boolean> => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("starred_projects")
+    .eq("id", userId)
+    .single();
+
+  console.log(data);
+  console.log(data?.starred_projects);
 
   if (error) {
     toast.error(`Bir hata oluştu. Lütfen tekrar deneyin.\n${error.message}`);
     return false;
   }
 
+  const starredProjects: string[] = data.starred_projects || [];
+  const updatedStarredProjects =
+    action === "Add"
+      ? [...starredProjects, projectId]
+      : starredProjects.filter((id) => id !== projectId);
+
+  const { error: updateError } = await supabase
+    .from("profiles")
+    .update({ starred_projects: updatedStarredProjects })
+    .eq("id", userId);
+
+  if (updateError) {
+    toast.error(
+      `Bir hata oluştu. Lütfen tekrar deneyin.\n${updateError.message}`,
+    );
+    return false;
+  }
+
   toast.success(
-   action === "Add" ? "İçerik favorilere eklendi." : "İçerik favorilerden kaldırıldı.",
+    action === "Add"
+      ? "İçerik favorilere eklendi."
+      : "İçerik favorilerden kaldırıldı.",
   );
   return true;
 };

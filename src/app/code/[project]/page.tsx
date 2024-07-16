@@ -9,7 +9,8 @@ export default async function Page({
   params: { project: string; id: string };
 }) {
   const supabase = createClient();
-  const isAuth = (await supabase.auth.getUser()).data.user !== null;
+  const auth = await supabase.auth.getUser();
+  const isAuth = auth.data.user !== null;
 
   const { error, data } = await supabase
     .from("files")
@@ -54,6 +55,7 @@ export default async function Page({
           user={user}
           isUserDeleted={isUserDeleted}
           isAuth={isAuth}
+          viewerID={auth.data.user?.id}
         />
       )}
     </>

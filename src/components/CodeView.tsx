@@ -28,6 +28,9 @@ type CodeViewProps = {
 
   //**Is user authenticated */
   isAuth: boolean;
+
+  //**Viewer ID */
+  viewerID?: string;
 };
 
 export default function CodeView({
@@ -35,6 +38,7 @@ export default function CodeView({
   user,
   isUserDeleted,
   isAuth,
+  viewerID,
 }: CodeViewProps) {
   const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
   const [isStarred, setIsStarred] = useState(
@@ -84,8 +88,7 @@ export default function CodeView({
           {content.title}
         </p>
         <p className="px-2 text-muted md:max-w-[60%]">
-          {content.description ||
-            "Açıklama eklenmemiş."}
+          {content.description || "Açıklama eklenmemiş."}
         </p>
         <p className="text-muted">{formatDate(new Date(content.created_at))}</p>
         <AskAI content={content.content} isAuth={isAuth} />
@@ -103,7 +106,7 @@ export default function CodeView({
                   startContent={isStarred ? <LuStarOff /> : <LuStar />}
                   className="bg-transparent hover:text-red-600"
                   onClick={() => {
-                    if (!isAuth) {
+                    if (!isAuth || !viewerID) {
                       toast.error(
                         "Bu özelliği kullanabilmek için giriş yapmalısınız.",
                       );
@@ -112,7 +115,7 @@ export default function CodeView({
                     addOrRemoveStarToContents(
                       content.id,
                       content.starred_by ?? [],
-                      user.id,
+                      viewerID,
                       isStarred ? "Remove" : "Add",
                     );
                     setIsStarred(!isStarred);
