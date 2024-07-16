@@ -87,6 +87,7 @@ export default function CodeView({
         </p>
         <p className="px-2 text-muted md:max-w-[60%]">{content.description}</p>
         <p className="text-muted">{formatDate(new Date(content.created_at))}</p>
+        <AskAI content={content.content} isAuth={isAuth} />
         <Tabs aria-label="Options" variant={"underlined"}>
           {files?.map((file, index) => (
             <Tab key={index} title={file.filename} className="container">
@@ -140,7 +141,6 @@ export default function CodeView({
                 >
                   <HiDownload size={22} className="cursor-pointer" />
                 </Button>
-                <AskAI content={content.content} isAuth={isAuth} />
               </div>
               <div className="min-w-96">
                 <SyntaxHighlighter
