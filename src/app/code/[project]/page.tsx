@@ -40,6 +40,7 @@ export default async function Page({
       bio: "",
       followings_count: null,
       starred_projects: null,
+      roles: null,
     };
   }
 

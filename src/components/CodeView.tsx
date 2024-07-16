@@ -17,6 +17,8 @@ import { Tables } from "../../types/supabase";
 import { addOrRemoveStarToContents } from "@/lib/utils/actions/star-actions";
 import { useState } from "react";
 import { LuStarOff } from "react-icons/lu";
+import { RiQuestionnaireFill } from "react-icons/ri";
+import { Tooltip } from "@nextui-org/tooltip";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -118,7 +120,7 @@ export default function CodeView({
                     toast.success("Kopyalandı");
                   }}
                 >
-                  <LuCopy size={"17.5"} className="cursor-pointer" />
+                  <LuCopy size={22} className="cursor-pointer" />
                 </Button>
                 <Button
                   title="Download"
@@ -128,7 +130,17 @@ export default function CodeView({
                     const res = await downloadContents(content.content_id);
                   }}
                 >
-                  <HiDownload size={"17.5"} className="cursor-pointer" />
+                  <HiDownload size={22} className="cursor-pointer" />
+                </Button>
+                <Button
+                  title="AI'ya Sor"
+                  isIconOnly
+                  className="bg-transparent hover:text-purple-600"
+                  onClick={async () => {
+                    toast.error("Bu özellik şu anda kullanılamamaktadır.");
+                  }}
+                >
+                  <RiQuestionnaireFill size={22} />
                 </Button>
               </div>
               <div className="min-w-96">
