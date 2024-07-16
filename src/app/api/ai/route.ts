@@ -14,14 +14,13 @@ export async function POST(request: NextRequest) {
       );
     }
     if (!content) {
-      throw new Error("Content is required.", { cause: 400 });
+      throw new Error("Content is required.");
     }
 
     const response = await generateText(JSON.stringify(content));
     const responseData = { response };
     return NextResponse.json(responseData, { status: 200 });
   } catch (error) {
-    // Fixed error handling for 'error' of type 'unknown'.
     if (error instanceof Error) {
       return NextResponse.json({ response: error.message }, { status: 500 });
     } else {

@@ -1,4 +1,3 @@
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -8,10 +7,10 @@ export default function NotFound() {
         <p className="text-4xl font-bold">404</p>
         <div className="text-2xl font-bold">Sayfa Bulunamadı</div>
         <div className="text-center font-thin">
-          Aradığınız Sayfa Bulamadık.
+          Aradığınız Sayfayı Bulamadık.
           <br />
-          Bir hata olduğunu düşünüyorsanız topluluk sayfası üzerinden iletişime
-          geçin.
+          Bir hata olduğunu düşünüyorsanız lütfen topluluk sayfası üzerinden
+          iletişime geçin.
         </div>
         <Link
           href="/"

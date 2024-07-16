@@ -73,9 +73,7 @@ export type Database = {
           bio: string | null
           email: string | null
           followers: string[] | null
-          followers_count: number | null
           followings: string[] | null
-          followings_count: number | null
           full_name: string | null
           id: string
           roles: string[] | null
@@ -90,9 +88,7 @@ export type Database = {
           bio?: string | null
           email?: string | null
           followers?: string[] | null
-          followers_count?: number | null
           followings?: string[] | null
-          followings_count?: number | null
           full_name?: string | null
           id: string
           roles?: string[] | null
@@ -107,9 +103,7 @@ export type Database = {
           bio?: string | null
           email?: string | null
           followers?: string[] | null
-          followers_count?: number | null
           followings?: string[] | null
-          followings_count?: number | null
           full_name?: string | null
           id?: string
           roles?: string[] | null

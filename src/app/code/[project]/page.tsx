@@ -29,18 +29,16 @@ export default async function Page({
     isUserDeleted = true;
     user = {
       id: "0",
-      avatar_url: "",
+      avatar_url: null,
       full_name: "unknown",
       username: "unknown",
       email: "unknown@unknown.com",
       followers: null,
-      followers_count: null,
       followings: null,
       sub: "",
       website: null,
-      banner_url: "",
-      bio: "",
-      followings_count: null,
+      banner_url: null,
+      bio: null,
       starred_projects: null,
       roles: null,
     };

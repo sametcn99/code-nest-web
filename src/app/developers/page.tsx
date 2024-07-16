@@ -1,8 +1,7 @@
+import ProfileCard from "@/components/profile/ProfileCard";
 import { createClient } from "@/lib/utils/supabase/server";
-import React from "react";
 import { FaCrown } from "react-icons/fa6";
 import { Tables } from "../../../types/supabase";
-import ProfileCard from "@/components/profile/ProfileCard";
 
 export default async function Page() {
   const supabase = createClient();
