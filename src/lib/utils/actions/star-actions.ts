@@ -55,7 +55,7 @@ const updateContentStars = async (
   }
 
   toast.success(
-    `İçerik favorilere ${action === "Add" ? "eklendi" : "kaldırıldı"}.`,
+   action === "Add" ? "İçerik favorilere eklendi." : "İçerik favorilerden kaldırıldı.",
   );
   return true;
 };
