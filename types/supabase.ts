@@ -38,7 +38,7 @@ export type Database = {
           content: Json
           content_id: number
           created_at: string
-          description: string
+          description: string | null
           id: string
           starred_by: string[] | null
           title: string
@@ -48,7 +48,7 @@ export type Database = {
           content: Json
           content_id: number
           created_at?: string
-          description: string
+          description?: string | null
           id?: string
           starred_by?: string[] | null
           title: string
@@ -58,7 +58,7 @@ export type Database = {
           content?: Json
           content_id?: number
           created_at?: string
-          description?: string
+          description?: string | null
           id?: string
           starred_by?: string[] | null
           title?: string

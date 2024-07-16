@@ -83,7 +83,10 @@ export default function CodeView({
         <p className="flex flex-row flex-wrap gap-2 text-2xl font-bold">
           {content.title}
         </p>
-        <p className="px-2 text-muted md:max-w-[60%]">{content.description}</p>
+        <p className="px-2 text-muted md:max-w-[60%]">
+          {content.description ||
+            "Açıklama eklenmemiş."}
+        </p>
         <p className="text-muted">{formatDate(new Date(content.created_at))}</p>
         <AskAI content={content.content} isAuth={isAuth} />
         <Tabs aria-label="Options" variant={"underlined"}>
