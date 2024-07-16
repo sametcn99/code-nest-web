@@ -32,6 +32,11 @@ type InfiniteMovingCardsProps = {
    * Additional CSS class names for styling.
    */
   className?: string;
+
+  /**
+   * Title of the moving cards.
+   */
+  title: string;
 };
 
 /**
@@ -51,6 +56,7 @@ export const InfiniteMovingCards = ({
   speed,
   pauseOnHover = true,
   className,
+  title,
 }: InfiniteMovingCardsProps) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);
@@ -108,11 +114,11 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative flex w-full max-w-7xl flex-col place-items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller mx-auto relative flex w-full max-w-7xl flex-col place-items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className,
       )}
     >
-      <h2 className="text-2xl font-bold">SON PAYLAŞILANLAR</h2>
+      <h2 className="text-2xl font-bold">{title}</h2>
       <ul
         ref={scrollerRef}
         className={cn(

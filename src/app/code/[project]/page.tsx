@@ -2,6 +2,7 @@ import CodeView from "@/components/CodeView";
 import { createClient } from "@/lib/utils/supabase/server";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";
+import RandomContents from "@/components/ui/RandomContents";
 
 export default async function Page({
   params,
@@ -46,7 +47,7 @@ export default async function Page({
 
   // Adjusted to match the expected prop types of the Editor component
   return (
-    <>
+    <main className="mx-auto flex w-full flex-col gap-80">
       {data && user && (
         <CodeView
           content={data}
@@ -56,6 +57,7 @@ export default async function Page({
           viewerID={auth.data.user?.id}
         />
       )}
-    </>
+      <RandomContents />
+    </main>
   );
 }
