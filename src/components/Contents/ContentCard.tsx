@@ -88,15 +88,13 @@ export default function ContentCard({
               href={`/user/${user.username || user.sub}`}
               className="flex w-full items-center rounded-xl transition-all duration-500"
             >
-              {user.avatar_url && (
-                <Image
-                  src={user.avatar_url}
-                  width={55}
-                  height={55}
-                  alt="user avatar"
-                  className="h-22 w-22 pointer-events-none mb-2 select-none rounded-full border-8 border-[#18181B]"
-                />
-              )}
+              <Image
+                src={user.avatar_url || "/images/default_avatar.png"}
+                width={55}
+                height={55}
+                alt="user avatar"
+                className="h-22 w-22 pointer-events-none mb-2 select-none rounded-full border-8 border-[#18181B]"
+              />
               <div className="mb-2 ml-2">
                 <p className="text-base font-normal">{user.username}</p>
                 <p className="mr-auto text-xs font-light text-muted">

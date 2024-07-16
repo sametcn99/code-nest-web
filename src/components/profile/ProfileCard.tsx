@@ -169,11 +169,7 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
           </ModalContent>
         </Modal>
         <Image
-          src={
-            bannerUrl
-              ? bannerUrl
-              : "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWV0M2NyZGRsaTFzYWg3MWpidXo4d3B4aWtuYjc5bTBhd290cXhycCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7bug2wkdhpf7kbFS/giphy.gif"
-          }
+          src={bannerUrl || "/images/default_banner.gif"}
           alt="user banner"
           fill
           objectFit="cover"
@@ -181,15 +177,13 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
           className="pointer-events-none select-none rounded-lg border-b"
         />
         <div className="absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center">
-          {user.avatar_url && (
             <Image
-              src={user.avatar_url}
+              src={user.avatar_url || "/images/default_avatar.png"}
               width={100}
               height={100}
               alt="user avatar"
               className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
             />
-          )}
           <div className="flex flex-col">
             {auth && isUserNameEditing ? (
               <input

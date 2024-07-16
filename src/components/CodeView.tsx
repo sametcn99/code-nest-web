@@ -54,15 +54,13 @@ export default function CodeView({
             }
           }}
         >
-          {user.avatar_url && (
-            <Image
-              alt="User Avatar"
-              className="pointer-events-none cursor-pointer select-none rounded-full object-cover"
-              height={50}
-              src={user.avatar_url}
-              width={50}
-            />
-          )}
+          <Image
+            alt="User Avatar"
+            className="pointer-events-none cursor-pointer select-none rounded-full object-cover"
+            height={50}
+            src={user.avatar_url || "/images/default_avatar.png"}
+            width={50}
+          />
           <div className="ml-2 flex flex-col font-medium">
             <span>{user.username}</span>
             <span>@{user.full_name}</span>
