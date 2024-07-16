@@ -13,7 +13,7 @@ export const addOrRemoveStarToContents = async (
   }
 
   const updatedStarredBy = updateStarredByList(starred_by, user_id, action);
-  return await updateContentStars(content_id, updatedStarredBy);
+  return await updateContentStars(content_id, updatedStarredBy, action);
 };
 
 const isAuthenticated = async (): Promise<boolean> => {
@@ -41,6 +41,7 @@ const updateStarredByList = (
 const updateContentStars = async (
   content_id: string,
   starred_by: string[],
+  action: "Add" | "Remove",
 ): Promise<boolean> => {
   const supabase = createClient();
   const { error } = await supabase
@@ -54,7 +55,7 @@ const updateContentStars = async (
   }
 
   toast.success(
-    `İçerik favorilere ${starred_by.includes(content_id) ? "eklendi" : "kaldırıldı"}.`,
+    `İçerik favorilere ${action === "Add" ? "eklendi" : "kaldırıldı"}.`,
   );
   return true;
 };
