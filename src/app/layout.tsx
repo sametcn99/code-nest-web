@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | CodeNest",
     default: "CodeNest",
   },
-  description: "Projeleri Keşfet, Paylaş ve İş Birliği Yap.",
+  description: "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
   applicationName: "CodeNest",
   keywords:
     "code nest, share code, collaborate, projects, code, coding, programming, development, developer, web development, web developer, full stack, front end, back end, software, software engineer, software developer, software development, open source, github, git, gitlab, bitbucket, repository, repositories, version control, version control system, vcs, versioning, versioning system, versioning control system, versioning control",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       template: "%s | GPV",
       default: "CodeNest",
     },
-    description: "Projeleri Keşfet, Paylaş ve İş Birliği Yap.",
+    description: "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
     type: "website",
     url: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
     images: ["/icons/favicon-512x512.png"],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     site: "CodeNest",
     title: "CodeNest",
-    description: "Projeleri Keşfet, Paylaş ve İş Birliği Yap.",
+    description: "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
     card: "summary_large_image",
     images: ["/icons/favicon-512x512.png"],
     creator: "sametcn99",

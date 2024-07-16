@@ -37,7 +37,7 @@ export default async function Home() {
             </span>
           </h1>
           <p className="my-2 flex w-full items-center justify-center text-2xl text-muted">
-            Projeleri Keşfet, Paylaş ve İş Birliği Yap
+          En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.
           </p>
         </div>
         <div className="flex h-auto items-center justify-center gap-[0.9375rem] px-[1.5625rem]">
