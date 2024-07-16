@@ -18,10 +18,11 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TbEdit } from "react-icons/tb";
 import { Tables } from "../../../types/supabase";
 import RichTextRender from "../ui/RichTextRender";
+import { cn } from "@/lib/utils/cn";
 
 /**
  * Props for the ProfileCard component.
@@ -32,6 +33,9 @@ type ProfileCardProps = {
 
   /** Indicates whether the user is authenticated. */
   auth: boolean;
+
+  /** The component class name. */
+  className?: React.HtmlHTMLAttributes<HTMLDivElement>["className"];
 };
 
 /**
@@ -41,7 +45,11 @@ type ProfileCardProps = {
  * @param {ProfileCardProps} props - The component props.
  * @returns {JSX.Element} The rendered profile card.
  */
-export default function ProfileCard({ user, auth }: ProfileCardProps) {
+export default function ProfileCard({
+  user,
+  auth,
+  className,
+}: ProfileCardProps) {
   const [isUserNameEditing, setIsUserNameEditing] = useState(false);
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio ?? "");
@@ -124,7 +132,12 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
   };
 
   return (
-    <Card className="flex flex-col justify-center gap-4 p-6 shadow-lg">
+    <Card
+      className={cn(
+        `flex flex-col justify-center gap-4 p-6 shadow-lg`,
+        className,
+      )}
+    >
       <div className="relative z-20 h-56 w-full overflow-visible rounded-lg">
         {auth && (
           <Button
@@ -177,13 +190,13 @@ export default function ProfileCard({ user, auth }: ProfileCardProps) {
           className="pointer-events-none select-none rounded-lg border-b"
         />
         <div className="absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center">
-            <Image
-              src={user.avatar_url || "/images/default_avatar.png"}
-              width={100}
-              height={100}
-              alt="user avatar"
-              className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
-            />
+          <Image
+            src={user.avatar_url || "/images/default_avatar.png"}
+            width={100}
+            height={100}
+            alt="user avatar"
+            className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
+          />
           <div className="flex flex-col">
             {auth && isUserNameEditing ? (
               <input
