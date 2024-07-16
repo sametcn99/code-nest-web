@@ -11,7 +11,7 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 const prePrompot =
-  "Bu JSON verisindeki kod snippet'lerinin işlevselliği ve genel mantığı hakkında ayrıntılı bilgi verebilir misin?";
+  "Bu verideki kod snippet'lerinin işlevselliği ve genel mantığı hakkında özet bilgi verebilir misin?";
 
 /**
  * Generates text based on the given prompt using Google's Generative AI model.

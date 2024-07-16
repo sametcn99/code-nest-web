@@ -4,21 +4,19 @@ import {
   getLangFromFileExtension,
 } from "@/lib/file-extensions-by-langs";
 import { downloadContents } from "@/lib/utils/actions/download-content";
+import { addOrRemoveStarToContents } from "@/lib/utils/actions/star-actions";
 import { formatDate } from "@/lib/utils/utils";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { HiDownload, HiOutlineUserAdd } from "react-icons/hi";
-import { LuCopy, LuStar } from "react-icons/lu";
+import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
-import { addOrRemoveStarToContents } from "@/lib/utils/actions/star-actions";
-import { useState } from "react";
-import { LuStarOff } from "react-icons/lu";
-import { RiQuestionnaireFill } from "react-icons/ri";
-import { Tooltip } from "@nextui-org/tooltip";
+import AskAI from "./AskAI/AskAI";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -27,12 +25,16 @@ type CodeViewProps = {
   user: Tables<"profiles">;
   /**isUserDeleted` indicates if the user has been deleted. */
   isUserDeleted: boolean;
+
+  //**Is user authenticated */
+  isAuth: boolean;
 };
 
 export default function CodeView({
   content,
   user,
   isUserDeleted,
+  isAuth,
 }: CodeViewProps) {
   const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
   const [isStarred, setIsStarred] = useState(
@@ -88,7 +90,7 @@ export default function CodeView({
         <Tabs aria-label="Options" variant={"underlined"}>
           {files?.map((file, index) => (
             <Tab key={index} title={file.filename} className="container">
-              <div className="inline-flex w-full place-items-center gap-2 rounded-xl border-b border-b-gray-500 py-2 pl-4 font-bold">
+              <div className="inline-flex w-full flex-wrap place-items-center justify-center gap-2 rounded-xl border-b border-b-gray-500 py-2 pl-4 font-bold">
                 <div className="cursor-default hover:text-yellow-400">
                   {getLangFromFileExtension(
                     getFileExtension(file.filename) ?? "",
@@ -99,6 +101,12 @@ export default function CodeView({
                   startContent={isStarred ? <LuStarOff /> : <LuStar />}
                   className="bg-transparent hover:text-red-600"
                   onClick={() => {
+                    if (!isAuth) {
+                      toast.error(
+                        "Bu özelliği kullanabilmek için giriş yapmalısınız.",
+                      );
+                      return;
+                    }
                     addOrRemoveStarToContents(
                       content.id,
                       content.starred_by ?? [],
@@ -132,16 +140,7 @@ export default function CodeView({
                 >
                   <HiDownload size={22} className="cursor-pointer" />
                 </Button>
-                <Button
-                  title="AI'ya Sor"
-                  isIconOnly
-                  className="bg-transparent hover:text-purple-600"
-                  onClick={async () => {
-                    toast.error("Bu özellik şu anda kullanılamamaktadır.");
-                  }}
-                >
-                  <RiQuestionnaireFill size={22} />
-                </Button>
+                <AskAI content={content.content} isAuth={isAuth} />
               </div>
               <div className="min-w-96">
                 <SyntaxHighlighter

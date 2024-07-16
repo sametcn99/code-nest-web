@@ -9,6 +9,7 @@ export default async function Page({
   params: { project: string; id: string };
 }) {
   const supabase = createClient();
+  const isAuth = (await supabase.auth.getUser()).data.user !== null;
 
   const { error, data } = await supabase
     .from("files")
@@ -48,7 +49,12 @@ export default async function Page({
   return (
     <>
       {data && user && (
-        <CodeView content={data} user={user} isUserDeleted={isUserDeleted} />
+        <CodeView
+          content={data}
+          user={user}
+          isUserDeleted={isUserDeleted}
+          isAuth={isAuth}
+        />
       )}
     </>
   );
