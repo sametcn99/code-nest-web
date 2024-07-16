@@ -141,7 +141,7 @@ export default function ContentCard({
           <CardBody>
             <p className="text-lg font-semibold">{content.title}</p>
             <p className="text-sm text-muted">
-              {truncateString(content.description)}
+              {truncateString(content.description || "Açıklama eklenmemiş.")}
             </p>
           </CardBody>
           <CardFooter className="flex flex-col">
