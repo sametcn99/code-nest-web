@@ -4,24 +4,22 @@ import {
   getLangFromFileExtension,
 } from "@/lib/file-extensions-by-langs";
 import { downloadContents } from "@/lib/utils/actions/download-content";
+import { followAction } from "@/lib/utils/actions/follow-actions";
 import { addOrRemoveStarToContents } from "@/lib/utils/actions/star-actions";
 import { formatDate } from "@/lib/utils/utils";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HiDownload, HiOutlineUserAdd } from "react-icons/hi";
+import { HiDownload } from "react-icons/hi";
 import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
+import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
+import Markdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import AskAI from "./AskAI/AskAI";
-import { SlUserFollow } from "react-icons/sl";
-import { SlUserFollowing } from "react-icons/sl";
-import { followAction } from "@/lib/utils/actions/follow-actions";
-import { get } from "http";
-import Markdown from "react-markdown";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
