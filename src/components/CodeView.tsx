@@ -9,7 +9,7 @@ import { formatDate } from "@/lib/utils/utils";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiDownload, HiOutlineUserAdd } from "react-icons/hi";
 import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
 import SyntaxHighlighter from "react-syntax-highlighter";
@@ -17,6 +17,9 @@ import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import AskAI from "./AskAI/AskAI";
+import { SlUserFollow } from "react-icons/sl";
+import { SlUserFollowing } from "react-icons/sl";
+import { followAction } from "@/lib/utils/actions/follow-actions";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -45,6 +48,21 @@ export default function CodeView({
     content.starred_by?.includes(user.id),
   );
   const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0);
+  const [isFollowed, setIsFollowed] = useState(false);
+
+  useEffect(() => {
+    // viewer id follower listesinde var ise takip ediliyor demek. viewer id yok ise takip edilmiyor demek
+    if (!viewerID) {
+      return;
+    }
+    if (user.followers?.includes(viewerID)) {
+      setIsFollowed(true);
+    }
+    // viewer id follower listesinde yok ise takip edilmiyor demek. viewer id yok ise takip edilmiyor demek
+    else {
+      setIsFollowed(false);
+    }
+  }, [user.followers, viewerID]);
 
   return (
     <div className="place-items-left container mx-auto flex w-full flex-col justify-center gap-4">
@@ -72,15 +90,29 @@ export default function CodeView({
         </Link>
         <Button
           isIconOnly
-          className="bg-transparent"
+          className="bg-transparent hover:text-blue-500"
           onClick={(e) => {
             if (isUserDeleted) {
-              e.preventDefault();
+              toast.error("Bu kullanıcı silinmiş.");
             }
-            toast.error("Bu özellik şu anda kullanılamamaktadır.");
+            if (!isAuth || !viewerID) {
+              toast.error("Bu özelliği kullanabilmek için giriş yapmalısınız.");
+              return;
+            }
+            if (!isUserDeleted && user.id !== viewerID) {
+              followAction(user, viewerID, isFollowed ? "Unfollow" : "Follow");
+              setIsFollowed(!isFollowed);
+            }
+            if (user.id === viewerID) {
+              toast.error("Kendinizi takip edemezsiniz.");
+            }
           }}
         >
-          <HiOutlineUserAdd size={"20"} />
+          {isFollowed ? (
+            <SlUserFollowing size={22} />
+          ) : (
+            <SlUserFollow size={22} />
+          )}
         </Button>
       </div>
       <div className="flex flex-col place-items-center justify-center">

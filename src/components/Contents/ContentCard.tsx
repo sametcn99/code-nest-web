@@ -86,7 +86,7 @@ export default function ContentCard({
           <CardHeader className="flex flex-row justify-between text-2xl font-bold">
             <Link
               href={`/user/${user.username || user.sub}`}
-              className="flex w-full items-center rounded-xl transition-all duration-500"
+              className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/30"
             >
               <Image
                 src={user.avatar_url || "/images/default_avatar.png"}
