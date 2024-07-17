@@ -20,6 +20,8 @@ import AskAI from "./AskAI/AskAI";
 import { SlUserFollow } from "react-icons/sl";
 import { SlUserFollowing } from "react-icons/sl";
 import { followAction } from "@/lib/utils/actions/follow-actions";
+import { get } from "http";
+import Markdown from "react-markdown";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -179,27 +181,35 @@ export default function CodeView({
                 </Button>
               </div>
               <div className="min-w-96">
-                <SyntaxHighlighter
-                  key={index}
-                  CodeTag={Card}
-                  codeTagProps={{
-                    style: {
+                {getLangFromFileExtension(
+                  getFileExtension(file.filename) ?? "",
+                ) === "markdown" ? (
+                  <Markdown>{file.value}</Markdown>
+                ) : (
+                  <SyntaxHighlighter
+                    key={index}
+                    CodeTag={Card}
+                    codeTagProps={{
+                      style: {
+                        backgroundColor: "transparent",
+                        backdropFilter: "blur(0.253rem)",
+                        padding: "1.3rem",
+                      },
+                    }}
+                    wrapLongLines={true}
+                    customStyle={{
                       backgroundColor: "transparent",
-                      backdropFilter: "blur(0.253rem)",
-                      padding: "1.3rem",
-                    },
-                  }}
-                  wrapLongLines={true}
-                  customStyle={{
-                    backgroundColor: "transparent",
-                  }}
-                  useInlineStyles={true}
-                  language="javascript"
-                  style={irBlack}
-                  // showLineNumbers bunu ekleyince responsive bozuluyor daha sonra düzelt
-                >
-                  {file.value}
-                </SyntaxHighlighter>
+                    }}
+                    useInlineStyles={true}
+                    language={getLangFromFileExtension(
+                      getFileExtension(file.filename) ?? "",
+                    )}
+                    style={irBlack}
+                    // showLineNumbers bunu ekleyince responsive bozuluyor daha sonra düzelt
+                  >
+                    {file.value}
+                  </SyntaxHighlighter>
+                )}
               </div>
             </Tab>
           ))}
