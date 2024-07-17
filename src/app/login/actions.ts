@@ -1,6 +1,7 @@
 "use server";
 import { createClient } from "@/lib/utils/supabase/server";
 import { notFound, redirect } from "next/navigation";
+import axios from "axios";
 
 export async function signInWithDiscord() {
   const supabase = createClient();
@@ -12,21 +13,23 @@ export async function signInWithDiscord() {
   });
 
   if (data.url) {
-    // Send a webhook message to GitHub upon successful login
+    // Send a message to the Discord webhook
     try {
-      await fetch("https://discord.com/api/webhooks/1263082335188815952/O9lu2g0jnoOHO4fbIpfvOhwUV9YbU1SRneyzvQjiDl3wnbj5V1omqOF3iOSzayZfs5Z8", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: `User successfully signed in with Discord.`,
-        }),
+      await axios.post("https://discord.com/api/webhooks/1263082335188815952/O9lu2g0jnoOHO4fbIpfvOhwUV9YbU1SRneyzvQjiDl3wnbj5V1omqOF3iOSzayZfs5Z8", {
+        content: "A user has successfully signed in with Discord!",
+        // Optionally, add more information about the user or the event
+        embeds: [
+          {
+            title: "User Sign-In",
+            description: "A user has successfully signed in with Discord!",
+            color: 3066993,
+          },
+        ],
       });
     } catch (webhookError) {
-      console.error("Error sending webhook message to GitHub:", webhookError.message);
+      console.error("Error sending message to Discord webhook:", webhookError.message);
     }
-    
+
     redirect(data.url); // use the redirect API for your server framework
   }
 
