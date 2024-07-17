@@ -8,13 +8,15 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function UserButton({
-  username,
-  avatar_url,
-}: {
+type UserButtonProps = {
+  /**User name */
   username: string;
+
+  /**User avatar */
   avatar_url: string;
-}) {
+};
+
+export default function UserButton({ username, avatar_url }: UserButtonProps) {
   return (
     <>
       {username ? (

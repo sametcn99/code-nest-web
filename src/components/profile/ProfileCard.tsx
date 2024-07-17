@@ -69,28 +69,18 @@ export default function ProfileCard({
   const [isFollowed, setIsFollowed] = useState(false);
 
   useEffect(() => {
-    // viewer id follower listesinde var ise takip ediliyor demek. viewer id yok ise takip edilmiyor demek
-    if (!viewerID) {
-      return;
-    }
-    if (user.followers?.includes(viewerID)) {
-      setIsFollowed(true);
-    }
-    // viewer id follower listesinde yok ise takip edilmiyor demek. viewer id yok ise takip edilmiyor demek
-    else {
-      setIsFollowed(false);
-    }
+    if (!viewerID) return;
+    if (user.followers?.includes(viewerID)) setIsFollowed(true);
+    else setIsFollowed(false);
   }, [user.followers, viewerID]);
 
   useEffect(() => {
-    if (isUserNameEditing || isBannerUrlEditing || isBioEditing) {
+    if (isUserNameEditing || isBannerUrlEditing || isBioEditing)
       setIsChangesSaved(false);
-    }
   }, [isUserNameEditing, isBannerUrlEditing, isBioEditing]);
 
-  const handleBannerUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBannerUrlChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDummyBannerUrl(e.target.value);
-  };
 
   const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBio(e.target.value);
@@ -110,27 +100,21 @@ export default function ProfileCard({
         userId: user.id,
       });
       if (!res) alert("Bir şeyler ters gitti.");
-    } else if (dummyBannerUrl === "") {
-      alert("Banner URL boş bırakılamaz.");
-    } else {
-      alert("Bir şeyler ters gitti.");
-    }
+    } else if (dummyBannerUrl === "") alert("Banner URL boş bırakılamaz.");
+    else alert("Bir şeyler ters gitti.");
 
     if (username !== user.username && username) {
       // Save changes to the database here.
       const res = await updateUserName({ username, userId: user.id });
       if (!res) alert("something went wrong.");
-    } else if (username === "") {
-      alert("Kullanıcı adı kısmı boş bırakılamaz.");
-    }
+    } else if (username === "") alert("Kullanıcı adı kısmı boş bırakılamaz.");
 
     if (bio !== user.bio && bio) {
       // Save changes to the database here.
       const res = await updateBio({ bio, userId: user.id });
       if (!res) alert("Bir şeyler ters gitti.");
-    } else if (bio === "") {
-      alert("Biyografi kısmı boş bırakılamaz.");
-    }
+    } else if (bio === "") alert("Biyografi kısmı boş bırakılamaz.");
+
     setIsChangesSaved(true);
     setIsBioEditing(false);
     setIsUserNameEditing(false);

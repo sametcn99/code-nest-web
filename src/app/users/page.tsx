@@ -1,8 +1,7 @@
-import { createClient } from "@/lib/utils/supabase/server";
-import React from "react";
-import { Tables } from "../../../types/supabase";
 import ProfileCard from "@/components/profile/ProfileCard";
+import { createClient } from "@/lib/utils/supabase/server";
 import { Input } from "@nextui-org/input";
+import { Tables } from "../../../types/supabase";
 
 export default async function Page() {
   const supabase = createClient();

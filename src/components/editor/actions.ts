@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/utils/supabase/client";
 import { generateRandomNumber } from "@/lib/utils/utils";
+import { toast } from "sonner";
 
 /**
  * Posts data to the server.
@@ -20,7 +21,7 @@ export const postData = async (
   const user_id = auth.data.user?.id;
 
   if (!auth) {
-    console.error("User not found");
+    toast.error("User not found");
     return null;
   }
 

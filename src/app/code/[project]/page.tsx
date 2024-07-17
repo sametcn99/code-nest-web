@@ -1,8 +1,8 @@
 import CodeView from "@/components/CodeView";
+import RandomContents from "@/components/ui/RandomContents";
 import { createClient } from "@/lib/utils/supabase/server";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";
-import RandomContents from "@/components/ui/RandomContents";
 
 export default async function Page({
   params,

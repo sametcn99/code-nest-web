@@ -40,11 +40,8 @@ export default function Editor() {
 
   const saveComponents = () => {
     postData(components, title, description).then((res) => {
-      if (res !== null) {
-        router.push(res.pathname);
-      } else {
-        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-      }
+      if (res !== null) router.push(res.pathname);
+      else alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     });
   };
 

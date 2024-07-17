@@ -51,17 +51,9 @@ export default function CodeView({
   const [isFollowed, setIsFollowed] = useState(false);
 
   useEffect(() => {
-    // viewer id follower listesinde var ise takip ediliyor demek. viewer id yok ise takip edilmiyor demek
-    if (!viewerID) {
-      return;
-    }
-    if (user.followers?.includes(viewerID)) {
-      setIsFollowed(true);
-    }
-    // viewer id follower listesinde yok ise takip edilmiyor demek. viewer id yok ise takip edilmiyor demek
-    else {
-      setIsFollowed(false);
-    }
+    if (!viewerID) return;
+    if (user.followers?.includes(viewerID)) setIsFollowed(true);
+    else setIsFollowed(false);
   }, [user.followers, viewerID]);
 
   return (

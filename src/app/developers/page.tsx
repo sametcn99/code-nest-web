@@ -26,7 +26,7 @@ export default async function Page() {
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
         {users && users.length > 0 ? (
           users.map((user, index) => (
-            <ProfileCard user={user} auth={false} key={index} className=""/>
+            <ProfileCard user={user} auth={false} key={index} className="" />
           ))
         ) : (
           <FaCrown />

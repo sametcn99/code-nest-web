@@ -1,8 +1,4 @@
 import { createClient } from "@/lib/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { FaDiscord } from "react-icons/fa";
-import { signInWithDiscord } from "./actions";
-import Link from "next/link";
 import {
   Card,
   CardBody,
@@ -11,6 +7,10 @@ import {
   Divider,
 } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { FaDiscord } from "react-icons/fa";
+import { signInWithDiscord } from "./actions";
 
 export default async function LoginPage() {
   const supabase = createClient();
@@ -20,7 +20,7 @@ export default async function LoginPage() {
   }
   return (
     <main className="mx-auto flex flex-col items-center justify-center space-y-4">
-      <Card className="max-w-[28rem] bg-transparent p-4 backdrop-blur-sm border-b-1">
+      <Card className="max-w-[28rem] border-b-1 bg-transparent p-4 backdrop-blur-sm">
         <CardHeader className="flex flex-col place-items-center justify-center gap-4 text-center text-3xl font-bold">
           <Image
             src="/icons/favicon-512x512.png"
