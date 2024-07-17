@@ -23,7 +23,10 @@ import { TbEdit } from "react-icons/tb";
 import { Tables } from "../../../types/supabase";
 import RichTextRender from "../ui/RichTextRender";
 import { cn } from "@/lib/utils/cn";
-
+import { SlUserFollow } from "react-icons/sl";
+import { SlUserFollowing } from "react-icons/sl";
+import { followAction } from "@/lib/utils/actions/follow-actions";
+import { toast } from "sonner";
 /**
  * Props for the ProfileCard component.
  */
@@ -33,6 +36,9 @@ type ProfileCardProps = {
 
   /** Indicates whether the user is authenticated. */
   auth: boolean;
+
+  /** The viewer ID. */
+  viewerID?: string;
 
   /** The component class name. */
   className?: React.HtmlHTMLAttributes<HTMLDivElement>["className"];
@@ -48,6 +54,7 @@ type ProfileCardProps = {
 export default function ProfileCard({
   user,
   auth,
+  viewerID,
   className,
 }: ProfileCardProps) {
   const [isUserNameEditing, setIsUserNameEditing] = useState(false);
@@ -59,6 +66,21 @@ export default function ProfileCard({
   const [isChangesSaved, setIsChangesSaved] = useState(true);
   const [isBioEditing, setIsBioEditing] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isFollowed, setIsFollowed] = useState(false);
+
+  useEffect(() => {
+    // viewer id follower listesinde var ise takip ediliyor demek. viewer id yok ise takip edilmiyor demek
+    if (!viewerID) {
+      return;
+    }
+    if (user.followers?.includes(viewerID)) {
+      setIsFollowed(true);
+    }
+    // viewer id follower listesinde yok ise takip edilmiyor demek. viewer id yok ise takip edilmiyor demek
+    else {
+      setIsFollowed(false);
+    }
+  }, [user.followers, viewerID]);
 
   useEffect(() => {
     if (isUserNameEditing || isBannerUrlEditing || isBioEditing) {
@@ -198,29 +220,56 @@ export default function ProfileCard({
             className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
           />
           <div className="flex flex-col">
-            {auth && isUserNameEditing ? (
-              <input
-                className="h-10 w-60 bg-transparent text-2xl font-semibold hover:outline-none"
-                placeholder="Kullanıcı adı"
-                onChange={handleUsernameChange}
-                value={username ?? ""}
-              />
-            ) : (
-              <p className="inline-flex h-10 w-60 place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
-                <Link className="hover:underline" href={`/user/${user.sub}`}>
-                  {username ?? "Kullanıcı adı"}
-                </Link>
-                {auth && (
-                  <Button
-                    isIconOnly
-                    className="bg-transparent hover:text-blue-600"
-                    onClick={() => setIsUserNameEditing(true)}
-                  >
-                    <TbEdit size={20} />
-                  </Button>
-                )}
-              </p>
-            )}
+            <div className="inline-flex gap-2">
+              {auth && isUserNameEditing ? (
+                <input
+                  className="h-10 w-fit bg-transparent text-2xl font-semibold hover:outline-none"
+                  placeholder="Kullanıcı adı"
+                  onChange={handleUsernameChange}
+                  value={username ?? ""}
+                />
+              ) : (
+                <p className="inline-flex h-10 w-fit place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
+                  <Link className="hover:underline" href={`/user/${user.sub}`}>
+                    {username ?? "Kullanıcı adı"}
+                  </Link>
+                  {auth && (
+                    <Button
+                      isIconOnly
+                      className="bg-transparent hover:text-blue-600"
+                      onClick={() => setIsUserNameEditing(true)}
+                    >
+                      <TbEdit size={20} />
+                    </Button>
+                  )}
+                </p>
+              )}
+              {!auth && (
+                <Button
+                  isIconOnly
+                  className="bg-transparent hover:text-blue-500"
+                  onClick={(e) => {
+                    if (user.id !== viewerID && viewerID) {
+                      followAction(
+                        user,
+                        viewerID,
+                        isFollowed ? "Unfollow" : "Follow",
+                      );
+                      setIsFollowed(!isFollowed);
+                    }
+                    if (user.id === viewerID) {
+                      toast.error("Kendinizi takip edemezsiniz.");
+                    }
+                  }}
+                >
+                  {isFollowed ? (
+                    <SlUserFollowing size={22} />
+                  ) : (
+                    <SlUserFollow size={22} />
+                  )}
+                </Button>
+              )}
+            </div>
             <span className="pr-2 text-muted">{user.roles?.join(", ")}</span>
           </div>
         </div>

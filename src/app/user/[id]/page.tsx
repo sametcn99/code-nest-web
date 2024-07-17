@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="mx-auto w-[60%]">
-      <ProfileCard user={user} auth={auth} />
+      <ProfileCard user={user} auth={auth} viewerID={authUser.data.user?.id} />
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {contents.map((content, index) => (
           <ContentCard content={content} key={index} auth={auth} />
