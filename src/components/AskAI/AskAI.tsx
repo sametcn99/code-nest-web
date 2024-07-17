@@ -57,7 +57,7 @@ export default function AskAI({
         }}
       >
         <RiQuestionnaireFill size={22} />
-        <span className="">AI&apos;ya Sor</span>
+        <span className="">AI&apos;a Sor</span>
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} closeButton={<></>}>
         <ModalContent className="max-h-[80%] overflow-y-scroll">
