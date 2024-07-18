@@ -30,6 +30,9 @@ type ContentCardProps = {
   /** Specifies the content type, using the structure of the "files" table from the database. */
   content: Tables<"files">;
 
+  /** Specifies the user type, using the structure of the "profiles" table from the database. */
+  user: Tables<"profiles">;
+
   /** Indicates whether the user is authenticated. */
   auth: boolean;
   /** Optional CSS class name for styling the component. */
@@ -42,29 +45,11 @@ type ContentCardProps = {
  */
 export default function ContentCard({
   content,
+  user,
   auth,
   className,
 }: ContentCardProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [user, setUser] = useState<null | Tables<"profiles">>(null);
-  const supabase = createClient();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("avatar_url, id, username, full_name")
-        .eq("id", content.user_id)
-        .single();
-      if (error) {
-        console.error(error);
-        notFound();
-      }
-      setUser(data as Tables<"profiles">);
-    };
-
-    fetchUser();
-  }, [content.user_id, supabase]);
 
   const onRemove = async () => {
     const res = await removeContent(content.content_id);

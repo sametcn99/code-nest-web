@@ -5,13 +5,32 @@ import Loading from "../Loading";
 
 export default async function Page() {
   const supabase = createClient();
+  let contents: Tables<"files">[] = [];
   const { data, error } = await supabase
     .from("files")
     .select("created_at, title, description, id, user_id, content_id")
     .order("created_at", { ascending: false });
 
+  contents = data as Tables<"files">[];
+
   if (error) {
     return <div>Error loading files</div>;
+  }
+
+  const userMap: Record<string, Tables<"profiles">> = {};
+
+  // Fetch user data for each content
+  for (const content of contents) {
+    if (!userMap[content.user_id]) {
+      const { data: userRes, error: userError } = await supabase
+        .from("profiles")
+        .select("avatar_url, id, username, full_name")
+        .eq("id", content.user_id)
+        .single();
+      if (!userError) {
+        userMap[content.user_id] = userRes as Tables<"profiles">;
+      }
+    }
   }
 
   return (
@@ -23,15 +42,16 @@ export default async function Page() {
         </h2>
       </div>
       <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {data &&
-          data.map((file) => (
+        {contents &&
+          contents.map((file) => (
             <ContentCard
               key={file.id}
               content={file as Tables<"files">}
+              user={userMap[file.user_id] as Tables<"profiles">}
               auth={false}
             />
           ))}
-        {!data && <Loading />}
+        {!contents && <Loading />}
       </main>
     </section>
   );

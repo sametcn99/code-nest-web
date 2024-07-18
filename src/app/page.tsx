@@ -18,6 +18,26 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .limit(10);
 
+  const userMap: Record<string, Tables<"profiles">> = {};
+
+  if (error || !contents) {
+    return <div>Error loading files</div>;
+  }
+
+  // Fetch user data for each content
+  for (const content of contents) {
+    if (!userMap[content.user_id]) {
+      const { data: userRes, error: userError } = await supabase
+        .from("profiles")
+        .select("avatar_url, id, username, full_name")
+        .eq("id", content.user_id)
+        .single();
+      if (!userError) {
+        userMap[content.user_id] = userRes as Tables<"profiles">;
+      }
+    }
+  }
+
   return (
     <section className="mt-20 flex w-full flex-col place-items-center gap-40">
       <main className="mx-auto flex w-fit flex-col place-items-center justify-center gap-2">
@@ -66,6 +86,7 @@ export default async function Home() {
         <InfiniteMovingCards
           speed={200}
           items={contents as Tables<"files">[]}
+          users={userMap}
           title={"Son Paylaşılanlar"}
         />
       ) : (

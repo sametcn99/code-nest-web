@@ -4,12 +4,18 @@ import { cn } from "@/utils/cn";
 import React, { useEffect, useState } from "react";
 import { Tables } from "../../types/supabase";
 import ContentCard from "./ContentCard";
+import { user } from "@nextui-org/theme";
 
 type InfiniteMovingCardsProps = {
   /**
    * Displayed items in the moving cards component.
    */
   items: Tables<"files">[];
+
+  /**
+   * User data for the moving cards.
+   */
+  users: Record<string, Tables<"profiles">>;
 
   /**
    * Direction of the movement, can be 'left' or 'right'.
@@ -52,6 +58,7 @@ type InfiniteMovingCardsProps = {
  */
 export const InfiniteMovingCards = ({
   items,
+  users,
   direction = "left",
   speed,
   pauseOnHover = true,
@@ -132,6 +139,7 @@ export const InfiniteMovingCards = ({
             <ContentCard
               content={item}
               auth={false}
+              user={users[item.user_id] as Tables<"profiles">}
               className="min-h-80 w-80"
             />
           </li>
