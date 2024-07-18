@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
+  optimizeFonts: true,
   images: {
     remotePatterns: [
       {
@@ -18,7 +20,7 @@ const nextConfig = {
         hostname: "unsplash.com",
         protocol: "https",
       },
-      
+
       {
         hostname: "imgur.com",
         protocol: "https",

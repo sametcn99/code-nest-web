@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils/cn";
 import React from "react";
 
 /**Rich Text Render component props */
@@ -48,7 +49,7 @@ const RichTextRender: React.FC<RichTextRenderProps> = ({
             <a
               key={index}
               href={links[index - 1]}
-              className={linkClassName}
+              className={cn("break-all text-blue-500", linkClassName)}
               target={target}
               rel="noopener noreferrer"
             >
@@ -72,13 +73,16 @@ const RichTextRender: React.FC<RichTextRenderProps> = ({
     const paragraphs = content.split("\n");
 
     return paragraphs.map((paragraph, index) => (
-      <p key={index} className={className}>
+      <p
+        key={index}
+        className={cn("inline-flex flex-wrap break-all", className)}
+      >
         {paragraph.split(emailRegex).map((item, index) =>
           emailRegex.test(item) ? (
             <a
               key={index}
               href={`mailto:${item}`}
-              className={linkClassName}
+              className={cn("text-blue-500", linkClassName)}
               target={target}
             >
               {item}

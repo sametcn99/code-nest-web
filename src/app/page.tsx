@@ -1,11 +1,11 @@
 import FeaturesSectionDemo from "@/components/ui/Features";
 import { InfiniteMovingCards } from "@/components/ui/InfiniteMovingCards";
 import { createClient } from "@/lib/utils/supabase/server";
-import Image from "next/image";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
 import { RiFileEditLine } from "react-icons/ri";
 import { Tables } from "../../types/supabase";
+import Loading from "./Loading";
 
 export default async function Home() {
   const supabase = createClient();
@@ -18,30 +18,21 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .limit(10);
 
-  const project_name = "CodeNest";
-
   return (
     <section className="mt-20 flex w-full flex-col place-items-center gap-40">
       <main className="mx-auto flex w-fit flex-col place-items-center justify-center gap-2">
         <div>
           <h1 className="flex w-full flex-row flex-wrap-reverse items-center justify-center gap-2 text-6xl font-semibold">
-            <Image
-              src="/icons/favicon.ico"
-              width={45}
-              height={45}
-              alt="logo of the project and same with first letter of the project name"
-              className="tranisition-all select-none duration-700 ease-in-out hover:-rotate-45 hover:scale-110"
-            />
-            <span className="text-gray-400">
-              {project_name.toUpperCase().slice(1, project_name.length)}
-            </span>
+            <span>CODENEST</span>
           </h1>
           <p className="my-2 flex w-full items-center justify-center text-2xl text-muted">
-          En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.
+            En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.
           </p>
         </div>
         <div className="flex h-auto items-center justify-center gap-[0.9375rem] px-[1.5625rem]">
           <Link
+            title="Yeni bir proje paylaşın"
+            aria-label="Yeni bir proje paylaşın"
             href={"/new"}
             className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
           >
@@ -49,6 +40,8 @@ export default async function Home() {
           </Link>
           {!user.user ? (
             <Link
+              title="Giriş Yap"
+              aria-label="Giriş Yap"
               href={"/login"}
               className="flex h-10 cursor-pointer items-center justify-center rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
             >
@@ -59,6 +52,8 @@ export default async function Home() {
           )}
         </div>
         <Link
+          title="Topluluk"
+          aria-label="Topluluk"
           href={"/community"}
           className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
         >
@@ -67,7 +62,15 @@ export default async function Home() {
         </Link>
       </main>
       <FeaturesSectionDemo />
-      <InfiniteMovingCards speed={100} items={contents as Tables<"files">[]}  title={"Son Paylaşılanlar"}/>
+      {contents && contents.length > 0 ? (
+        <InfiniteMovingCards
+          speed={200}
+          items={contents as Tables<"files">[]}
+          title={"Son Paylaşılanlar"}
+        />
+      ) : (
+        <Loading />
+      )}
     </section>
   );
 }

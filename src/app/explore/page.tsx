@@ -1,13 +1,13 @@
 import ContentCard from "@/components/Contents/ContentCard";
 import { createClient } from "@/lib/utils/supabase/server";
 import { Tables } from "../../../types/supabase";
+import Loading from "../Loading";
 
 export default async function Page() {
   const supabase = createClient();
-  let files: Tables<"files">;
   const { data, error } = await supabase
     .from("files")
-    .select("*")
+    .select("created_at, title, description, id, user_id, content_id")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -23,10 +23,17 @@ export default async function Page() {
           Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
         </h2>
       </div>
-      <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data.map((file) => (
-          <ContentCard key={file.id} content={file} auth={false} />
-        ))}
+      <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {data &&
+          data.map((file) => (
+            <ContentCard
+              key={file.id}
+              content={file as Tables<"files">}
+              auth={false}
+            />
+          ))}
+
+        {!data && <Loading />}
       </main>
     </section>
   );

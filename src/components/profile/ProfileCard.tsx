@@ -1,9 +1,11 @@
 "use client";
+import { followAction } from "@/lib/utils/actions/follow-actions";
 import {
   updateBannerUrl,
   updateBio,
   updateUserName,
 } from "@/lib/utils/actions/user-actions";
+import { cn } from "@/lib/utils/cn";
 import { isValidBannerUrl } from "@/lib/utils/validators/image-validate";
 import {
   Button,
@@ -19,14 +21,11 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
 import { TbEdit } from "react-icons/tb";
+import { toast } from "sonner";
 import { Tables } from "../../../types/supabase";
 import RichTextRender from "../ui/RichTextRender";
-import { cn } from "@/lib/utils/cn";
-import { SlUserFollow } from "react-icons/sl";
-import { SlUserFollowing } from "react-icons/sl";
-import { followAction } from "@/lib/utils/actions/follow-actions";
-import { toast } from "sonner";
 /**
  * Props for the ProfileCard component.
  */
@@ -203,7 +202,7 @@ export default function ProfileCard({
             alt="user avatar"
             className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col overflow-x-scroll scrollbar-hide">
             <div className="inline-flex gap-2">
               {auth && isUserNameEditing ? (
                 <input
@@ -254,7 +253,11 @@ export default function ProfileCard({
                 </Button>
               )}
             </div>
-            <span className="pr-2 text-muted">{user.roles?.join(", ")}</span>
+            {user.roles && (
+              <span className="break-all pr-2 text-muted">
+                {user.roles?.join(", ")}
+              </span>
+            )}
           </div>
         </div>
       </div>

@@ -53,14 +53,14 @@ export default function ContentCard({
     const fetchUser = async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("*")
+        .select("avatar_url, id, username, full_name")
         .eq("id", content.user_id)
         .single();
       if (error) {
         console.error(error);
         notFound();
       }
-      setUser(data);
+      setUser(data as Tables<"profiles">);
     };
 
     fetchUser();
@@ -85,6 +85,8 @@ export default function ContentCard({
         >
           <CardHeader className="flex flex-row justify-between text-2xl font-bold">
             <Link
+              title={`${user.username || user.sub}'s Profile`}
+              aria-label={`${user.username || user.sub}'s Profile`}
               href={`/user/${user.username || user.sub}`}
               className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/30"
             >
@@ -146,6 +148,8 @@ export default function ContentCard({
           </CardBody>
           <CardFooter className="flex flex-col">
             <Link
+              title={`${content.title} adlı projeyi görüntüle`}
+              aria-label={`${content.title} adlı projeyi görüntüle`}
               className="w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white"
               href={`/code/${content.content_id}`}
             >
