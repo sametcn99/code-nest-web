@@ -50,7 +50,6 @@ export default function CodeView({
   const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0);
   const [isFollowed, setIsFollowed] = useState(false);
 
-
   const postData = async (
     components: FileTypes[],
     title: string,
@@ -64,11 +63,11 @@ export default function CodeView({
         },
         body: JSON.stringify({ components, title, description }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to save components");
       }
-  
+
       const data = await response.json();
       return data;
     } catch (error) {
@@ -76,7 +75,6 @@ export default function CodeView({
       return null;
     }
   };
-  
 
   useEffect(() => {
     if (!viewerID) return;
@@ -192,7 +190,7 @@ export default function CodeView({
                   isIconOnly
                   className="bg-transparent hover:text-purple-600"
                   onClick={async () => {
-                    const res = await downloadContents(content.content_id);
+                    const res = await downloadContents(files);
                   }}
                 >
                   <HiDownload size={22} className="cursor-pointer" />

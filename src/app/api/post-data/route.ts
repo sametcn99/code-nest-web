@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { generateRandomNumber } from "@/utils/utils";
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       response: "Components saved successfully",
+      pathname: path.join("/code", data.content_id.toString()),
       statusText: statusText,
       status: status,
     });

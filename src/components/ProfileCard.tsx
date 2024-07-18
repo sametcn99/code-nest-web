@@ -1,10 +1,6 @@
 "use client";
 import { followAction } from "@/utils/actions/follow-actions";
-import {
-  updateBannerUrl,
-  updateBio,
-  updateUserName,
-} from "@/utils/actions/user-actions";
+import { updateProfile } from "@/utils/actions/user-actions";
 import { cn } from "@/utils/cn";
 import { isValidBannerUrl } from "@/utils/image-validate";
 import {
@@ -57,16 +53,15 @@ export default function ProfileCard({
   viewerID,
   className,
 }: ProfileCardProps) {
-  const [isUserNameEditing, setIsUserNameEditing] = useState(false);
-  const [username, setUsername] = useState(user.username);
-  const [bio, setBio] = useState(user.bio ?? "");
+  const [userData, setUserData] = useState(user);
   const [bannerUrl, setBannerUrl] = useState(user.banner_url);
   const [dummyBannerUrl, setDummyBannerUrl] = useState(user.banner_url);
+  const [isUserNameEditing, setIsUserNameEditing] = useState(false);
   const [isBannerUrlEditing, setIsBannerUrlEditing] = useState(false);
   const [isChangesSaved, setIsChangesSaved] = useState(true);
   const [isBioEditing, setIsBioEditing] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isFollowed, setIsFollowed] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   useEffect(() => {
     if (!viewerID) return;
@@ -83,35 +78,17 @@ export default function ProfileCard({
     setDummyBannerUrl(e.target.value);
 
   const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBio(e.target.value);
+    setUserData({ ...userData, bio: e.target.value });
     setIsBioEditing(true);
   };
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
+    setUserData({ ...userData, username: e.target.value });
     setIsUserNameEditing(true);
   };
 
   const handleSaveChanges = async () => {
-    if (dummyBannerUrl === bannerUrl && dummyBannerUrl) {
-      const res = await updateBannerUrl({
-        bannerUrl: dummyBannerUrl,
-        userId: user.id,
-      });
-      if (!res) alert("Bir şeyler ters gitti.");
-    } else if (dummyBannerUrl === "") alert("Banner URL boş bırakılamaz.");
-    else alert("Bir şeyler ters gitti.");
-
-    if (username !== user.username && username) {
-      const res = await updateUserName({ username, userId: user.id });
-      if (!res) alert("something went wrong.");
-    } else if (username === "") alert("Kullanıcı adı kısmı boş bırakılamaz.");
-
-    if (bio !== user.bio && bio) {
-      const res = await updateBio({ bio, userId: user.id });
-      if (!res) alert("Bir şeyler ters gitti.");
-    } else if (bio === "") alert("Biyografi kısmı boş bırakılamaz.");
-
+    updateProfile(userData);
     setIsChangesSaved(true);
     setIsBioEditing(false);
     setIsUserNameEditing(false);
@@ -130,7 +107,7 @@ export default function ProfileCard({
       return;
     }
     console.log("Banner URL is valid:", dummyBannerUrl);
-    setBannerUrl(dummyBannerUrl);
+    setUserData({ ...userData, banner_url: dummyBannerUrl });
     setIsBannerUrlEditing(true);
   };
 
@@ -185,7 +162,7 @@ export default function ProfileCard({
           </ModalContent>
         </Modal>
         <Image
-          src={bannerUrl || "/images/default_banner.gif"}
+          src={userData.banner_url || "/images/default_banner.gif"}
           alt="user banner"
           fill
           objectFit="cover"
@@ -207,12 +184,12 @@ export default function ProfileCard({
                   className="h-10 w-fit bg-transparent text-2xl font-semibold hover:outline-none"
                   placeholder="Kullanıcı adı"
                   onChange={handleUsernameChange}
-                  value={username ?? ""}
+                  value={userData.username ?? ""}
                 />
               ) : (
                 <p className="inline-flex h-10 w-fit place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
                   <Link className="hover:underline" href={`/user/${user.sub}`}>
-                    {username ?? "Kullanıcı adı"}
+                    {userData.username ?? "Kullanıcı adı"}
                   </Link>
                   {auth && (
                     <Button
@@ -272,7 +249,7 @@ export default function ProfileCard({
           </h2>
           {auth && isBioEditing && (
             <Textarea
-              value={bio ?? ""}
+              value={userData.bio ?? ""}
               onChange={handleBioChange}
               className="w-full"
               placeholder="Biyografi"
@@ -282,7 +259,7 @@ export default function ProfileCard({
             <Card className="min-h-24 w-full p-2 text-white">
               <div className="min-h-24 w-full p-2 text-white">
                 <RichTextRender
-                  content={bio ?? ""}
+                  content={userData.bio ?? ""}
                   linkClassName="hover:underline"
                 />
               </div>
@@ -298,7 +275,7 @@ export default function ProfileCard({
           {auth === false && (
             <div className="min-h-24 w-full p-2 text-white">
               <RichTextRender
-                content={bio ?? ""}
+                content={userData.bio ?? ""}
                 linkClassName="hover:underline"
               />
             </div>

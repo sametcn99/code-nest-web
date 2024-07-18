@@ -1,12 +1,12 @@
-import { toast } from "sonner";
 import { Tables } from "../../../types/supabase";
 
 /**
- * Performs the follow or unfollow action on a user.
- * @param user - The user to perform the action on.
+ * Performs a follow or unfollow action on a user profile.
+ * 
+ * @param user - The user profile to perform the action on.
  * @param viewerId - The ID of the viewer performing the action.
- * @param action - The action to perform. Can be "Follow" or "Unfollow".
- * @returns A Promise that resolves to a boolean indicating whether the action was successful.
+ * @param action - The action to perform, either "Follow" or "Unfollow".
+ * @returns A promise that resolves to a boolean indicating whether the action was successful.
  */
 export const followAction = async (
   user: Tables<"profiles">,

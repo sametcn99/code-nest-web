@@ -1,18 +1,13 @@
 import JSZip from "jszip";
-import { createClient } from "../supabase/client";
+import { createClient } from "../supabase/server";
 
 /**
  * Downloads the contents associated with the given content ID.
  * @param content_id - The ID of the content to download.
  * @returns A promise that resolves to a boolean indicating whether the download was successful.
  */
-export async function downloadContents(content_id: number): Promise<boolean> {
-  const supabase = createClient();
-
+export async function downloadContents(files: FileTypes[]): Promise<boolean> {
   try {
-    const data = await fetchContentData(supabase, content_id);
-    const files: FileTypes[] = parseContentData(data);
-
     if (files.length === 0) {
       throw new Error("No files found in the content");
     }
@@ -49,16 +44,6 @@ async function fetchContentData(supabase: any, content_id: number) {
   }
 
   return data;
-}
-
-/**
- * Parses the content data and returns an array of FileTypes.
- *
- * @param data - The data to be parsed.
- * @returns An array of FileTypes.
- */
-function parseContentData(data: any): FileTypes[] {
-  return JSON.parse(JSON.stringify(data.content));
 }
 
 /**

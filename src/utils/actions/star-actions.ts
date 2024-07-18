@@ -1,13 +1,10 @@
-import { toast } from "sonner";
-import { createClient } from "../supabase/client";
-
 /**
- * Adds or removes a star to the contents based on the action provided.
+ * Adds or removes a star to the contents.
  * @param contentId - The ID of the content.
- * @param starredBy - The list of users who have starred the content.
+ * @param starredBy - An array of users who have starred the content.
  * @param userId - The ID of the user performing the action.
  * @param action - The action to perform. Can be "Add" or "Remove".
- * @returns A Promise that resolves to a boolean indicating the success of the operation.
+ * @returns A promise that resolves to a boolean indicating whether the action was successful.
  */
 export const addOrRemoveStarToContents = async (
   contentId: string,

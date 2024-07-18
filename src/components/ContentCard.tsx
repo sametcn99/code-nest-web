@@ -1,7 +1,6 @@
 "use client";
-import { removeContent } from "@/utils/actions/post-actions";
+import { removeContent } from "@/utils/actions/remove-content-actions";
 import { cn } from "@/utils/cn";
-import { createClient } from "@/utils/supabase/client";
 import { formatDate, truncateString } from "@/utils/utils";
 import {
   Button,
@@ -18,8 +17,6 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Tables } from "../../types/supabase";
 
