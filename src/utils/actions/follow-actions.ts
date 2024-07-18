@@ -1,6 +1,5 @@
 import { toast } from "sonner";
 import { Tables } from "../../../types/supabase";
-import { createClient } from "../supabase/client";
 
 /**
  * Performs the follow or unfollow action on a user.
@@ -14,60 +13,22 @@ export const followAction = async (
   viewerId: string,
   action: "Follow" | "Unfollow",
 ): Promise<boolean> => {
-  const supabase = createClient();
-
   try {
-    let followingList: string[] = user.followings ?? [];
-    let followersList: string[] = user.followers ?? [];
-    console.log("followingList", followingList);
-    if (action === "Follow") {
-      followingList.push(user.id);
-      followersList.push(viewerId);
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          followings: followingList,
-        })
-        .eq("id", viewerId);
+    const response = await fetch("/api/follow-action", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user, viewerId, action }),
+    });
 
-      const { error: error2 } = await supabase
-        .from("profiles")
-        .update({
-          followers: followersList,
-        })
-        .eq("id", user.id);
-
-      if (error2) throw error2;
-      if (error) throw error;
-      else {
-        return true;
-      }
-    } else if (action === "Unfollow") {
-      followingList.splice(followingList.indexOf(user.id), 1);
-      followersList.splice(followersList.indexOf(viewerId), 1);
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          followings: followingList,
-        })
-        .eq("id", viewerId);
-      const { error: error2 } = await supabase
-        .from("profiles")
-        .update({
-          followers: followersList,
-        })
-        .eq("id", user.id);
-
-      if (error2) throw error2;
-
-      if (error) throw error;
-      else {
-        return true;
-      }
+    if (!response.ok) {
+      throw new Error("Failed to save components");
     }
-    return false;
+
+    return true;
   } catch (error) {
-    toast.error(`Failed to ${action.toLowerCase()} user`);
+    console.error(error);
     return false;
   }
 };

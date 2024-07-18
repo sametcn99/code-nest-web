@@ -48,26 +48,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
-  const userMap: Record<string, Tables<"profiles">> = {};
-
-  // Fetch user data for each content
-  for (const content of contents) {
-    if (!userMap[content.user_id]) {
-      const { data: userRes, error: userError } = await supabase
-        .from("profiles")
-        .select("avatar_url, id, username, full_name")
-        .eq("id", content.user_id)
-        .single();
-      if (!userError) {
-        userMap[content.user_id] = userRes as Tables<"profiles">;
-      }
-    }
-  }
-
-  if (contentsres) {
-    contents = contentsres;
-  }
-
+  if (contentsres) contents = contentsres;
+  
   return (
     <main className="container mx-auto">
       {user && (
@@ -84,7 +66,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               content={content}
               key={index}
               auth={auth}
-              user={userMap[content.user_id] as Tables<"profiles">}
+              user={user as Tables<"profiles">}
             />
           ))}
       </div>

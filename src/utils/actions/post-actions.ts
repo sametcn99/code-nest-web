@@ -29,32 +29,3 @@ export const removeContent = async (content_id: number): Promise<boolean> => {
     return false;
   }
 };
-
-/**
- * Removes a comment from the database based on comment_id.
- * @param {number} comment_id - The ID of the comment to be removed.
- * @returns {Promise<boolean>} - Returns true if the comment was removed successfully, false otherwise.
- * @throws {Error} - Throws an error if there's an issue with deletion.
- */
-export const removeComment = async (comment_id: number): Promise<boolean> => {
-  const supabase = createClient();
-
-  try {
-    // Delete the comment with the given comment_id
-    const { error } = await supabase
-      .from("comments")
-      .delete()
-      .eq("comment_id", comment_id);
-
-    if (error) throw new Error(`Error removing comment: ${error}`);
-
-    console.log("Comment removed successfully", { comment_id });
-    return true;
-  } catch (error) {
-    console.error(
-      "An unexpected error occurred while removing comment:",
-      error,
-    );
-    return false;
-  }
-};

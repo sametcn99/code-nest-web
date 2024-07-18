@@ -77,7 +77,6 @@ export type Database = {
           full_name: string | null
           id: string
           roles: string[] | null
-          starred_projects: string[] | null
           sub: string
           username: string | null
           website: string | null
@@ -92,7 +91,6 @@ export type Database = {
           full_name?: string | null
           id: string
           roles?: string[] | null
-          starred_projects?: string[] | null
           sub: string
           username?: string | null
           website?: string | null
@@ -107,7 +105,6 @@ export type Database = {
           full_name?: string | null
           id?: string
           roles?: string[] | null
-          starred_projects?: string[] | null
           sub?: string
           username?: string | null
           website?: string | null
