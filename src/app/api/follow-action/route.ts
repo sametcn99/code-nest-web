@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
     const { user, viewerId, action } = await req.json();
 
     const supabase = createClient();
-    const auth = await supabase.auth.getUser();
 
     let followingList: string[] = user.followings ?? [];
     let followersList: string[] = user.followers ?? [];
@@ -33,14 +32,10 @@ export async function POST(req: NextRequest) {
       if (error2) throw error2;
       if (error) throw error;
       else {
-        return NextResponse.json(
-          {
-            response: "success",
-          },
-          {
-            status: 200,
-          },
-        );
+        return NextResponse.json({
+          response: "success",
+          status: 200,
+        });
       }
     } else if (action === "Unfollow") {
       followingList.splice(followingList.indexOf(user.id), 1);
@@ -62,20 +57,17 @@ export async function POST(req: NextRequest) {
 
       if (error) throw error;
       else {
-        return NextResponse.json(
-          {
-            response: "success",
-          },
-          {
-            status: 200,
-          },
-        );
+        return NextResponse.json({
+          response: "success",
+          status: 200,
+        });
       }
     }
   } catch (error) {
-    return NextResponse.json(
-      { response: "An unknown error occurred", error: error },
-      { status: 500 },
-    );
+    return NextResponse.json({
+      response: "An unknown error occurred",
+      error: error,
+      status: 500,
+    });
   }
 }

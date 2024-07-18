@@ -30,19 +30,14 @@ export async function POST(req: NextRequest) {
     if (e) {
       throw e;
     } else {
-      return NextResponse.json(
-        {
-          response: "success",
-        },
-        {
-          status: 200,
-        },
-      );
+      return NextResponse.json({
+        response: "success",
+        status: 200,
+      });
     }
   } catch (error) {
     return NextResponse.json(
-      { response: "An unknown error occurred", error: error },
-      { status: 500 },
+      { response: "An unknown error occurred", error: error, status: 500 },
     );
   }
 }

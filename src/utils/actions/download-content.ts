@@ -1,5 +1,4 @@
 import JSZip from "jszip";
-import { createClient } from "../supabase/server";
 
 /**
  * Downloads the contents associated with the given content ID.
