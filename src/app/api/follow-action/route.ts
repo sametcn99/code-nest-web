@@ -3,15 +3,17 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Handles the POST request for follow/unfollow action.
+ * @param req - The NextRequest object containing the request details.
+ * @returns A NextResponse object with the response data.
+ */
 export async function POST(req: NextRequest) {
   try {
     const { user, viewerId, action } = await req.json();
-
     const supabase = createClient();
-
     let followingList: string[] = user.followings ?? [];
     let followersList: string[] = user.followers ?? [];
-    console.log("followingList", followingList);
     if (action === "Follow") {
       followingList.push(user.id);
       followersList.push(viewerId);
@@ -53,9 +55,8 @@ export async function POST(req: NextRequest) {
         })
         .eq("id", user.id);
 
-      if (error2) throw error2;
-
       if (error) throw error;
+      if (error2) throw error2;
       else {
         return NextResponse.json({
           response: "success",

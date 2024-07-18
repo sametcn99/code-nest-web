@@ -2,7 +2,7 @@ import Loading from "@/app/Loading";
 import CodeView from "@/components/CodeView";
 import RandomContents from "@/components/RandomContents";
 import { createClient } from "@/utils/supabase/server";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";
 
@@ -10,13 +10,8 @@ type Props = {
   params: { project: string; id: string };
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createClient();
-  const auth = await supabase.auth.getUser();
-  const isAuth = auth.data.user !== null;
 
   const { error, data } = await supabase
     .from("files")

@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+
 /**
  * @export
  * @return {*}  {MetadataRoute.Robots}

@@ -1,31 +1,27 @@
-// pages/api/saveComponents.ts
-
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Handles the POST request to remove content.
+ * @param req - The NextRequest object representing the incoming request.
+ * @returns A NextResponse object with the result of the operation.
+ */
 export async function POST(req: NextRequest) {
   try {
     const { content_id }: { content_id: string } = await req.json();
     const supabase = createClient();
-
     const { error: e } = await supabase
       .from("files")
       .delete()
       .eq("content_id", content_id);
-
-    if (e) throw new Error(`Error removing content: ${e}`);
-
-    if (e) {
-      throw e;
-    } else {
-      return NextResponse.json({
-        response: "success",
-        status: 200,
-      });
-    }
+    if (e) throw Error(`Error removing content: ${e}`);
+    if (e) throw e;
+    else return NextResponse.json({ response: "success", status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { response: "An unknown error occurred", error: error, status: 500 },
-    );
+    return NextResponse.json({
+      response: "An unknown error occurred",
+      error: error,
+      status: 500,
+    });
   }
 }

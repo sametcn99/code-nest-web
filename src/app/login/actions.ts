@@ -10,11 +10,6 @@ export async function signInWithDiscord() {
       redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
     },
   });
-  if (data.url) {
-    redirect(data.url); // use the redirect API for your server framework
-  }
-  if (error) {
-    console.error("Error signing in with Discord:", error.message);
-    notFound();
-  }
+  if (data.url) redirect(data.url);
+  if (error) notFound();
 }

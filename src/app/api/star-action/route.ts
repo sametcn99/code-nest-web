@@ -3,6 +3,12 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Handles the POST request for star actions.
+ * 
+ * @param req - The NextRequest object representing the incoming request.
+ * @returns A NextResponse object representing the response to the request.
+ */
 export async function POST(req: NextRequest) {
   try {
     const {
@@ -36,8 +42,10 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch (error) {
-    return NextResponse.json(
-      { response: "An unknown error occurred", error: error, status: 500 },
-    );
+    return NextResponse.json({
+      response: "An unknown error occurred",
+      error: error,
+      status: 500,
+    });
   }
 }

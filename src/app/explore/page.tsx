@@ -10,16 +10,10 @@ export default async function Page() {
     .from("files")
     .select("created_at, title, description, id, user_id, content_id")
     .order("created_at", { ascending: false });
-
+  if (error) return <div>Error loading files</div>;
   contents = data as Tables<"files">[];
 
-  if (error) {
-    return <div>Error loading files</div>;
-  }
-
   const userMap: Record<string, Tables<"profiles">> = {};
-
-  // Fetch user data for each content
   for (const content of contents) {
     if (!userMap[content.user_id]) {
       const { data: userRes, error: userError } = await supabase

@@ -5,6 +5,11 @@ import { generateRandomNumber } from "@/utils/utils";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
+/**
+ * Handles the POST request for saving components to the database.
+ * @param req - The NextRequest object containing the request data.
+ * @returns A NextResponse object with the response data.
+ */
 export async function POST(req: NextRequest) {
   try {
     const { components, title, description } = await req.json();

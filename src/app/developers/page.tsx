@@ -1,7 +1,7 @@
+import ProfileCard from "@/components/ProfileCard";
 import { createClient } from "@/utils/supabase/server";
 import { FaCrown } from "react-icons/fa6";
 import { Tables } from "../../../types/supabase";
-import ProfileCard from "@/components/ProfileCard";
 
 export default async function Page() {
   const supabase = createClient();
@@ -9,11 +9,7 @@ export default async function Page() {
     .from("profiles")
     .select("*")
     .not("roles", "is", null);
-
-  if (error) {
-    return <div>Veriler yüklenirken bir hata oluştu.</div>;
-  }
-
+  if (error) return <div>Veriler yüklenirken bir hata oluştu.</div>;
   const users = data as Tables<"profiles">[];
 
   return (

@@ -6,8 +6,6 @@ import { FaDiscord } from "react-icons/fa";
 import { RiFileEditLine } from "react-icons/ri";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
-import { redirect } from "next/dist/server/api-utils";
-import { notFound } from "next/navigation";
 
 export default async function Home() {
   const supabase = createClient();

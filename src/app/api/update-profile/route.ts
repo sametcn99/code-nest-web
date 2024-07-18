@@ -4,6 +4,11 @@ import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { Tables } from "../../../../types/supabase";
 
+/**
+ * Handles the POST request to update a user's profile.
+ * @param req - The NextRequest object representing the incoming request.
+ * @returns A NextResponse object with the updated profile information or an error message.
+ */
 export async function POST(req: NextRequest) {
   try {
     const { user }: { user: Tables<"profiles"> } = await req.json();

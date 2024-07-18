@@ -12,7 +12,6 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createClient();
-
   const { data: user } = await supabase
     .from("profiles")
     .select("*")
@@ -49,7 +48,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     .order("created_at", { ascending: false });
 
   if (contentsres) contents = contentsres;
-  
+
   return (
     <main className="container mx-auto">
       {user && (

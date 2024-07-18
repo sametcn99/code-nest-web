@@ -229,9 +229,7 @@ export default function ProfileCard({
               )}
             </div>
             {user.roles && (
-              <span className="break-all pr-2 text-muted">
-                {user.roles?.join(", ")}
-              </span>
+              <span className="text-muted">{user.roles?.join(", ")}</span>
             )}
           </div>
         </div>
