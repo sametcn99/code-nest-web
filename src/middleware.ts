@@ -1,5 +1,5 @@
-import { updateSession } from "@/utils/supabase/middleware";
 import { type NextRequest } from "next/server";
+import { visitMiddleware } from "./middlewares/visit_middleware";
 
 /**
  * Executes the middleware function for the given request.
@@ -7,7 +7,7 @@ import { type NextRequest } from "next/server";
  * @returns A Promise that resolves to the result of the updateSession function.
  */
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  return await visitMiddleware(request);
 }
 
 export const config = {
@@ -19,6 +19,7 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/code/:project*",
   ],
 };

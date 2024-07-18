@@ -70,7 +70,7 @@ export default function ContentCard({
               title={`${user.username || user.sub}'s Profile`}
               aria-label={`${user.username || user.sub}'s Profile`}
               href={`/user/${user.username || user.sub}`}
-              className="flex w-full items-center rounded-xl transition-all duration-500 hover:bg-white/30"
+              className="flex w-full items-center rounded-xl transition-all duration-500"
             >
               <Image
                 src={user.avatar_url || "/images/default_avatar.png"}

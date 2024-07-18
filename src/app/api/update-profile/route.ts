@@ -1,5 +1,3 @@
-// pages/api/saveComponents.ts
-
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { Tables } from "../../../../types/supabase";
@@ -18,7 +16,6 @@ export async function POST(req: NextRequest) {
       .from("profiles")
       .update(user)
       .eq("id", user.id);
-
     if (e) throw e;
 
     return NextResponse.json({ response: "success", status: 200 });

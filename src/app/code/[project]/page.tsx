@@ -8,6 +8,7 @@ import { Tables } from "../../../../types/supabase";
 
 type Props = {
   params: { project: string; id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -52,7 +53,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams }: Props) {
+  if (!params.project) return notFound();
+  let isRateLimitExceeded = false;
+  if (searchParams?.error === "rate_limit_exceeded") {
+    isRateLimitExceeded = true;
+  }
   const supabase = createClient();
   const auth = await supabase.auth.getUser();
   const isAuth = auth.data.user !== null;
@@ -88,7 +94,6 @@ export default async function Page({ params }: Props) {
     };
   }
 
-  // Adjusted to match the expected prop types of the Editor component
   return (
     <main className="mx-auto flex w-full flex-col gap-80">
       {data && user && (
@@ -98,6 +103,7 @@ export default async function Page({ params }: Props) {
           isUserDeleted={isUserDeleted}
           isAuth={isAuth}
           viewerID={auth.data.user?.id}
+          isRateLimitExceeded={isRateLimitExceeded}
         />
       )}
       {!data && user && <Loading />}

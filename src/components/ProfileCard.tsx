@@ -17,7 +17,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
+import { RiUserAddLine, RiUserFollowLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
@@ -167,7 +167,7 @@ export default function ProfileCard({
           fill
           objectFit="cover"
           unoptimized
-          className="pointer-events-none select-none rounded-lg border-b"
+          className="pointer-events-none select-none rounded-lg"
         />
         <div className="absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center">
           <Image
@@ -178,7 +178,7 @@ export default function ProfileCard({
             className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
           />
           <div className="flex flex-col overflow-x-scroll scrollbar-hide">
-            <div className="inline-flex gap-2">
+            <div className="mb-[-0.625rem] inline-flex gap-2">
               {auth && isUserNameEditing ? (
                 <input
                   className="h-10 w-fit bg-transparent text-2xl font-semibold hover:outline-none"
@@ -205,7 +205,7 @@ export default function ProfileCard({
               {!auth && (
                 <Button
                   isIconOnly
-                  className="bg-transparent hover:text-blue-500"
+                  className="mb-auto ml-5 bg-transparent hover:text-green-500"
                   onClick={(e) => {
                     if (user.id !== viewerID && viewerID) {
                       followAction(
@@ -221,9 +221,9 @@ export default function ProfileCard({
                   }}
                 >
                   {isFollowed ? (
-                    <SlUserFollowing size={22} />
+                    <RiUserFollowLine size={20} />
                   ) : (
-                    <SlUserFollow size={22} />
+                    <RiUserAddLine size={20} />
                   )}
                 </Button>
               )}
@@ -236,15 +236,35 @@ export default function ProfileCard({
       </div>
       <div className="mt-20 flex items-center gap-4">
         <div className="flex w-full flex-col gap-1">
-          <h2>
-            Discord Adı:{" "}
-            <Link
-              href={`https://discord.com/users/${user.sub}`}
-              className="text-muted hover:underline"
-            >
-              {user.full_name}
-            </Link>
-          </h2>
+          <div className="flex gap-4">
+            <h2>
+              Discord Adı:{" "}
+              <Link
+                href={`https://discord.com/users/${user.sub}`}
+                className="inline-flex text-muted hover:underline"
+              >
+                {user.full_name}
+              </Link>
+            </h2>{" "}
+            {/* <h2>
+              Takipçiler:{" "}
+              <Link
+                href={`https://discord.com/users/${user.sub}`}
+                className="inline-flex text-muted hover:underline"
+              >
+                2
+              </Link>
+            </h2>{" "}
+            <h2>
+              Favorite:{" "}
+              <Link
+                href={`https://discord.com/users/${user.sub}`}
+                className="inline-flex text-muted hover:underline"
+              >
+                1
+              </Link>
+            </h2> */}
+          </div>
           {auth && isBioEditing && (
             <Textarea
               value={userData.bio ?? ""}

@@ -18,27 +18,31 @@ export function generateRandomNumber(digitCount: number): number {
 }
 
 /**
- * Formats a given date into a human-readable string representation.
+ * Formats a given date into a string representation.
  * @param date - The date to be formatted.
- * @returns A string representing the formatted date.
+ * @returns The formatted date string.
  */
 export const formatDate = (date: Date): string => {
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = diffMs / (24 * 60 * 60 * 1000);
+  const diffMs = date.getTime() - now.getTime();
+  const diffMinutes = diffMs / (60 * 1000);
+  const diffHours = diffMinutes / 60;
+  const diffDays = diffHours / 24;
 
-  if (diffDays < 1) {
-    const diffHours = diffMs / (60 * 60 * 1000);
-    if (diffHours < 1) {
-      const diffMinutes = diffMs / (60 * 1000);
-      return `${Math.floor(diffMinutes)} dakika önce`;
-    }
-    return `${Math.floor(diffHours)} saat önce`;
-  } else if (diffDays < 2) {
-    return "bir gün önce";
-  } else if (diffDays < 3) {
-    return "iki gün önce";
+  if (diffMs < 0) {
+    const absDiffDays = Math.abs(diffDays);
+
+    if (absDiffDays < 2) return "bir gün önce";
+    if (absDiffDays < 3) return "iki gün önce";
+
+    return date.toDateString();
   } else {
+    if (diffMinutes <= 5) return "5 dakika içinde";
+    if (diffMinutes <= 10) return "10 dakika içinde";
+    if (diffMinutes <= 30) return "30 dakika içinde";
+    if (diffHours <= 1) return "1 saat içinde";
+    if (diffDays <= 1) return "1 gün içinde";
+
     return date.toDateString();
   }
 };
