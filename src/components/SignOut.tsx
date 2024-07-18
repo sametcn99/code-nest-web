@@ -1,17 +1,14 @@
-import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
 
 /**
  * Renders a sign out button and handles the sign out functionality.
  */
 export default function SignOut() {
-  const supabase = createClient();
-
   /**
    * Handles the sign out process.
    */
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/login";
+    redirect("/auth/signout");
   };
 
   return (

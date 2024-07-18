@@ -6,6 +6,8 @@ import { FaDiscord } from "react-icons/fa";
 import { RiFileEditLine } from "react-icons/ri";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
+import { redirect } from "next/dist/server/api-utils";
+import { notFound } from "next/navigation";
 
 export default async function Home() {
   const supabase = createClient();
@@ -20,20 +22,18 @@ export default async function Home() {
 
   const userMap: Record<string, Tables<"profiles">> = {};
 
-  if (error || !contents) {
-    return <div>Error loading files</div>;
-  }
-
-  // Fetch user data for each content
-  for (const content of contents) {
-    if (!userMap[content.user_id]) {
-      const { data: userRes, error: userError } = await supabase
-        .from("profiles")
-        .select("avatar_url, id, username, full_name")
-        .eq("id", content.user_id)
-        .single();
-      if (!userError) {
-        userMap[content.user_id] = userRes as Tables<"profiles">;
+  if (contents) {
+    // Fetch user data for each content
+    for (const content of contents) {
+      if (!userMap[content.user_id]) {
+        const { data: userRes, error: userError } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", content.user_id)
+          .single();
+        if (!userError) {
+          userMap[content.user_id] = userRes as Tables<"profiles">;
+        }
       }
     }
   }
