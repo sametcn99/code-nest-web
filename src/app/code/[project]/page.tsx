@@ -45,7 +45,6 @@ export async function generateMetadata(
       website: null,
       banner_url: null,
       bio: null,
-      starred_projects: null,
       roles: null,
     };
   }
@@ -90,7 +89,6 @@ export default async function Page({ params }: Props) {
       website: null,
       banner_url: null,
       bio: null,
-      starred_projects: null,
       roles: null,
     };
   }
