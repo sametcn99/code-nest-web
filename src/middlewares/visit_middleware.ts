@@ -59,7 +59,15 @@ export async function visitMiddleware(request: NextRequest) {
       visitData = resetVisitData(ipAddress);
     }
 
-    visitResponse.cookies.set("visit_data", JSON.stringify(visitData));
+    visitResponse.cookies.set({
+      maxAge: 60 * 60 * 24,
+      priority: "high",
+      expires: new Date(now.getTime() + 60 * 60 * 24 * 1000),
+      secure: true,
+      sameSite: "strict",
+      name: "visit_data",
+      value: JSON.stringify(visitData),
+    });
     return visitResponse;
   } catch (error) {
     console.error("Error in visitMiddleware:", error);
