@@ -37,7 +37,7 @@ export default async function RandomContents() {
       {shuffledData ? (
         <InfiniteMovingCards
           items={shuffledData}
-          speed={10}
+          speed={80}
           users={userMap}
           title="Şunlara da göz atabilirsiniz."
         />

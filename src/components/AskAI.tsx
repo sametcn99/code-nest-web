@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/Loading";
 import {
   Button,
   Modal,
@@ -66,18 +67,16 @@ export default function AskAI({
               <ModalHeader className="sticky top-0 flex flex-col gap-1 bg-[#18181b]">
                 Gemini AI&apos;ın cevabı
               </ModalHeader>
-              <ModalBody className="">
+              <ModalBody>
                 {data ? (
                   <Markdown>{data}</Markdown>
                 ) : (
-                  <div
-                    className="mx-auto inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                    role="status"
-                  >
-                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                      Cevap Bekleniyor...
-                    </span>
-                  </div>
+                  <>
+                    <Loading />
+                    <p className="text-center text-xl">
+                      Gemini&apos;dan yanıt bekleniyor...
+                    </p>
+                  </>
                 )}
               </ModalBody>
             </>

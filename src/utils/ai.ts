@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const apiKey = process.env.GEMINI_API_KEY || "YOUR_API_KEY";
 
 if (!apiKey) {
-  throw new Error(
+  throw Error(
     "API key is missing. Please set NEXT_PUBLIC_GEMINI_API_KEY in your environment variables.",
   );
 }
@@ -11,7 +11,7 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 const prePrompot =
-  "Bu verideki kod snippet'lerinin işlevselliği ve genel mantığı hakkında özet bilgi verebilir misin?";
+  "Verilen dokümandaki kod parçacıklarının işlevselliğini ve genel mantığını ayrıntılı bir şekilde açıklayabilir misiniz? Eğer birden fazla kod parçacığı varsa, bu parçacıkların birbirleriyle olan ilişkilerini ve nasıl bir araya gelerek bütünsel bir işlevsellik sağladıklarını detaylandırabilir misiniz? Ayrıca, her bir kod parçacığının hangi amaçla kullanıldığını ve dokümanın genel amacıyla nasıl uyumlu olduğunu da açıklar mısınız?";
 
 /**
  * Generates text based on the given prompt using Google's Generative AI model.
@@ -24,12 +24,12 @@ export async function generateText(prompt: string) {
     const response = await model.generateContent(`${prePrompot}\n${prompt}`);
 
     if (!response || !response.response || !response.response.text) {
-      throw new Error("Invalid response structure from Generative AI model.");
+      throw Error("Invalid response structure from Generative AI model.");
     }
 
     return response.response.text();
   } catch (error) {
     console.error("Error generating text:", error);
-    throw new Error("Failed to generate text. Please try again later.");
+    throw Error("Failed to generate text. Please try again later.");
   }
 }

@@ -43,7 +43,7 @@ export default async function Home() {
           <h1 className="flex w-full flex-row flex-wrap-reverse items-center justify-center gap-2 text-6xl font-semibold">
             <span>CODENEST</span>
           </h1>
-          <p className="my-2 flex w-full items-center justify-center text-2xl text-muted">
+          <p className="my-2 flex w-full items-center justify-center text-center text-2xl text-muted">
             En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.
           </p>
         </div>
@@ -82,7 +82,7 @@ export default async function Home() {
       <FeaturesSectionDemo />
       {contents && contents.length > 0 ? (
         <InfiniteMovingCards
-          speed={200}
+          speed={80}
           items={contents as Tables<"files">[]}
           users={userMap}
           title={"Son Paylaşılanlar"}
