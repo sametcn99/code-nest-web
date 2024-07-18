@@ -1,5 +1,5 @@
-import ContentCard from "@/components/Contents/ContentCard";
-import { createClient } from "@/lib/utils/supabase/server";
+import ContentCard from "@/components/ContentCard";
+import { createClient } from "@/utils/supabase/server";
 import { Tables } from "../../../types/supabase";
 import Loading from "../Loading";
 
@@ -11,7 +11,6 @@ export default async function Page() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error(error);
     return <div>Error loading files</div>;
   }
 
@@ -32,7 +31,6 @@ export default async function Page() {
               auth={false}
             />
           ))}
-
         {!data && <Loading />}
       </main>
     </section>

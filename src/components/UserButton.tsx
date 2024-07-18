@@ -8,14 +8,25 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 
+/**
+ * Props for the UserButton component.
+ */
 type UserButtonProps = {
-  /**User name */
+  /** User name */
   username: string;
 
-  /**User avatar */
+  /** User avatar */
   avatar_url: string;
 };
 
+/**
+ * Renders a user button component.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.username - The username of the user.
+ * @param {string} props.avatar_url - The URL of the user's avatar.
+ * @returns {JSX.Element} The rendered user button component.
+ */
 export default function UserButton({ username, avatar_url }: UserButtonProps) {
   return (
     <>

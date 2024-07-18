@@ -1,6 +1,11 @@
-import { updateSession } from "@/lib/utils/supabase/middleware";
+import { updateSession } from "@/utils/supabase/middleware";
 import { type NextRequest } from "next/server";
 
+/**
+ * Executes the middleware function for the given request.
+ * @param request - The NextRequest object representing the incoming request.
+ * @returns A Promise that resolves to the result of the updateSession function.
+ */
 export async function middleware(request: NextRequest) {
   return await updateSession(request);
 }

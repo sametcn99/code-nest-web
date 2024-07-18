@@ -1,12 +1,12 @@
 "use client";
-import { followAction } from "@/lib/utils/actions/follow-actions";
+import { followAction } from "@/utils/actions/follow-actions";
 import {
   updateBannerUrl,
   updateBio,
   updateUserName,
-} from "@/lib/utils/actions/user-actions";
-import { cn } from "@/lib/utils/cn";
-import { isValidBannerUrl } from "@/lib/utils/validators/image-validate";
+} from "@/utils/actions/user-actions";
+import { cn } from "@/utils/cn";
+import { isValidBannerUrl } from "@/utils/image-validate";
 import {
   Button,
   Card,
@@ -24,8 +24,9 @@ import React, { useEffect, useState } from "react";
 import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "sonner";
-import { Tables } from "../../../types/supabase";
-import RichTextRender from "../ui/RichTextRender";
+import { Tables } from "../../types/supabase";
+import RichTextRender from "./RichTextRender";
+
 /**
  * Props for the ProfileCard component.
  */
@@ -92,7 +93,6 @@ export default function ProfileCard({
   };
 
   const handleSaveChanges = async () => {
-    // Save changes to the database here.
     if (dummyBannerUrl === bannerUrl && dummyBannerUrl) {
       const res = await updateBannerUrl({
         bannerUrl: dummyBannerUrl,
@@ -103,13 +103,11 @@ export default function ProfileCard({
     else alert("Bir şeyler ters gitti.");
 
     if (username !== user.username && username) {
-      // Save changes to the database here.
       const res = await updateUserName({ username, userId: user.id });
       if (!res) alert("something went wrong.");
     } else if (username === "") alert("Kullanıcı adı kısmı boş bırakılamaz.");
 
     if (bio !== user.bio && bio) {
-      // Save changes to the database here.
       const res = await updateBio({ bio, userId: user.id });
       if (!res) alert("Bir şeyler ters gitti.");
     } else if (bio === "") alert("Biyografi kısmı boş bırakılamaz.");
@@ -272,17 +270,15 @@ export default function ProfileCard({
               {user.full_name}
             </Link>
           </h2>
-          {auth && isBioEditing ? (
+          {auth && isBioEditing && (
             <Textarea
               value={bio ?? ""}
               onChange={handleBioChange}
               className="w-full"
               placeholder="Biyografi"
             />
-          ) : (
-            <></>
           )}
-          {auth && !isBioEditing ? (
+          {auth && !isBioEditing && (
             <Card className="min-h-24 w-full p-2 text-white">
               <div className="min-h-24 w-full p-2 text-white">
                 <RichTextRender
@@ -298,8 +294,6 @@ export default function ProfileCard({
                 <TbEdit size={20} />
               </Button>
             </Card>
-          ) : (
-            <></>
           )}
           {auth === false && (
             <div className="min-h-24 w-full p-2 text-white">

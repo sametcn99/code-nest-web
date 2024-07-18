@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/utils/cn";
 import { FaCloud, FaHeart } from "react-icons/fa";
 import { FaTerminal } from "react-icons/fa6";
 import { FiDollarSign } from "react-icons/fi";

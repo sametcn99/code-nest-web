@@ -1,5 +1,5 @@
 "use server";
-import { createClient } from "@/lib/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { notFound, redirect } from "next/navigation";
 
 export async function signInWithDiscord() {

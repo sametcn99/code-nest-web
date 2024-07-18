@@ -1,7 +1,7 @@
-import { createClient } from "@/lib/utils/supabase/server";
-import { Tables } from "../../../types/supabase";
-import { InfiniteMovingCards } from "./InfiniteMovingCards";
 import Loading from "@/app/Loading";
+import { createClient } from "@/utils/supabase/server";
+import { Tables } from "../../types/supabase";
+import { InfiniteMovingCards } from "./InfiniteMovingCards";
 
 export default async function RandomContents() {
   const supabase = createClient();

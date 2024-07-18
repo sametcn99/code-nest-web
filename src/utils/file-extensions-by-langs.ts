@@ -1,3 +1,6 @@
+/**
+ * Mapping of programming language names to their corresponding file extensions.
+ */
 export const fileExtensionsByLangs: { [key: string]: string[] } = {
   accesslog: ["log"],
   apache: ["apache"],

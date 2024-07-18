@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/utils/cn";
 import React, { useEffect, useState } from "react";
-import { Tables } from "../../../types/supabase";
-import ContentCard from "../Contents/ContentCard";
+import { Tables } from "../../types/supabase";
+import ContentCard from "./ContentCard";
 
 type InfiniteMovingCardsProps = {
   /**

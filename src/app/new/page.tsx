@@ -1,5 +1,5 @@
 import Editor from "@/components/editor/Editor";
-import { createClient } from "@/lib/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function page() {

@@ -1,6 +1,6 @@
+import { BackgroundCellCore } from "@/components/BackgroundRippleEffect";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { BackgroundCellCore } from "@/components/ui/BackgroundRippleEffect";
-import Footer from "@/components/ui/Footer";
 import { NextUIProvider } from "@nextui-org/system";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";

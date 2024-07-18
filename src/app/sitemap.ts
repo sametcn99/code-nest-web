@@ -1,7 +1,11 @@
-import { createClient } from "@/lib/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { MetadataRoute } from "next";
 import { Tables } from "../../types/supabase";
 
+/**
+ * Generates a sitemap for the Code Nest Web application.
+ * @returns A promise that resolves to an array of sitemap routes.
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient();
   let contents: Tables<"files">[] = [];

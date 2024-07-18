@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
-import { Json } from "../../../types/supabase";
+import { Json } from "../../types/supabase";
 
 export default function AskAI({
   content,

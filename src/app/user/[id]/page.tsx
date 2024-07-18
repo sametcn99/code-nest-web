@@ -1,19 +1,16 @@
-import ContentCard from "@/components/Contents/ContentCard";
-import ProfileCard from "@/components/profile/ProfileCard";
-import { createClient } from "@/lib/utils/supabase/server";
+import Loading from "@/app/Loading";
+import ContentCard from "@/components/ContentCard";
+import ProfileCard from "@/components/ProfileCard";
+import { createClient } from "@/utils/supabase/server";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";
-import { Metadata, ResolvingMetadata } from "next";
-import Loading from "@/app/Loading";
 
 type Props = {
   params: { id: string };
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createClient();
 
   const { data: user } = await supabase

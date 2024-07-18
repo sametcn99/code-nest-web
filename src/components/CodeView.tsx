@@ -1,12 +1,12 @@
 "use client";
+import { downloadContents } from "@/utils/actions/download-content";
+import { followAction } from "@/utils/actions/follow-actions";
+import { addOrRemoveStarToContents } from "@/utils/actions/star-actions";
 import {
   getFileExtension,
   getLangFromFileExtension,
-} from "@/lib/file-extensions-by-langs";
-import { downloadContents } from "@/lib/utils/actions/download-content";
-import { followAction } from "@/lib/utils/actions/follow-actions";
-import { addOrRemoveStarToContents } from "@/lib/utils/actions/star-actions";
-import { formatDate } from "@/lib/utils/utils";
+} from "@/utils/file-extensions-by-langs";
+import { formatDate } from "@/utils/utils";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +19,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
-import AskAI from "./AskAI/AskAI";
+import AskAI from "./AskAI";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */

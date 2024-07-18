@@ -1,6 +1,6 @@
-import FeaturesSectionDemo from "@/components/ui/Features";
-import { InfiniteMovingCards } from "@/components/ui/InfiniteMovingCards";
-import { createClient } from "@/lib/utils/supabase/server";
+import FeaturesSectionDemo from "@/components/Features";
+import { InfiniteMovingCards } from "@/components/InfiniteMovingCards";
+import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
 import { RiFileEditLine } from "react-icons/ri";

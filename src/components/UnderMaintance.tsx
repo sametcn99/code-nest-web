@@ -1,6 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
+/**
+ * Renders the component for the "Under Maintenance" page.
+ * This page is displayed when the website is under maintenance.
+ * It provides a message and a link to the home page.
+ */
 export default function UnderMaintance() {
   return (
     <main className="mx-auto">

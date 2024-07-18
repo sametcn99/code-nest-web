@@ -1,5 +1,9 @@
 import { MetadataRoute } from "next";
 
+/**
+ * Returns the manifest object for the CodeNest application.
+ * @returns The manifest object containing metadata for the application.
+ */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "CodeNest",

@@ -1,5 +1,5 @@
-import ProfileCard from "@/components/profile/ProfileCard";
-import { createClient } from "@/lib/utils/supabase/server";
+import ProfileCard from "@/components/ProfileCard";
+import { createClient } from "@/utils/supabase/server";
 import { Input } from "@nextui-org/input";
 import { Tables } from "../../../types/supabase";
 
@@ -17,8 +17,8 @@ export default async function Page() {
         Kullanıcılar
       </h2>
       <p className="text-muted">
-        Bu sayfada yer alan Kullanıcılar, projelerimize katkıda bulunan ve
-        topluluğumuzu güçlendiren kişilerdir.
+        Bu sayfada yer alan Kullanıcılar, platformumuz üzerinde kayıtlı olan ve
+        paylaşımlarda bulunan kullanıcılardır.
       </p>
       <Input placeholder="Ara..." className="mt-4 max-w-96" />
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">

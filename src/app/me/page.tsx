@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Tables } from "../../../types/supabase";
 
@@ -8,5 +8,4 @@ export default async function PrivatePage() {
   if (error || !data?.user) redirect("/login");
   const userMetadata = data.user?.user_metadata as Tables<"profiles">;
   redirect(`/user/${userMetadata.sub}`);
-  return <></>;
 }

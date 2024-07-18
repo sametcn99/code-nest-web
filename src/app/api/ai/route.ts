@@ -1,7 +1,12 @@
-import { generateText } from "@/lib/ai";
-import { createClient } from "@/lib/utils/supabase/server";
+import { generateText } from "@/utils/ai";
+import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Handles the POST request for the AI route.
+ * @param request - The NextRequest object representing the incoming request.
+ * @returns A NextResponse object representing the response to the request.
+ */
 export async function POST(request: NextRequest) {
   try {
     const content = await request.json();

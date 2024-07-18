@@ -1,8 +1,8 @@
 "use client";
-import { removeContent } from "@/lib/utils/actions/post-actions";
-import { cn } from "@/lib/utils/cn";
-import { createClient } from "@/lib/utils/supabase/client";
-import { formatDate, truncateString } from "@/lib/utils/utils";
+import { removeContent } from "@/utils/actions/post-actions";
+import { cn } from "@/utils/cn";
+import { createClient } from "@/utils/supabase/client";
+import { formatDate, truncateString } from "@/utils/utils";
 import {
   Button,
   Card,
@@ -21,7 +21,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { Tables } from "../../../types/supabase";
+import { Tables } from "../../types/supabase";
 
 /**
  * Defines the prop types for the ContentCard component.
@@ -83,7 +83,7 @@ export default function ContentCard({
             className,
           )}
         >
-          <CardHeader className="flex flex-row justify-between text-2xl font-bold">
+          <CardHeader className="flex flex-row justify-between">
             <Link
               title={`${user.username || user.sub}'s Profile`}
               aria-label={`${user.username || user.sub}'s Profile`}
@@ -95,11 +95,11 @@ export default function ContentCard({
                 width={55}
                 height={55}
                 alt="user avatar"
-                className="h-22 w-22 pointer-events-none mb-2 select-none rounded-full border-8 border-[#18181B]"
+                className="h-22 w-22 pointer-events-none select-none rounded-full border-8 border-[#18181B]"
               />
-              <div className="mb-2 ml-2">
-                <p className="text-base font-normal">{user.username}</p>
-                <p className="mr-auto text-xs font-light text-muted">
+              <div className="flex flex-col">
+                <p>{user.username}</p>
+                <p className="text-xs font-light text-muted">
                   {formatDate(new Date(content.created_at))}
                 </p>
               </div>

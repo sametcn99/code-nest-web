@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { Tables } from "../../../../types/supabase";
+import { Tables } from "../../../types/supabase";
 import { createClient } from "../supabase/client";
 
 /**

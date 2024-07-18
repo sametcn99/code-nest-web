@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaTwitter, FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
+import { FaDiscord, FaGithub } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
 
 export default function Footer() {

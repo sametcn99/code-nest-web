@@ -2,10 +2,14 @@ import { type CookieOptions, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+/**
+ * Handles the GET request for the callback route.
+ * @param request - The request object.
+ * @returns A NextResponse object that redirects the user to the appropriate location.
+ */
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  // if "next" is in param, use it as the redirect URL
   const next = searchParams.get("next") ?? "/";
   if (code) {
     const cookieStore = cookies();

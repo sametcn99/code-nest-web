@@ -1,5 +1,5 @@
-import { createClient } from "@/lib/utils/supabase/client";
-import { generateRandomNumber } from "@/lib/utils/utils";
+import { createClient } from "@/utils/supabase/client";
+import { generateRandomNumber } from "@/utils/utils";
 import { toast } from "sonner";
 
 /**
