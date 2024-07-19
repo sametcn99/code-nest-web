@@ -72,20 +72,4 @@ const items = [
     title: "Geliştiriciler",
     link: "/developers",
   },
-  {
-    title: "Blog",
-    link: "/blog",
-  },
-  {
-    title: "API",
-    link: "/api",
-  },
-  {
-    title: "Dökümantasyon",
-    link: "/api/docs",
-  },
-  {
-    title: "Destek",
-    link: "/support",
-  },
 ];
