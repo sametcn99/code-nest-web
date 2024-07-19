@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useEffect } from "react";
 import ContentCard from "@/components/ContentCard";
 import { createClient } from "@/utils/server";
@@ -26,11 +26,11 @@ export default function Page() {
 
       const fetchedContents = data as Tables<"files">[];
       setContents(fetchedContents);
-      setFilteredContents(fetchedContents);
+      setFilteredContents(fetchedContents); // Initialize filteredContents 
 
-      const userMap: Record<string, Tables<"profiles">> = {};
+      const newUserMap: Record<string, Tables<"profiles">> = {}; 
       for (const content of fetchedContents) {
-        if (!userMap[content.user_id]) {
+        if (!newUserMap[content.user_id]) {
           const { data: userRes, error: userError } = await supabase
             .from("profiles")
             .select("avatar_url, id, username, full_name")
@@ -38,52 +38,55 @@ export default function Page() {
             .single();
 
           if (!userError) {
-            userMap[content.user_id] = userRes as Tables<"profiles">;
+            newUserMap[content.user_id] = userRes as Tables<"profiles">;
           }
         }
       }
-      setUserMap(userMap);
+      setUserMap(newUserMap); 
     };
 
     fetchData();
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs once after initial render
 
   useEffect(() => {
     const filtered = contents.filter(content =>
       content.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredContents(filtered);
-  }, [searchTerm, contents]);
+  }, [searchTerm, contents]); // Include contents in the dependency array
 
-  return (
-    <section className="mx-auto flex flex-col place-items-center gap-5">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold">Keşfet</h1>
-        <h2 className="text-2xl font-bold">
-          Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
-        </h2>
-        <input
-          type="text"
-          placeholder="Ara..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="mt-4 w-full max-w-md p-2 border rounded-lg"
-        />
-      </div>
-      <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredContents.length > 0 ? (
-          filteredContents.map((file) => (
-            <ContentCard
-              key={file.id}
-              content={file as Tables<"files">}
-              user={userMap[file.user_id] as Tables<"profiles">}
-              auth={false}
-            />
-          ))
-        ) : (
-          <Loading />
-        )}
-      </main>
-    </section>
-  );
+// ... (Imports and JavaScript logic from the previous response) ...
+
+return (
+  <section className="mx-auto flex flex-col place-items-center gap-5">
+    <div className="text-center">
+      <h1 className="text-4xl font-bold">Keşfet</h1>
+      <h2 className="text-2xl font-bold">
+        Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
+      </h2>
+      <input
+        type="text"
+        placeholder="Ara..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="mt-4 w-full max-w-md p-2 border rounded-lg"
+      />
+    </div>
+    <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {filteredContents.length > 0 ? (
+        filteredContents.map((file) => (
+          <ContentCard
+            key={file.id}
+            content={file as Tables<"files">}
+            user={userMap[file.user_id] as Tables<"profiles">}
+            auth={false}
+          />
+        ))
+      ) : (
+        <Loading /> 
+      )}
+    </main>
+  </section>
+);
+
 }
