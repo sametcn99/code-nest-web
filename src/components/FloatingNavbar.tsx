@@ -3,6 +3,7 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { Menu } from "@headlessui/react";
 
 /**
  * Props for the FloatingNavbar component.
@@ -84,6 +85,41 @@ export const FloatingNavbar = ({
             <span>{navItem.name}</span>
           </Link>
         ))}
+        <Menu as="div" className="relative">
+          <Menu.Button className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white">
+            Keşfet
+          </Menu.Button>
+          <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1">
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    href="/explore/option1"
+                    className={cn(
+                      active ? 'bg-gray-100' : '',
+                      'block px-4 py-2 text-sm text-gray-700'
+                    )}
+                  >
+                    Option 1
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    href="/explore/option2"
+                    className={cn(
+                      active ? 'bg-gray-100' : '',
+                      'block px-4 py-2 text-sm text-gray-700'
+                    )}
+                  >
+                    Option 2
+                  </Link>
+                )}
+              </Menu.Item>
+            </div>
+          </Menu.Items>
+        </Menu>
         <Link
           href={username ? "/me" : "/login"}
           className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
