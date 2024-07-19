@@ -99,7 +99,7 @@ export const FloatingNavbar = ({
           {dropdownVisible && (
             <div
               className={cn(
-                "absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg",
+                "absolute right-0 mt-2 w-48 origin-top-right rounded-lg shadow-lg backdrop-blur	mt-4",
                 "border border-transparent backdrop-blur-xl dark:border-white/[0.2]"
               )}
               style={{
@@ -110,13 +110,13 @@ export const FloatingNavbar = ({
               <div className="py-1">
                 <Link
                   href="/explore/users"
-                  className="block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
+                  className="w-full rounded-lg bg-black-600 bg-opacity-25 backdrop-blur-sm	 block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kullanıcılar
                 </Link>
                 <Link
                   href="/explore/codes"
-                  className="block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
+                  className="w-full rounded-lg bg-black-600 bg-opacity-25 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kodlar
                 </Link>
