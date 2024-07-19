@@ -2,8 +2,9 @@
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, React } from "react";
 import { Dropdown, Button } from "@nextui-org/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, RadioGroup, Radio} from "@nextui-org/react";
 
 /**
  * Props for the FloatingNavbar component.
@@ -86,22 +87,28 @@ export const FloatingNavbar = ({
           </Link>
         ))}
         <Dropdown>
-          <Dropdown.Button className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white">
-            Keşfet
-          </Dropdown.Button>
-          <Dropdown.Menu aria-label="Keşfet Menü">
-            <Dropdown.Item>
-              <Link href="/explore/users" className="text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300">
-                Kullanıcılar
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link href="/explore/codes" className="text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300">
-                Kodlar
-              </Link>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+      <DropdownTrigger>
+        <Button 
+          color={color}
+          variant={variant}
+          className="capitalize"
+        >
+          {variant}
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu 
+        aria-label="Dropdown Variants"
+        color={color} 
+        variant={variant}
+      >
+        <DropdownItem key="new">New file</DropdownItem>
+        <DropdownItem key="copy">Copy link</DropdownItem>
+        <DropdownItem key="edit">Edit file</DropdownItem>
+        <DropdownItem key="delete" className="text-danger" color="danger">
+          Delete file
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
         <Link
           href={username ? "/me" : "/login"}
           className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
