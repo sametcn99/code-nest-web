@@ -1,4 +1,4 @@
-"tsx"import ContentCard from "@/components/ContentCard";
+import ContentCard from "@/components/ContentCard";
 import { createClient } from "@/utils/server";
 import { Tables } from "../../../types/supabase";
 import Loading from "../Loading";
