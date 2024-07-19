@@ -102,21 +102,17 @@ export const FloatingNavbar = ({
                 "absolute right-0 mt-2 w-48 origin-top-right rounded-lg shadow-lg backdrop-blur	mt-4",
                 "border border-transparent backdrop-blur-xl dark:border-white/[0.2]"
               )}
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1))",
-              }}
             >
               <div className="py-1">
                 <Link
                   href="/explore/users"
-                  className="w-full rounded-lg bg-black-600 bg-opacity-25 backdrop-blur-sm	 block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
+                  className="w-[80%] mr-auto ml-auto rounded-md hover:bg-black-600 bg-opacity-15 backdrop-blur-sm	 block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kullanıcılar
                 </Link>
                 <Link
                   href="/explore/codes"
-                  className="w-full rounded-lg bg-black-600 bg-opacity-25 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
+                  className="w-[80%] mr-auto ml-auto rounded-md hover:bg-black-600 bg-opacity-15 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kodlar
                 </Link>
