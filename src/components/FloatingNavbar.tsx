@@ -3,6 +3,7 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { Dropdown, Button } from "@nextui-org/react";
 
 /**
  * Props for the FloatingNavbar component.
@@ -52,11 +53,6 @@ export const FloatingNavbar = ({
   className,
 }: FloatingNavbarProps) => {
   const [visible, setVisible] = useState(true);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
 
   return (
     <AnimatePresence mode="wait">
@@ -89,36 +85,23 @@ export const FloatingNavbar = ({
             <span>{navItem.name}</span>
           </Link>
         ))}
-        <div className="relative">
-          <button
-            onClick={toggleDropdown}
-            className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
-          >
+        <Dropdown>
+          <Dropdown.Button className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white">
             Keşfet
-          </button>
-          {dropdownVisible && (
-            <div
-              className={cn(
-                "absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg bg-black bg-opacity-75 backdrop-blur-xl dark:border-white/[0.2] border border-transparent"
-              )}
-            >
-              <div className="py-1">
-                <Link
-                  href="/explore/users"
-                  className="block px-4 py-2 text-sm text-neutral-50 hover:text-neutral-300"
-                >
-                  Kullanıcılar
-                </Link>
-                <Link
-                  href="/explore/codes"
-                  className="block px-4 py-2 text-sm text-neutral-50 hover:text-neutral-300"
-                >
-                  Kodlar
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
+          </Dropdown.Button>
+          <Dropdown.Menu aria-label="Keşfet Menü">
+            <Dropdown.Item>
+              <Link href="/explore/users" className="text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300">
+                Kullanıcılar
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link href="/explore/codes" className="text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300">
+                Kodlar
+              </Link>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <Link
           href={username ? "/me" : "/login"}
           className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
