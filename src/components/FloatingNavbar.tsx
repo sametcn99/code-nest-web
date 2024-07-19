@@ -97,18 +97,26 @@ export const FloatingNavbar = ({
             Keşfet
           </button>
           {dropdownVisible && (
-    
-            <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] backdrop-blur-xl sticky inset-x-0 top-5 z-[5000] mx-auto flex">
+            <div
+              className={cn(
+                "absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg",
+                "border border-transparent backdrop-blur-xl dark:border-white/[0.2]"
+              )}
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1))",
+              }}
+            >
               <div className="py-1">
                 <Link
                   href="/explore/users"
-                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                  className="block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kullanıcılar
                 </Link>
                 <Link
                   href="/explore/codes"
-                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                  className="block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kodlar
                 </Link>
