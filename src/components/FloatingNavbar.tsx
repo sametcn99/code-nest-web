@@ -1,71 +1,97 @@
-"use client"; // For client-side interactions
-
+"use client";
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
-import { DropdownIcon, CopyIcon, EditIcon, DeleteIcon } from "@/icons"; // Assuming you have icons 
 
-type DropdownMenuItem = {
-  label: string;
-  shortcut?: string;
-  icon?: JSX.Element;
-  action?: () => void;
-  dangerZone?: boolean;
+/**
+ * Props for the FloatingNavbar component.
+ */
+type FloatingNavbarProps = {
+  /** The navigation items to display in the floating navbar. */
+  navItems: {
+    name: string;
+    link: string;
+    icon?: JSX.Element;
+  }[];
+
+  /** The username of the authenticated user. */
+  username: string | null;
+
+  /** Additional CSS class names for the component. */
+  className?: string;
 };
 
-const FloatingDropdown = ({
-  menuItems,
+/**
+ * FloatingNavbar component displays a floating navigation bar with customizable navigation items.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <FloatingNavbar
+ *   navItems={[
+ *     { name: "Home", link: "/home", icon: <HomeIcon /> },
+ *     { name: "About", link: "/about", icon: <AboutIcon /> },
+ *     { name: "Contact", link: "/contact", icon: <ContactIcon /> },
+ *   ]}
+ *   username="JohnDoe"
+ *   className="my-navbar"
+ * />
+ *
+ * @param {Object[]} navItems - The navigation items to display in the floating navbar.
+ * @param {string} navItems[].name - The name of the navigation item.
+ * @param {string} navItems[].link - The link of the navigation item.
+ * @param {JSX.Element} [navItems[].icon] - The icon element for the navigation item.
+ * @param {string | null} username - The username of the authenticated user.
+ * @param {string} [className] - Additional CSS class names for the component.
+ * @returns {JSX.Element} The rendered FloatingNavbar component.
+ */
+export const FloatingNavbar = ({
+  navItems,
+  username,
   className,
-}: {
-  menuItems: DropdownMenuItem[];
-  className?: string;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
+}: FloatingNavbarProps) => {
+  const [visible, setVisible] = useState(true);
 
   return (
-    <div className={cn("relative", className)}>
-      <button
-        onClick={toggleDropdown}
-        className="rounded-full border border-transparent py-2 px-4 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] backdrop-blur-xl dark:border-white/[0.2]"
-      >
-        Open Menu
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-800"
-          >
-            {menuItems.map((item, index) => (
-              <li key={index}>
-                <button
-                  onClick={item.action}
-                  className={cn(
-                    "flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-700",
-                    item.dangerZone && "text-red-500"
-                  )}
-                >
-                  {item.icon && item.icon}
-                  {item.label}
-                  {item.shortcut && (
-                    <span className="ml-auto text-xs text-gray-500">
-                      {item.shortcut}
-                    </span>
-                  )}
-                </button>
-                {item.dangerZone && <hr className="border-red-500" />}
-              </li>
-            ))}
-          </motion.ul>
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: -100,
+        }}
+        animate={{
+          y: visible ? 0 : -100,
+          opacity: visible ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.2,
+        }}
+        className={cn(
+          "sticky inset-x-0 top-5 z-[5000] mx-auto flex max-w-fit flex-wrap items-center justify-center space-x-4 rounded-full border border-transparent py-2 pl-8 pr-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] backdrop-blur-xl dark:border-white/[0.2]",
+          className,
         )}
-      </AnimatePresence>
-    </div>
+      >
+        {navItems.map((navItem: any, idx: number) => (
+          <Link
+            key={`link=${idx}`}
+            href={navItem.link}
+            className={cn(
+              "relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300",
+            )}
+          >
+            <span>{navItem.icon}</span>
+            <span>{navItem.name}</span>
+          </Link>
+        ))}
+        <Link
+          href={username ? "/me" : "/login"}
+          className="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
+        >
+          <span>{username ? "Profil" : "Giriş Yap"}</span>
+          <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+        </Link>
+      </motion.div>
+    </AnimatePresence>
   );
 };
-
-export default FloatingDropdown;
