@@ -28,25 +28,25 @@ export default async function Page() {
   }
 
   return (
-   <section className="mx-auto flex flex-col place-items-center gap-5">
-      {/* ... (Heading and subheading) ... */}
-      <input 
-        type="text" 
-        placeholder="Search..." 
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="border p-2 rounded-md w-full md:w-1/2" 
-      />
+    <section className="mx-auto flex flex-col place-items-center gap-5">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold">Keşfet</h1>
+        <h2 className="text-2xl font-bold">
+          Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
+          
+        </h2>
+      </div>
       <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filterContents().map((file) => ( // Filter and then map
-          <ContentCard
-            key={file.id}
-            content={file as Tables<"files">}
-            user={userMap[file.user_id] as Tables<"profiles">}
-            auth={false}
-          />
-        ))}
-        {!contents && <Loading />} 
+        {contents &&
+          contents.map((file) => (
+            <ContentCard
+              key={file.id}
+              content={file as Tables<"files">}
+              user={userMap[file.user_id] as Tables<"profiles">}
+              auth={false}
+            />
+          ))}
+        {!contents && <Loading />}
       </main>
     </section>
   );
