@@ -21,31 +21,6 @@ export async function downloadContents(files: FileTypes[]): Promise<boolean> {
 }
 
 /**
- * Fetches content data from the "files" table in Supabase based on the provided content_id.
- * @param supabase - The Supabase client instance.
- * @param content_id - The ID of the content to fetch.
- * @returns The fetched content data.
- * @throws If there is an error while downloading the content or if no content is found with the given content_id.
- */
-async function fetchContentData(supabase: any, content_id: number) {
-  const { data, error } = await supabase
-    .from("files")
-    .select("content")
-    .eq("content_id", content_id)
-    .single();
-
-  if (error) {
-    throw new Error(`Error downloading content: ${error}`);
-  }
-
-  if (!data) {
-    throw new Error("No content found with the given content_id");
-  }
-
-  return data;
-}
-
-/**
  * Downloads a single file.
  *
  * @param file - The file to be downloaded.

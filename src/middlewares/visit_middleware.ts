@@ -1,6 +1,9 @@
 import { createClient } from "@/utils/server";
 import { NextResponse, type NextRequest } from "next/server";
 
+/**
+ * The shape of the visit data object stored in the cookie.
+ */
 type VisitData = {
   ip: string;
   visit_count: number;
@@ -8,8 +11,16 @@ type VisitData = {
   last_visit: Date;
 };
 
+/**
+ * The maximum number of visits allowed per day.
+ */
 const MAX_VISITS_PER_DAY = 5;
 
+/**
+ * Middleware function that handles visit tracking for each request.
+ * @param request - The NextRequest object representing the incoming request.
+ * @returns A NextResponse object representing the response to the request.
+ */
 export async function visitMiddleware(request: NextRequest) {
   try {
     const ipAddress = request.headers.get("x-forwarded-for") || request.ip;

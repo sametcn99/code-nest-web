@@ -10,6 +10,9 @@ export async function middleware(request: NextRequest) {
   return await visitMiddleware(request);
 }
 
+/**
+ * The configuration object for the middleware.
+ */
 export const config = {
   matcher: [
     /*
