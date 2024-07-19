@@ -97,19 +97,19 @@ export const FloatingNavbar = ({
             Keşfet
           </button>
           {dropdownVisible && (
-            <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
                 <Link
-                  href="/explore/option1"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  href="/explore/users"
+                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
                 >
-                  Option 1
+                  Kullanıcılar
                 </Link>
                 <Link
-                  href="/explore/option2"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  href="/explore/codes"
+                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
                 >
-                  Option 2
+                  Kodlar
                 </Link>
               </div>
             </div>
