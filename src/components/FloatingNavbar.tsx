@@ -99,8 +99,8 @@ export const FloatingNavbar = ({
           {dropdownVisible && (
             <div
               className={cn(
-                "absolute right-0 mt-2 w-48 origin-top-right rounded-lg shadow-lg backdrop-blur	mt-4",
-                "border border-transparent backdrop-blur-xl dark:border-white/[0.2]"
+                "absolute right-0 mt-2 w-48 origin-top-right rounded-lg shadow-lg backdrop-blur-md	mt-4",
+                "border border-transparent backdrop-blur-md	 dark:border-white/[0.2]"
               )}
             >
               <div className="py-1">
@@ -112,7 +112,7 @@ export const FloatingNavbar = ({
                 </Link>
                 <Link
                   href="/explore/codes"
-                  className="mt-2 w-[80%] mr-auto ml-auto rounded-md hover:bg-black-600 bg-opacity-15 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
+                  className="mt-1 w-[80%] mr-auto ml-auto rounded-md hover:bg-black-600 bg-opacity-15 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kodlar
                 </Link>
