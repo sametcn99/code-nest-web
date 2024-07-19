@@ -99,7 +99,7 @@ export const FloatingNavbar = ({
           {dropdownVisible && (
             <div
               className={cn(
-                "absolute right-0 mt-2 w-48 origin-top-right rounded-lg shadow-lg backdrop-blur-md	mt-4",
+                "absolute right-0 mt-2 w-48 origin-top-right rounded-lg shadow-lg backdrop-blur-md bg-black-600 bg-opacity-25	mt-4",
                 "border border-transparent backdrop-blur-md	 dark:border-white/[0.2]"
               )}
             >
