@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { redirect } from "next/navigation";
 import { Tables } from "../../../types/supabase";
 

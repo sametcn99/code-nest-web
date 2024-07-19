@@ -1,5 +1,5 @@
 "use client";
-import { postData } from "@/utils/actions/editor-actions";
+import { postData } from "@/actions/editor-actions";
 import { Button, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

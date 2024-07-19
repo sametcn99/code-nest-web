@@ -1,11 +1,9 @@
-// pages/api/saveComponents.ts
-
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
  * Handles the POST request for star actions.
- * 
+ *
  * @param req - The NextRequest object representing the incoming request.
  * @returns A NextResponse object representing the response to the request.
  */

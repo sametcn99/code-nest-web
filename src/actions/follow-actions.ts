@@ -1,4 +1,4 @@
-import { Tables } from "../../../types/supabase";
+import { Tables } from "../../types/supabase";
 
 /**
  * Performs a follow or unfollow action on a user profile.

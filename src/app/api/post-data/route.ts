@@ -1,6 +1,4 @@
-// pages/api/saveComponents.ts
-
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { generateRandomNumber } from "@/utils/utils";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";

@@ -1,5 +1,5 @@
 "use client";
-import { removeContent } from "@/utils/actions/remove-content-actions";
+import { removeContent } from "@/actions/remove-content-actions";
 import { cn } from "@/utils/cn";
 import { formatDate, truncateString } from "@/utils/utils";
 import {

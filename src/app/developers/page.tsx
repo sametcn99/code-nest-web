@@ -1,5 +1,5 @@
 import ProfileCard from "@/components/ProfileCard";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { FaCrown } from "react-icons/fa6";
 import { Tables } from "../../../types/supabase";
 

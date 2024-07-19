@@ -1,7 +1,7 @@
 "use client";
-import { downloadContents } from "@/utils/actions/download-content";
-import { followAction } from "@/utils/actions/follow-actions";
-import { addOrRemoveStarToContents } from "@/utils/actions/star-actions";
+import { downloadContents } from "@/actions/download-content";
+import { followAction } from "@/actions/follow-actions";
+import { addOrRemoveStarToContents } from "@/actions/star-actions";
 import {
   getFileExtension,
   getLangFromFileExtension,

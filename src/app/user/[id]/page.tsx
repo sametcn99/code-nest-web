@@ -1,7 +1,7 @@
 import Loading from "@/app/Loading";
 import ContentCard from "@/components/ContentCard";
 import ProfileCard from "@/components/ProfileCard";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";

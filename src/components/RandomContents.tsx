@@ -1,5 +1,5 @@
 import Loading from "@/app/Loading";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { Tables } from "../../types/supabase";
 import { InfiniteMovingCards } from "./InfiniteMovingCards";
 

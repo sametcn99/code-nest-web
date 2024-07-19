@@ -1,7 +1,7 @@
 import Loading from "@/app/Loading";
 import CodeView from "@/components/CodeView";
 import RandomContents from "@/components/RandomContents";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";

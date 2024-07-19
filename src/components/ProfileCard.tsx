@@ -1,6 +1,6 @@
 "use client";
-import { followAction } from "@/utils/actions/follow-actions";
-import { updateProfile } from "@/utils/actions/user-actions";
+import { followAction } from "@/actions/follow-actions";
+import { updateProfile } from "@/actions/user-actions";
 import { cn } from "@/utils/cn";
 import { isValidBannerUrl } from "@/utils/image-validate";
 import {

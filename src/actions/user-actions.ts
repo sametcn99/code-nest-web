@@ -1,4 +1,4 @@
-import { Tables } from "../../../types/supabase";
+import { Tables } from "../../types/supabase";
 
 /**
  * Updates the user profile by making a POST request to the "/api/update-profile" endpoint.
