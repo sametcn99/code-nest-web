@@ -112,7 +112,7 @@ export const FloatingNavbar = ({
                 </Link>
                 <Link
                   href="/explore/codes"
-                  className="w-[80%] mr-auto ml-auto rounded-md hover:bg-black-600 bg-opacity-15 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
+                  className="mt-2 w-[80%] mr-auto ml-auto rounded-md hover:bg-black-600 bg-opacity-15 backdrop-blur-sm	block px-4 py-2 text-sm text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300"
                 >
                   Kodlar
                 </Link>
