@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+        "@nextui-org/react": "^1.0.0",  // Ensure the version matches the one you install
+
     "@google/generative-ai": "^0.15.0",
     "@nextui-org/input": "^2.2.3",
     "@nextui-org/react": "2.4.5",
