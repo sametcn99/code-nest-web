@@ -19,40 +19,40 @@ export default async function LoginPage() {
     redirect("/me");
   }
   return (
-    <main className="mx-auto flex flex-col items-center justify-center space-y-4">
-      <Card className="max-w-[28rem] border-b-1 bg-transparent p-4 backdrop-blur-sm">
-        <CardHeader className="flex flex-col place-items-center justify-center gap-4 text-center text-3xl font-bold">
+    <main className="mx-auto flex flex-col px-4 py-8 space-y-6 ">
+      <Card className="max-w-lg  shadow-lg p-6 bg-transparant rounded-xl	border-1 border-[#2E2E30] border-solid backdrop-blur-sm	">
+        <CardHeader className="flex flex-col items-center text-center space-y-4 mb-[-1.5rem]">
           <Image
             src="/icons/favicon-512x512.png"
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             alt="Logo"
-            className="pointer-events-none select-none"
+            className="pointer-events-none select-none duration-1000	cursor-pointer hover:origin-center hover:rotate-45 	mb-5"
           />
-          <span>Code Nest&apos;e Hoş Geldiniz</span>
+          <span className="text-2xl font-bold mb-[-1.5rem]">Code Nest'e Hoş Geldiniz</span>
         </CardHeader>
-        <CardBody className="flex flex-col place-items-center">
-          <p className="text-center text-xl">
+        <CardBody className="flex flex-col items-center space-y-4">
+          <p className="text-center text-lg">
             En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.
           </p>
-          <Divider className="mb-6 mt-12" />
-          <form>
+          <Divider className="w-full" />
+          <form className="w-full">
             <button
               formAction={signInWithDiscord}
-              className="inline-flex place-items-center gap-2 rounded-2xl border-b-3 border-gray-800 bg-transparent p-2 text-xl font-bold backdrop-blur-sm transition-all duration-200 hover:scale-99 hover:border-b-2"
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 text-white py-2 text-lg font-bold transition-transform transform hover:scale-105"
             >
               <FaDiscord size={22} />
               Discord ile Giriş Yapın
             </button>
           </form>
         </CardBody>
-        <CardFooter className="text-sm text-muted">
+        <CardFooter className="text-center text-sm text-gray-500">
           <p>
             Kullanıcı bilgilerinizi{" "}
             <Link
               href={"https://supabase.com/auth"}
               target="_blank"
-              className="text-green-700 hover:underline"
+              className="text-green-600 hover:underline"
             >
               Supabase Auth
             </Link>{" "}

@@ -6,6 +6,7 @@ import { FaDiscord } from "react-icons/fa";
 import { RiFileEditLine } from "react-icons/ri";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
+import {Button} from "@nextui-org/react";
 
 export default async function Home() {
   const supabase = createClient();
@@ -47,37 +48,23 @@ export default async function Home() {
             En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.
           </p>
         </div>
-        <div className="flex h-auto items-center justify-center gap-[0.9375rem] px-[1.5625rem]">
-          <Link
-            title="Yeni bir proje paylaşın"
-            aria-label="Yeni bir proje paylaşın"
-            href={"/new"}
-            className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:bg-white/10"
-          >
-            <RiFileEditLine size={20} /> <span>Paylaşmaya Başlayın</span>
-          </Link>
+        <div className="flex h-auto items-center justify-center gap-[0.5rem] px-[1.5625rem]">
+          <Button title="Yeni bir proje paylaşın" aria-label="Yeni bir proje paylaşın" className="text-base border-none	border-1 hover:border-[#006FFE]" color="primary" href="/new" variant="flat">
+          Paylaşmaya Başlayın
+      </Button> 
+
           {!user.user ? (
-            <Link
-              title="Giriş Yap"
-              aria-label="Giriş Yap"
-              href={"/login"}
-              className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:bg-white/10"
-            >
-              Giriş Yap
-            </Link>
+             <Button title="Giriş Yap" aria-label="Giriş Yap" className="text-base border-none	border-1 hover:border-[#15AB57]" color="success" href="/login" variant="flat">
+             Giriş Yap
+         </Button> 
+            
           ) : (
             <></>
           )}
         </div>
-        <Link
-          title="Topluluk"
-          aria-label="Topluluk"
-          href={"/community"}
-          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:bg-white/10"
-        >
-          <FaDiscord size={22} />
-          <span>Topluluğa katılın</span>
-        </Link>
+        <Button title="Topluluk" aria-label="Topluluk" className="text-base border-none	border-1 hover:border-[#15AB57]" color="secondary" href="/community" variant="flat">
+             Topluluğumuza Katılın
+         </Button> 
       </main>
       <FeaturesSectionDemo />
       {contents && contents.length > 0 ? (

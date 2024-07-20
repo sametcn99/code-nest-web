@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -72,6 +73,7 @@ export default function RootLayout({
           <Analytics />
         </NextUIProvider>
       </body>
+      <GoogleAnalytics gaId="G-6BSGH2FJGV" />
     </html>
   );
 }

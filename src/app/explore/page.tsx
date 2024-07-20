@@ -4,9 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import ContentCard from "@/components/ContentCard";
 import Loading from "../Loading";
 import { Tables } from "../../../types/supabase";
+import { Input } from "@nextui-org/react";
 
 const Page = () => {
   const [contents, setContents] = useState<Tables<"files">[]>([]);
+  const [filteredContents, setFilteredContents] = useState<Tables<"files">[]>(
+    [],
+  );
   const [userMap, setUserMap] = useState<Record<string, Tables<"profiles">>>(
     {},
   );
@@ -14,6 +18,7 @@ const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -94,18 +99,37 @@ const Page = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, hasMore]);
 
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = contents.filter((content) =>
+        content.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
+      setFilteredContents(filtered);
+    } else {
+      setFilteredContents(contents);
+    }
+  }, [searchQuery, contents]);
+
   if (error && page === 1) return <div>Error loading files: {error}</div>;
 
   return (
     <section className="mx-auto flex flex-col place-items-center gap-5">
       <div className="text-center">
         <h1 className="text-4xl font-bold">Keşfet</h1>
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl font-bold text-muted">
           Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
         </h2>
+        <div className="max-h-13 flex w-full flex-wrap pb-3 pl-3 pr-3 pt-3 md:flex-nowrap">
+          <Input
+            type="text"
+            label="Search..."
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+          />
+        </div>
       </div>
       <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {contents.map((file) => (
+        {filteredContents.map((file) => (
           <ContentCard
             key={file.content_id}
             content={file}
