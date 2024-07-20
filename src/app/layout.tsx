@@ -67,8 +67,8 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Toaster theme="dark" />
-            <Footer />
           </section>
+          <Footer />
           <Analytics />
         </NextUIProvider>
       </body>
