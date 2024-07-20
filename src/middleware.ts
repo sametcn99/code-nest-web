@@ -8,11 +8,10 @@ import { updateSession } from "./middlewares/supabase_middleware";
  * @returns A Promise that resolves to the result of the updateSession function.
  */
 export async function middleware(request: NextRequest) {
-  const composeMiddlewares = async (request: NextRequest) => {
-    await updateSession(request);
-    await visitMiddleware(request);
-  };
-  return await composeMiddlewares(request);
+  // const composeMiddlewares = async (request: NextRequest) => {
+  //   await updateSession(request);
+  // };
+  return await visitMiddleware(request);
 }
 
 /**
@@ -28,5 +27,6 @@ export const config = {
      * Feel free to modify this pattern to include more paths.
      */
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/code/:project*",
   ],
 };

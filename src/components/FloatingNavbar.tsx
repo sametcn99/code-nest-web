@@ -23,7 +23,7 @@ type FloatingNavbarProps = {
   }[];
 
   /** The username of the authenticated user. */
-  username: string | null;
+  id: string | null;
 
   /** Additional CSS class names for the component. */
   className?: string;
@@ -55,10 +55,10 @@ type FloatingNavbarProps = {
  */
 export const FloatingNavbar = ({
   navItems,
-  username,
+  id,
   className,
 }: FloatingNavbarProps) => {
-  const [visible, setVisible] = useState(true);
+  const visible = true;
 
   return (
     <AnimatePresence mode="wait">
@@ -108,7 +108,7 @@ export const FloatingNavbar = ({
             Topluluk
           </Link>
         </div>
-        {username ? (
+        {id ? (
           <Dropdown>
             <DropdownTrigger>
               <Button
@@ -120,7 +120,7 @@ export const FloatingNavbar = ({
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Menu" variant={"solid"}>
-              <DropdownItem key="account" href="/me">
+              <DropdownItem key="account" href={`/user/${id}`}>
                 Hesap
               </DropdownItem>
               <DropdownItem key="share-code" href="/new">

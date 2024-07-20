@@ -7,7 +7,7 @@ export default async function Navbar() {
   return (
     <FloatingNavbar
       navItems={navItems}
-      username={data.user?.user_metadata.full_name}
+      id={data.user?.user_metadata.sub}
     />
   );
 }
