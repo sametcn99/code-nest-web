@@ -46,7 +46,7 @@ const Page = () => {
     } else {
       isMounted.current = true;
     }
-  }, [page]);
+  }, [page, isMounted]);
 
   useEffect(() => {
     const fetchUserMap = async () => {
