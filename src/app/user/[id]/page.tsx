@@ -20,8 +20,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: user.username || user.full_name,
+    description: user.bio || "User profile description",
+    icons: {
+      icon: user.avatar_url || "/icons/favicon-512x512.png",
+      shortcut: user.avatar_url || "/icons/favicon-512x512.png",
+      apple: user.avatar_url || "/icons/favicon-512x512.png",
+      username: user.username,
+    },
     openGraph: {
       title: user.username || user.full_name,
+      description: user.bio || "User profile description",
+      images: [user.avatar_url || "/icons/favicon-512x512.png"],
+    },
+    twitter: {
+      title: user.username || user.full_name,
+      description: user.bio || "User profile description",
+      images: [user.avatar_url || "/icons/favicon-512x512.png"],
+      creator: user.username,
+      creatorId: `@${user.username}`,
     },
   };
 }
