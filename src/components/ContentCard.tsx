@@ -68,8 +68,8 @@ export default function ContentCard({
           <CardHeader className="flex flex-row justify-between">
             <Link
               title={`${user.username || user.sub}'s Profile`}
-              aria-label={`${user.username || user.sub}'s Profile`}
-              href={`/user/${user.username || user.sub}`}
+              aria-label={`${user.id}'s Profile`}
+              href={`/user/${user.id}`}
               className="flex w-full items-center rounded-xl transition-all duration-500"
             >
               <Image
@@ -80,7 +80,7 @@ export default function ContentCard({
                 className="h-22 w-22 pointer-events-none select-none rounded-full border-8 border-[#18181B]"
               />
               <div className="flex flex-col">
-                <p>{user.username}</p>
+                <p>{user.username || user.full_name}</p>
                 <p className="text-xs font-light text-muted">
                   {formatDate(new Date(content.created_at))}
                 </p>

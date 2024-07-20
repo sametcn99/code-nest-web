@@ -47,6 +47,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
+      url: `${base}/users`,
+      lastModified: new Date(),
+      changeFrequency: "always",
+      priority: 1,
+    },
+    {
       url: `${base}/community`,
       lastModified: new Date(),
       changeFrequency: "never",
@@ -71,7 +77,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     ...users.map((user: Tables<"profiles">) => ({
-      url: `${base}/${user.username || user.full_name}`,
+      url: `${base}/user/${user.id}`,
       lastModified: new Date(),
       changeFrequency: "never" as const,
       priority: 1,

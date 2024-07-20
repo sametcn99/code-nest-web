@@ -120,7 +120,7 @@ export const FloatingNavbar = ({
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Menu" variant={"solid"}>
-              <DropdownItem key="account" href={`/user/${id}`}>
+              <DropdownItem key="account" href={`/me`}>
                 Hesap
               </DropdownItem>
               <DropdownItem key="share-code" href="/new">

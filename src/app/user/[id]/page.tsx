@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: user } = await supabase
     .from("profiles")
     .select("*")
-    .or(`sub.eq.${params.id},username.eq.${params.id}`)
+    .or(`id.eq.${params.id},username.eq.${params.id}`)
     .single();
 
   return {
@@ -49,13 +49,11 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { data: user } = await supabase
     .from("profiles")
     .select("*")
-    .or(`sub.eq.${params.id},username.eq.${params.id}`)
+    .or(`id.eq.${params.id},username.eq.${params.id}`)
     .single();
 
   if (!user) return notFound();
   const authUser = await supabase.auth.getUser();
-  const auth: boolean =
-    authUser && authUser.data.user?.user_metadata.sub === user.sub;
 
   const { data: contentsres } = await supabase
     .from("files")
@@ -70,7 +68,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       {user && (
         <ProfileCard
           user={user}
-          auth={auth}
+          auth={false}
           viewerID={authUser.data.user?.id}
         />
       )}
@@ -80,7 +78,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <ContentCard
               content={content}
               key={index}
-              auth={auth}
+              auth={false}
               user={user as Tables<"profiles">}
             />
           ))}

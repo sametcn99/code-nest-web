@@ -5,7 +5,7 @@ import { Tables } from "../../../types/supabase";
 
 export default async function Page() {
   const supabase = createClient();
-  const { data, error } = await supabase.from("profiles").select("*");
+  const { data, error } = await supabase.from("profiles").select("*")
   if (error) {
     return <div>Veriler yüklenirken bir hata oluştu.</div>;
   }

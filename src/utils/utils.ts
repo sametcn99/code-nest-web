@@ -23,27 +23,23 @@ export function generateRandomNumber(digitCount: number): number {
  * @returns The formatted date string.
  */
 export const formatDate = (date: Date): string => {
+  const givenDate = new Date(date);
   const now = new Date();
-  const diffMs = date.getTime() - now.getTime();
-  const diffMinutes = diffMs / (60 * 1000);
-  const diffHours = diffMinutes / 60;
-  const diffDays = diffHours / 24;
+  const diffInMs = now.getTime() - givenDate.getTime();
+  const diffInMinutes = Math.floor(diffInMs / 60000); // Convert milliseconds to minutes
 
-  if (diffMs < 0) {
-    const absDiffDays = Math.abs(diffDays);
-
-    if (absDiffDays < 2) return "bir gün önce";
-    if (absDiffDays < 3) return "iki gün önce";
-
-    return date.toDateString();
+  if (diffInMinutes <= 5) {
+      return "5 dakika içinde";
+  } else if (diffInMinutes <= 10) {
+      return "10 dakika içinde";
+  } else if (diffInMinutes <= 30) {
+      return "30 dakika içinde";
+  } else if (diffInMinutes <= 1440) { // 1440 minutes in a day
+      return "1 gün içinde";
+  } else if (diffInMinutes <= 2880) { // 2880 minutes in two days
+      return "1 gün önce";
   } else {
-    if (diffMinutes <= 5) return "5 dakika içinde";
-    if (diffMinutes <= 10) return "10 dakika içinde";
-    if (diffMinutes <= 30) return "30 dakika içinde";
-    if (diffHours <= 1) return "1 saat içinde";
-    if (diffDays <= 1) return "1 gün içinde";
-
-    return date.toDateString();
+      return givenDate.toISOString(); // Return the date in ISO format
   }
 };
 

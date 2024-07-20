@@ -6,7 +6,7 @@ import { FaDiscord } from "react-icons/fa";
 import { RiFileEditLine } from "react-icons/ri";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 export default async function Home() {
   const supabase = createClient();
@@ -49,22 +49,39 @@ export default async function Home() {
           </p>
         </div>
         <div className="flex h-auto items-center justify-center gap-[0.5rem] px-[1.5625rem]">
-          <Button title="Yeni bir proje paylaşın" aria-label="Yeni bir proje paylaşın" className="text-base border-none	border-1 hover:border-[#006FFE]" color="primary" href="/new" variant="flat">
-          Paylaşmaya Başlayın
-      </Button> 
+          <Button
+            title="Yeni bir proje paylaşın"
+            aria-label="Yeni bir proje paylaşın"
+            color="primary"
+            href="/new"
+            variant="flat"
+          >
+            Paylaşmaya Başlayın
+          </Button>
 
           {!user.user ? (
-             <Button title="Giriş Yap" aria-label="Giriş Yap" className="text-base border-none	border-1 hover:border-[#15AB57]" color="success" href="/login" variant="flat">
-             Giriş Yap
-         </Button> 
-            
+            <Button
+              title="Giriş Yap"
+              aria-label="Giriş Yap"
+              color="success"
+              href="/login"
+              variant="flat"
+            >
+              Giriş Yap
+            </Button>
           ) : (
             <></>
           )}
         </div>
-        <Button title="Topluluk" aria-label="Topluluk" className="text-base border-none	border-1 hover:border-[#15AB57]" color="secondary" href="/community" variant="flat">
-             Topluluğumuza Katılın
-         </Button> 
+        <Button
+          title="Topluluk"
+          aria-label="Topluluk"
+          color="secondary"
+          href="/community"
+          variant="flat"
+        >
+          Topluluğumuza Katılın
+        </Button>
       </main>
       <FeaturesSectionDemo />
       {contents && contents.length > 0 ? (

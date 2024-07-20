@@ -199,8 +199,8 @@ export default function ProfileCard({
                 />
               ) : (
                 <p className="inline-flex h-10 w-fit place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
-                  <Link className="hover:underline" href={`/user/${user.sub}`}>
-                    {userData.username ?? "Kullanıcı adı"}
+                  <Link className="hover:underline" href={`/user/${user.id}`}>
+                    {userData.username || user.full_name || "Kullanıcı adı"}
                   </Link>
                   {auth && (
                     <Button
