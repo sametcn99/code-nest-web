@@ -52,7 +52,7 @@ export default async function Home() {
             title="Yeni bir proje paylaşın"
             aria-label="Yeni bir proje paylaşın"
             href={"/new"}
-            className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
+            className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:bg-white/10"
           >
             <RiFileEditLine size={20} /> <span>Paylaşmaya Başlayın</span>
           </Link>
@@ -61,7 +61,7 @@ export default async function Home() {
               title="Giriş Yap"
               aria-label="Giriş Yap"
               href={"/login"}
-              className="flex h-10 cursor-pointer items-center justify-center rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
+              className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:bg-white/10"
             >
               Giriş Yap
             </Link>
@@ -73,7 +73,7 @@ export default async function Home() {
           title="Topluluk"
           aria-label="Topluluk"
           href={"/community"}
-          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:text-gray-500"
+          className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-gray-500 px-6 text-gray-200 transition-all duration-200 ease-in-out hover:bg-white/10"
         >
           <FaDiscord size={22} />
           <span>Topluluğa katılın</span>

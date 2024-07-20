@@ -3,8 +3,8 @@ import { postData } from "@/actions/editor-actions";
 import { Button, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaEdit } from "react-icons/fa";
-import { IoCloseCircleSharp } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
+import { LuPlus } from "react-icons/lu";
 
 export default function Editor() {
   const router = useRouter();
@@ -60,7 +60,7 @@ export default function Editor() {
   };
 
   return (
-    <section className="mx-auto w-3/5 min-w-[20rem] rounded-xl p-6 backdrop-blur-sm">
+    <section className="container mx-auto min-w-[20rem] rounded-xl p-6 backdrop-blur-sm">
       <div className="flex flex-col gap-6 rounded-xl">
         <div>
           <h1 className="text-2xl font-bold">Editor</h1>
@@ -73,7 +73,7 @@ export default function Editor() {
             value={title}
             placeholder="Başlık girin"
             onChange={(e) => setTitle(e.target.value)}
-            className="h-10 w-full resize-none rounded-xl bg-transparent focus:outline-none"
+            className="h-10 resize-none rounded-xl bg-transparent focus:outline-none"
           />
           <Textarea
             value={description}
@@ -83,10 +83,10 @@ export default function Editor() {
           />
         </div>
         <div className="flex flex-row place-items-center justify-between gap-2">
-          <div className="inline-flex gap-2">
+          <div className="inline-flex gap-2 overscroll-x-auto">
             {components.map((component, index) => (
               <div
-                className="inline-flex w-full justify-start gap-2 rounded-xl border"
+                className="inline-flex w-full justify-start gap-2 rounded-xl border-1 border-[#29292B] hover:border-[#67676b]"
                 key={index}
               >
                 <input
@@ -97,26 +97,24 @@ export default function Editor() {
                     setFileTitleFocused(index);
                   }}
                   onChange={(e) => handleFilenameChange(index, e)}
-                  className="h-10 w-full bg-transparent px-3 focus:outline-none"
+                  className="mb-[1px] h-10 w-full bg-transparent px-3 text-sm placeholder:text-sm focus:outline-none"
                 />
-                <button
-                  className="h-10 w-10"
-                  onClick={() => handleRemove(index)}
-                  title="Edit File"
-                >
-                  <FaEdit />
-                </button>
-                <button
-                  className="h-10 w-10"
+                <Button
+                  className="bg-transparant flex w-[10px] text-red-600 hover:text-red-600"
                   onClick={() => handleRemove(index)}
                   title="Remove File"
                 >
-                  <IoCloseCircleSharp />
-                </button>
+                  <IoClose />
+                </Button>
               </div>
             ))}
           </div>
-          <Button onClick={addComponent}>+</Button>
+          <Button
+            onClick={addComponent}
+            className="bg-transparant color-green-600 w-auto"
+          >
+            <LuPlus />
+          </Button>
         </div>
         <Textarea
           className="resize-none"
@@ -139,11 +137,12 @@ export default function Editor() {
           }}
           aria-label="Code Editor"
           classNames={{
-            base: "resize-y min-h-[25rem]",
-            input: "resize-y min-h-[25rem]",
+            base: "resize-y min-h-[25rem] ",
+            input: "resize-y min-h-[25rem] ",
           }}
         />
       </div>
+
       <Button onClick={saveComponents} className="mt-4 w-full">
         Save
       </Button>
