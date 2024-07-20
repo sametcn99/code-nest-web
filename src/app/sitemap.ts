@@ -31,51 +31,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [];
   }
 
+  const base = "https://codenest.app";
+
   return [
     {
-      url: "https://code-nest-web.vercel.app/",
+      url: `${base}/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: "https://code-nest-web.vercel.app/explore",
+      url: `${base}/explore`,
       lastModified: new Date(),
       changeFrequency: "always",
       priority: 1,
     },
     {
-      url: "https://code-nest-web.vercel.app/community",
+      url: `${base}/community`,
       lastModified: new Date(),
       changeFrequency: "never",
       priority: 1,
     },
     {
-      url: "https://code-nest-web.vercel.app/topluluk",
+      url: `${base}/topluluk`,
       lastModified: new Date(),
       changeFrequency: "never",
       priority: 1,
     },
     {
-      url: "https://code-nest-web.vercel.app/destek",
+      url: `${base}/destek`,
       lastModified: new Date(),
       changeFrequency: "never",
       priority: 1,
     },
     {
-      url: "https://code-nest-web.vercel.app/discord",
+      url: `${base}/discord`,
       lastModified: new Date(),
       changeFrequency: "never",
       priority: 1,
     },
     ...users.map((user: Tables<"profiles">) => ({
-      url: `https://code-nest-web.vercel.app/${user.username || user.full_name}`,
+      url: `${base}/${user.username || user.full_name}`,
       lastModified: new Date(),
       changeFrequency: "never" as const,
       priority: 1,
     })),
     ...contents.map((content: Tables<"files">) => ({
-      url: `https://code-nest-web.vercel.app/code/${content.content_id}`,
+      url: `${base}/code/${content.content_id}`,
       lastModified: new Date(),
       changeFrequency: "never" as const,
       priority: 1,
