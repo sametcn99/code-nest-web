@@ -163,19 +163,30 @@ export default function ProfileCard({
         </Modal>
         <Image
           src={userData.banner_url || "/images/default_banner.gif"}
-          alt="user banner"
+          title={`${userData.username}'s banner`}
+          alt={`${userData.username}'s banner`}
           fill
           objectFit="cover"
           unoptimized
-          className="pointer-events-none select-none rounded-lg"
+          priority
+          role="banner"
+          draggable="false"
+          unselectable="on"
+          className="rounded-lg"
         />
         <div className="absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center">
           <Image
             src={user.avatar_url || "/images/default_avatar.png"}
+            title={`${userData.username}'s avatar`}
+            alt={`${userData.username}'s avatar`}
+            unoptimized
+            priority
+            role="banner"
+            draggable="false"
+            unselectable="on"
             width={100}
             height={100}
-            alt="user avatar"
-            className="h-22 w-22 pointer-events-none mr-2 select-none rounded-full border-8 border-[#18181B]"
+            className="h-22 w-22 rounded-full border-8 border-[#18181B]"
           />
           <div className="flex flex-col overflow-x-scroll scrollbar-hide">
             <div className="mb-[-0.625rem] inline-flex gap-2">
