@@ -14,40 +14,44 @@ const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const mounted = useRef(false);
 
   useEffect(() => {
-    return () => {
+    if (!mounted.current) {
+      mounted.current = true;
       setPage(1);
-    };
+    }
   }, []);
 
   useEffect(() => {
     const fetchContents = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const url = `/api/get?table=files&count=15&page=${page}&sort=desc&columns=created_at,title,description,id,user_id,content_id&order=created_at`;
-        console.log("fetching contents", url);
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.error) {
-          throw new Error(data.error);
+      if (page > 0 && hasMore && mounted.current) {
+        setLoading(true);
+        setError(null);
+        try {
+          const url = `/api/get?table=files&count=15&page=${page}&sort=desc&columns=created_at,title,description,id,user_id,content_id&order=created_at`;
+          console.log("fetching contents", url);
+          const res = await fetch(url);
+          const data = await res.json();
+          if (data.error) {
+            throw new Error(data.error);
+          }
+          setContents((prevContents) => [...prevContents, ...data]);
+          setHasMore(data.length > 0 ? true : false);
+        } catch (error: unknown) {
+          setHasMore(false);
+          setError(
+            error instanceof Error
+              ? error.message
+              : "An unknown error occurred",
+          );
+        } finally {
+          setLoading(false);
         }
-        setContents((prevContents) => [...prevContents, ...data]);
-        setHasMore(data.length > 0 ? true : false);
-      } catch (error: unknown) {
-        setHasMore(false);
-        setError(
-          error instanceof Error ? error.message : "An unknown error occurred",
-        );
-      } finally {
-        setLoading(false);
       }
     };
-    if (page > 0) {
-      fetchContents();
-    }
-  }, [page]);
+    fetchContents();
+  }, [page, hasMore, mounted]);
 
   useEffect(() => {
     const fetchUserMap = async () => {
