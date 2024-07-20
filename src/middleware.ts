@@ -1,5 +1,6 @@
 import { type NextRequest } from "next/server";
 import { visitMiddleware } from "./middlewares/visit_middleware";
+import { updateSession } from "./middlewares/supabase_middleware";
 
 /**
  * Executes the middleware function for the given request.
@@ -7,7 +8,7 @@ import { visitMiddleware } from "./middlewares/visit_middleware";
  * @returns A Promise that resolves to the result of the updateSession function.
  */
 export async function middleware(request: NextRequest) {
-  return await visitMiddleware(request);
+  return await visitMiddleware(request), updateSession(request);
 }
 
 /**
