@@ -15,7 +15,7 @@ type VisitData = {
 /**
  * The maximum number of visits allowed per day.
  */
-const MAX_VISITS_PER_DAY = 5;
+const MAX_VISITS_PER_DAY = 10;
 
 /**
  * Middleware function that handles visit tracking for each request.
