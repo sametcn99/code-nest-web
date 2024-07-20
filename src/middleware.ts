@@ -8,10 +8,11 @@ import { updateSession } from "./middlewares/supabase_middleware";
  * @returns A Promise that resolves to the result of the updateSession function.
  */
 export async function middleware(request: NextRequest) {
-  // const composeMiddlewares = async (request: NextRequest) => {
-  //   await updateSession(request);
-  // };
-  return await visitMiddleware(request);
+  const composeMiddlewares = async (request: NextRequest) => {
+    await updateSession(request);
+    await visitMiddleware(request);
+  };
+  return await composeMiddlewares(request);
 }
 
 /**
