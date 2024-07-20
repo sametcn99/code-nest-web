@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/server";
+import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
@@ -30,6 +31,8 @@ export async function visitMiddleware(request: NextRequest) {
     const supabase = createClient();
     const { data: user } = await supabase.auth.getUser();
     if (user.user !== null) return visitResponse;
+
+    const cookieStore = cookies().getAll();
 
     const visitDataCookie = request.cookies.get("visit_data")?.value;
     let visitData: VisitData = visitDataCookie
@@ -70,14 +73,12 @@ export async function visitMiddleware(request: NextRequest) {
       visitData = resetVisitData(ipAddress);
     }
 
-    visitResponse.cookies.set({
-      maxAge: 60 * 60 * 24,
-      priority: "high",
-      expires: new Date(now.getTime() + 60 * 60 * 24 * 1000),
-      secure: true,
-      sameSite: "strict",
+    cookieStore.push({
       name: "visit_data",
       value: JSON.stringify(visitData),
+    });
+    cookieStore.forEach((cookie) => {
+      visitResponse.cookies.set(cookie);
     });
     return visitResponse;
   } catch (error) {
