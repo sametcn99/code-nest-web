@@ -15,7 +15,8 @@ type VisitData = {
 /**
  * The maximum number of visits allowed per day.
  */
-const MAX_VISITS_PER_DAY = 10;
+const MAX_VISITS_PER_DAY =
+  Number(process.env.NEXT_PUBLIC_MAX_VISITS_PER_DAY) || 15;
 
 /**
  * Middleware function that handles visit tracking for each request.
@@ -28,8 +29,7 @@ export async function visitMiddleware(request: NextRequest) {
     const visitResponse = NextResponse.next();
     if (!ipAddress) return visitResponse;
 
-
-     // do some validation
+    // do some validation
     const supabase = createClient();
     const { data: user } = await supabase.auth.getUser();
     if (user.user === null) {
