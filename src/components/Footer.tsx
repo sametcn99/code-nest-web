@@ -23,6 +23,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white"
+              title="Discord"
             >
               <FaDiscord size={24} />
             </Link>
@@ -31,6 +32,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white"
+              title="GitHub"
             >
               <FaGithub size={24} />
             </Link>
@@ -39,6 +41,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white"
+              title="CodeNest"
             >
               <TbWorld size={24} />
             </Link>
