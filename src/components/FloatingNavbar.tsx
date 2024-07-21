@@ -9,7 +9,6 @@ import {
 } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
 
 /**
  * Props for the FloatingNavbar component.
@@ -88,9 +87,7 @@ export const FloatingNavbar = ({
           </Link>
           <Dropdown>
             <DropdownTrigger>
-              <Button className="bg-transparant relative ml-[-1.25rem] mr-[-1.25rem] flex items-center text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300">
-                Keşfet
-              </Button>
+              <Button className="text-md bg-transparent">Keşfet</Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Dropdown Variants" variant={"solid"}>
               <DropdownItem key="contents" href="/explore">

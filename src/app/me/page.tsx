@@ -2,7 +2,6 @@ import Loading from "@/app/Loading";
 import ContentCard from "@/components/ContentCard";
 import ProfileCard from "@/components/ProfileCard";
 import { createClient } from "@/utils/server";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../types/supabase";
 
@@ -14,12 +13,8 @@ export default async function Page() {
   const { data: user } = await supabase
     .from("profiles")
     .select("*")
-    .or(
-      `sub.eq.${authUser.data.user?.user_metadata.sub},username.eq.${authUser.data.user?.user_metadata.sub}`,
-    )
+    .eq("id", authUser.data.user?.id)
     .single();
-
-  if (!user) return notFound();
 
   const { data: contentsres } = await supabase
     .from("files")
@@ -29,15 +24,11 @@ export default async function Page() {
 
   if (contentsres) contents = contentsres;
 
+  if (!user) return notFound();
+
   return (
     <main className="container mx-auto">
-      {user && (
-        <ProfileCard
-          user={user}
-          auth={true}
-          viewerID={authUser.data.user?.id}
-        />
-      )}
+      {user && <ProfileCard user={user} auth={true} viewerID={user.id} />}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {contents &&
           contents.map((content, index) => (
