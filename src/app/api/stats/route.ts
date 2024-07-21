@@ -23,9 +23,21 @@ export async function GET(request: Request) {
       .from("files")
       .select("id", { count: "exact" });
 
-    if (e1 || e2) {
+    /**
+     * fetch last file uploaded
+     */
+    const { data: lastFile, error: e3 } = await supabase
+      .from("files")
+      .select("created_at")
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (e1 || e2 || e3) {
       return NextResponse.json(
-        { error: "An error occurred while fetching data", details: e1 || e2 },
+        {
+          error: "An error occurred while fetching data",
+          details: e1 || e2 || e3,
+        },
         { status: 500 },
       );
     }
@@ -33,6 +45,7 @@ export async function GET(request: Request) {
     data = {
       totalUsers: totalUsers.length,
       totalContent: totalContent.length,
+      lastUploadedFile: lastFile[0].created_at,
     };
 
     return NextResponse.json(data, {
