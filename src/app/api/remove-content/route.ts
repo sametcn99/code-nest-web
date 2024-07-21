@@ -8,12 +8,12 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function POST(req: NextRequest) {
   try {
-    const { content_id }: { content_id: string } = await req.json();
+    const { id }: { id: string } = await req.json();
     const supabase = createClient();
     const { error: e } = await supabase
       .from("files")
       .delete()
-      .eq("content_id", content_id);
+      .eq("id", id);
     if (e) throw Error(`Error removing content: ${e}`);
     if (e) throw e;
     else return NextResponse.json({ response: "success", status: 200 });

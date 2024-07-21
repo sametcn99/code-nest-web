@@ -36,7 +36,6 @@ export type Database = {
       files: {
         Row: {
           content: Json
-          content_id: number
           created_at: string
           description: string | null
           id: string
@@ -46,7 +45,6 @@ export type Database = {
         }
         Insert: {
           content: Json
-          content_id: number
           created_at?: string
           description?: string | null
           id?: string
@@ -56,7 +54,6 @@ export type Database = {
         }
         Update: {
           content?: Json
-          content_id?: number
           created_at?: string
           description?: string | null
           id?: string

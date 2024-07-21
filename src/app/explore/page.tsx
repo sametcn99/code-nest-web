@@ -33,7 +33,7 @@ const Page = () => {
         setLoading(true);
         setError(null);
         try {
-          const url = `/api/get?table=files&count=15&page=${page}&sort=desc&columns=created_at,title,description,id,user_id,content_id&order=created_at`;
+          const url = `/api/get?table=files&count=15&page=${page}&sort=desc&columns=created_at,title,description,id,user_id&order=created_at`;
           const res = await fetch(url);
           const data = await res.json();
           if (data.error) {
@@ -128,7 +128,7 @@ const Page = () => {
       <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredContents.map((file) => (
           <ContentCard
-            key={file.content_id}
+            key={file.id}
             content={file}
             user={userMap[file.user_id]}
             auth={false}

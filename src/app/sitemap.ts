@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const { data: files, error: filesError } = await supabase
     .from("files")
-    .select("content_id")
+    .select("id")
     .order("created_at", { ascending: false });
   contents = files as Tables<"files">[];
 

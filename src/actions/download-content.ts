@@ -2,7 +2,7 @@ import JSZip from "jszip";
 
 /**
  * Downloads the contents associated with the given content ID.
- * @param content_id - The ID of the content to download.
+ * @param id - The ID of the content to download.
  * @returns A promise that resolves to a boolean indicating whether the download was successful.
  */
 export async function downloadContents(files: FileTypes[]): Promise<boolean> {

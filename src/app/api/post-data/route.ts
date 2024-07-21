@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
       user_id: auth.data.user?.id,
       content: components,
       created_at: new Date(),
-      content_id: generateRandomNumber(8),
       title: title,
       description: description,
     };
