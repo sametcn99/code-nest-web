@@ -83,12 +83,12 @@ export const getFileExtension = (filename: string): string | null => {
 export const getLangFromFileExtension = (filename: string): string => {
   const ext = getFileExtension(filename);
   if (!ext) {
-    return "Dil Bilinmiyor";
+    return "plaintext";
   }
   for (const lang in fileExtensionsByLangs) {
     if (fileExtensionsByLangs[lang].includes(ext)) {
       return lang;
     }
   }
-  return "Dil Bilinmiyor";
+  return "plaintext";
 };

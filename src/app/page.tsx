@@ -1,12 +1,9 @@
 import FeaturesSectionDemo from "@/components/Features";
 import { InfiniteMovingCards } from "@/components/InfiniteMovingCards";
 import { createClient } from "@/utils/server";
-import Link from "next/link";
-import { FaDiscord } from "react-icons/fa";
-import { RiFileEditLine } from "react-icons/ri";
+import { Button } from "@nextui-org/react";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
-import { Button } from "@nextui-org/react";
 
 export default async function Home() {
   const supabase = createClient();
