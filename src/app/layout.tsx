@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
   openGraph: {
     title: {
-      template: "%s | GPV",
+      template: "%s | CodeNest",
       default: "CodeNest",
     },
     description: "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
