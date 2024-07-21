@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { error, data } = await supabase
     .from("files")
     .select("*")
-    .eq("content_id", params.project)
+    .eq("id", params.project)
     .single();
 
   if (error) return notFound();
@@ -66,7 +66,7 @@ export default async function Page({ params, searchParams }: Props) {
   const { error, data } = await supabase
     .from("files")
     .select("*")
-    .eq("content_id", params.project)
+    .eq("id", params.project)
     .single();
 
   if (error) return notFound();

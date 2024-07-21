@@ -24,9 +24,13 @@ export async function POST(req: NextRequest) {
       description: description,
     };
 
-    const { error, statusText, status } = await supabase
-      .from("files")
-      .insert(data);
+    const {
+      error,
+      statusText,
+      status,
+      data: res,
+    } = await supabase.from("files").insert(data).select("*");
+    console.log(res);
 
     if (error) {
       throw new Error("An error occurred while saving the components" + error);
@@ -34,7 +38,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       response: "Components saved successfully",
-      pathname: path.join("/code", data.content_id.toString()),
+      pathname: path.join("/code", res[0].id),
       statusText: statusText,
       status: status,
     });

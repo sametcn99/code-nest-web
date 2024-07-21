@@ -49,7 +49,7 @@ export default function ContentCard({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onRemove = async () => {
-    const res = await removeContent(content.content_id);
+    const res = await removeContent(content.id);
     if (res) {
       onOpenChange();
       location.reload();
@@ -133,7 +133,7 @@ export default function ContentCard({
               title={`${content.title} adlı projeyi görüntüle`}
               aria-label={`${content.title} adlı projeyi görüntüle`}
               className="w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white"
-              href={`/code/${content.content_id}`}
+              href={`/code/${content.id}`}
             >
               Kodu Görüntüle
             </Link>

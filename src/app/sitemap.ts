@@ -83,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     })),
     ...contents.map((content: Tables<"files">) => ({
-      url: `${base}/code/${content.content_id}`,
+      url: `${base}/code/${content.id}`,
       lastModified: new Date(),
       changeFrequency: "never" as const,
       priority: 1,

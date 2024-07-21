@@ -3,7 +3,7 @@
  * @param content_id - The ID of the content to be removed.
  * @returns A Promise that resolves to a boolean indicating whether the content was successfully removed.
  */
-export const removeContent = async (content_id: number): Promise<boolean> => {
+export const removeContent = async (content_id: string): Promise<boolean> => {
   try {
     const response = await fetch("/api/remove-content", {
       method: "POST",
