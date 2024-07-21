@@ -1,10 +1,9 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
 import ContentCard from "@/components/ContentCard";
-import Loading from "../Loading";
-import { Tables } from "../../../types/supabase";
 import { Input } from "@nextui-org/react";
+import { useEffect, useRef, useState } from "react";
+import { Tables } from "../../../types/supabase";
+import Loading from "../Loading";
 
 const Page = () => {
   const [contents, setContents] = useState<Tables<"files">[]>([]);
@@ -35,7 +34,6 @@ const Page = () => {
         setError(null);
         try {
           const url = `/api/get?table=files&count=15&page=${page}&sort=desc&columns=created_at,title,description,id,user_id,content_id&order=created_at`;
-          console.log("fetching contents", url);
           const res = await fetch(url);
           const data = await res.json();
           if (data.error) {
@@ -64,7 +62,6 @@ const Page = () => {
         contents.forEach((content) => {
           if (!userMap[content.user_id]) {
             const url = `/api/get?table=profiles&columns=avatar_url, id, username, full_name&eq=${content.user_id}`;
-            console.log("fetching user profile", url);
             fetch(url)
               .then((res) => res.json())
               .then((data) => {
@@ -116,17 +113,17 @@ const Page = () => {
     <section className="mx-auto flex flex-col place-items-center gap-5">
       <div className="text-center">
         <h1 className="text-4xl font-bold">Keşfet</h1>
-        <h2 className="text-2xl font-bold text-muted">
+        <h2 className="text-xl font-bold text-muted">
           Topluluğumuz tarafından paylaşılan içerikleri keşfedin!
         </h2>
-        <div className="max-h-13 flex w-full flex-wrap pb-3 pl-3 pr-3 pt-3 md:flex-nowrap">
-          <Input
-            type="text"
-            label="Search..."
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-          />
-        </div>
+      </div>
+      <div className="max-h-13 flex w-full flex-wrap pb-3 pl-3 pr-3 pt-3 sm:w-[30rem] md:w-[40rem] md:flex-nowrap">
+        <Input
+          type="text"
+          label="Search..."
+          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
+        />
       </div>
       <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredContents.map((file) => (
