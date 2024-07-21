@@ -50,7 +50,7 @@ export default function CodeView({
 }: CodeViewProps) {
   const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
   const [isStarred, setIsStarred] = useState(
-    content.starred_by?.includes(user.id),
+    content.starred_by?.includes(viewerID ? viewerID : "") ?? false,
   );
   const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0);
   const [isFollowed, setIsFollowed] = useState(false);
