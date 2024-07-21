@@ -218,7 +218,8 @@ export default function ProfileCard({
                   isIconOnly
                   className="mb-auto ml-5 bg-transparent hover:text-green-500"
                   onClick={(e) => {
-                    if (user.id !== viewerID && viewerID && auth) {
+                    if (user && viewerID && user.id !== viewerID) {
+                      console.log("Follow action:", user, viewerID, isFollowed);
                       followAction(
                         user,
                         viewerID,
@@ -228,7 +229,7 @@ export default function ProfileCard({
                     }
                     user.id === viewerID &&
                       toast.error("Kendinizi takip edemezsiniz.");
-                    auth === false &&
+                    !viewerID &&
                       toast.error(
                         "Bu özelliği kullanabilmek için giriş yapmalısınız.",
                       );
