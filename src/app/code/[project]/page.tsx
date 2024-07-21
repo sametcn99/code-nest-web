@@ -47,8 +47,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: data.title,
+    description:
+      data.description ||
+      "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
+    icons: {
+      icon: user.avatar_url || "/icons/favicon-512x512.png",
+      shortcut: user.avatar_url || "/icons/favicon-512x512.png",
+      apple: user.avatar_url || "/icons/favicon-512x512.png",
+    },
     openGraph: {
       title: data.title,
+      description:
+        data.description ||
+        "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
+      images: [data.avatar_url || "/icons/favicon-512x512.png"],
+      type: "article",
+    },
+    twitter: {
+      title: data.title,
+      description:
+        data.description ||
+        "En sevdiğiniz projeleri paylaşın, kaydedin ve keşfedin.",
     },
   };
 }

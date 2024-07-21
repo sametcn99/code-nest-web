@@ -1,13 +1,13 @@
 import { BackgroundCellCore } from "@/components/BackgroundRippleEffect";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProvider } from "@nextui-org/system";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 const font = Montserrat({ subsets: ["latin"] });
 

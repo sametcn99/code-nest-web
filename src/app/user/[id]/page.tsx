@@ -25,12 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       icon: user.avatar_url || "/icons/favicon-512x512.png",
       shortcut: user.avatar_url || "/icons/favicon-512x512.png",
       apple: user.avatar_url || "/icons/favicon-512x512.png",
-      username: user.username,
+      username: user.username || user.full_name,
     },
     openGraph: {
       title: user.username || user.full_name,
       description: user.bio || "User profile description",
       images: [user.avatar_url || "/icons/favicon-512x512.png"],
+      type: "profile",
     },
     twitter: {
       title: user.username || user.full_name,
