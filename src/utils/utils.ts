@@ -29,17 +29,19 @@ export const formatDate = (date: Date): string => {
   const diffInMinutes = Math.floor(diffInMs / 60000); // Convert milliseconds to minutes
 
   if (diffInMinutes <= 5) {
-      return "5 dakika içinde";
+    return "5 dakika içinde";
   } else if (diffInMinutes <= 10) {
-      return "10 dakika içinde";
+    return "10 dakika içinde";
   } else if (diffInMinutes <= 30) {
-      return "30 dakika içinde";
-  } else if (diffInMinutes <= 1440) { // 1440 minutes in a day
-      return "1 gün içinde";
-  } else if (diffInMinutes <= 2880) { // 2880 minutes in two days
-      return "1 gün önce";
+    return "30 dakika içinde";
+  } else if (diffInMinutes <= 1440) {
+    // 1440 minutes in a day
+    return "1 gün içinde";
+  } else if (diffInMinutes <= 2880) {
+    // 2880 minutes in two days
+    return "1 gün önce";
   } else {
-      return givenDate.toISOString(); // Return the date in ISO format
+    return givenDate.toISOString(); // Return the date in ISO format
   }
 };
 
@@ -114,4 +116,14 @@ export function truncateString(input: string): string {
   } else {
     return input;
   }
+}
+
+export function debounce(callback: (...args: any[]) => void, delay: number) {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return (...args: any[]) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  };
 }

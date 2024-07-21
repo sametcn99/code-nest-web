@@ -4,12 +4,10 @@ import { Input } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { Tables } from "../../../types/supabase";
 import Loading from "../Loading";
+import { debounce } from "@/utils/utils";
 
 const Page = () => {
   const [contents, setContents] = useState<Tables<"files">[]>([]);
-  const [filteredContents, setFilteredContents] = useState<Tables<"files">[]>(
-    [],
-  );
   const [userMap, setUserMap] = useState<Record<string, Tables<"profiles">>>(
     {},
   );
@@ -27,32 +25,31 @@ const Page = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchContents = async () => {
-      if (page > 0 && hasMore && mounted.current) {
-        setLoading(true);
-        setError(null);
-        try {
-          const url = `/api/get?table=files&count=15&page=${page}&sort=desc&columns=created_at,title,description,id,user_id&order=created_at`;
-          const res = await fetch(url);
-          const data = await res.json();
-          if (data.error) {
-            throw new Error(data.error);
-          }
-          setContents((prevContents) => [...prevContents, ...data]);
-          setHasMore(data.length > 0 ? true : false);
-        } catch (error: unknown) {
-          setHasMore(false);
-          setError(
-            error instanceof Error
-              ? error.message
-              : "An unknown error occurred",
-          );
-        } finally {
-          setLoading(false);
+  const fetchContents = async () => {
+    if (page > 0 && hasMore && mounted.current) {
+      setLoading(true);
+      setError(null);
+      try {
+        const url = `/api/get?table=files&count=20&page=${page}&sort=desc&columns=created_at,title,description,id,user_id&order=created_at`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.error) {
+          throw new Error(data.error);
         }
+        setContents((prevContents) => [...prevContents, ...data]);
+        setHasMore(data.length > 0 ? true : false);
+      } catch (error: unknown) {
+        setHasMore(false);
+        setError(
+          error instanceof Error ? error.message : "An unknown error occurred",
+        );
+      } finally {
+        setLoading(false);
       }
-    };
+    }
+  };
+
+  useEffect(() => {
     fetchContents();
   }, [page, hasMore, mounted]);
 
@@ -97,15 +94,38 @@ const Page = () => {
   }, [loading, hasMore]);
 
   useEffect(() => {
-    if (searchQuery) {
-      const filtered = contents.filter((content) =>
-        content.title.toLowerCase().includes(searchQuery.toLowerCase()),
-      );
-      setFilteredContents(filtered);
-    } else {
-      setFilteredContents(contents);
-    }
-  }, [searchQuery, contents]);
+    const searchContents = async () => {
+      if (searchQuery.length > 2) {
+        setContents([]);
+        setLoading(true);
+        setError(null);
+        try {
+          const url = `/api/search?q=${searchQuery}&table=files`;
+          const res = await fetch(url);
+          const data = await res.json();
+          if (data.error) {
+            throw new Error(data.error);
+          }
+          setContents(data);
+        } catch (error) {
+          setError(
+            error instanceof Error
+              ? error.message
+              : "An unknown error occurred",
+          );
+        } finally {
+          setLoading(false);
+        }
+      } else if (searchQuery.length <= 2 && searchQuery !== "") {
+        setContents([]);
+        setPage(1);
+        setHasMore(true);
+        fetchContents(); // Call the function to fetch initial contents
+      }
+    };
+    const debouncedSearch = debounce(searchContents, 500);
+    debouncedSearch();
+  }, [searchQuery]);
 
   if (error && page === 1) return <div>Error loading files: {error}</div>;
 
@@ -126,7 +146,7 @@ const Page = () => {
         />
       </div>
       <main className="container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredContents.map((file) => (
+        {contents.map((file) => (
           <ContentCard
             key={file.id}
             content={file}
