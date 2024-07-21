@@ -51,7 +51,7 @@ export default async function Home() {
             aria-label="Yeni bir proje paylaşın"
             color="primary"
             href="/new"
-            variant="flat"
+            variant="faded"
           >
             Paylaşmaya Başlayın
           </Button>
@@ -62,7 +62,7 @@ export default async function Home() {
               aria-label="Giriş Yap"
               color="success"
               href="/login"
-              variant="flat"
+              variant="faded"
             >
               Giriş Yap
             </Button>
@@ -75,7 +75,8 @@ export default async function Home() {
           aria-label="Topluluk"
           color="secondary"
           href="/community"
-          variant="flat"
+          variant="faded"
+          target="_blank"
         >
           Topluluğumuza Katılın
         </Button>

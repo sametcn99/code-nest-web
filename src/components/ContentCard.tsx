@@ -67,7 +67,7 @@ export default function ContentCard({
         >
           <CardHeader className="flex flex-row justify-between">
             <Link
-              title={`${user.username || user.sub}'s Profile`}
+              title={`${user.username || user.full_name || user.id}'s Profile`}
               aria-label={`${user.id}'s Profile`}
               href={`/user/${user.id}`}
               className="flex w-full items-center rounded-xl transition-all duration-500"
@@ -76,7 +76,7 @@ export default function ContentCard({
                 src={user.avatar_url || "/images/default_avatar.png"}
                 width={55}
                 height={55}
-                alt="user avatar"
+                alt={`${user.username || user.full_name || user.id}'s avatar`}
                 className="h-22 w-22 pointer-events-none select-none rounded-full border-8 border-[#18181B]"
               />
               <div className="flex flex-col">
