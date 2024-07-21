@@ -44,10 +44,11 @@ export async function GET(request: NextRequest) {
       );
     }
     const data = [...titleData, ...descriptionData];
-    // remove duplicates
-    const uniqueData = data.filter(
-      (v, i, a) => a.findIndex((t) => t.id === v.id) === i,
-    );
+
+    // Remove duplicates using Set
+    const uniqueData = Array.from(new Set(data.map((a) => a.id))).map((id) => {
+      return data.find((a) => a.id === id);
+    });
 
     return NextResponse.json(uniqueData, {
       headers: {
