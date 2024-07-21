@@ -72,12 +72,14 @@ export default function Editor() {
           <Textarea
             value={title}
             placeholder="Başlık girin"
+            maxLength={80}
             onChange={(e) => setTitle(e.target.value)}
             className="h-10 resize-none rounded-xl bg-transparent focus:outline-none"
           />
           <Textarea
             value={description}
             className="resize-none"
+            maxLength={500}
             placeholder="Açıklama girin"
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -93,6 +95,7 @@ export default function Editor() {
                   type="text"
                   placeholder="Dosya adı"
                   value={component.filename}
+                  maxLength={50}
                   onFocus={() => {
                     setFileTitleFocused(index);
                   }}
