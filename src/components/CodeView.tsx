@@ -91,7 +91,7 @@ export default function CodeView({
     <div className="place-items-left container mx-auto flex w-full flex-col justify-center gap-4">
       <div className="flex flex-row flex-wrap place-items-center justify-center rounded-xl">
         <Link
-          href={`/user/${user.sub}`}
+          href={`/user/${user.id}`}
           className="inline-flex gap-2 rounded-2xl p-2 px-4 text-lg font-bold transition-all duration-500 hover:bg-white/20"
           onClick={(e) => {
             if (isUserDeleted) {
