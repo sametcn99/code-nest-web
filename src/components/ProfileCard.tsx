@@ -253,8 +253,7 @@ export default function ProfileCard({
       <div className="mt-20 flex items-center gap-4">
         <div className="flex w-full flex-col gap-1">
           <div className="inline-flex gap-2">
-            <ContactListModal id={user.id} action="followers" />
-            <ContactListModal id={user.id} action="followings" />
+            <ContactListModal id={user.id} />
           </div>
           <div className="flex gap-4">
             <h2>
