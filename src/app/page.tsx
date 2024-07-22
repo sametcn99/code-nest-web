@@ -4,6 +4,7 @@ import { createClient } from "@/utils/server";
 import { Button } from "@nextui-org/react";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
+import Link from "next/link";
 
 export default async function Home() {
   const supabase = createClient();
@@ -46,40 +47,40 @@ export default async function Home() {
           </p>
         </div>
         <div className="flex h-auto items-center justify-center gap-[0.5rem] px-[1.5625rem]">
-          <Button
+          <Link
             title="Yeni bir proje paylaşın"
             aria-label="Yeni bir proje paylaşın"
             color="primary"
             href="/new"
-            variant="faded"
+            className="rounded-xl border bg-gray-700 bg-opacity-50 p-2"
           >
             Paylaşmaya Başlayın
-          </Button>
+          </Link>
 
           {!user.user ? (
-            <Button
+            <Link
               title="Giriş Yap"
               aria-label="Giriş Yap"
               color="success"
               href="/login"
-              variant="faded"
+              className="rounded-xl border bg-gray-700 bg-opacity-50 p-2"
             >
               Giriş Yap
-            </Button>
+            </Link>
           ) : (
             <></>
           )}
         </div>
-        <Button
+        <Link
           title="Topluluk"
           aria-label="Topluluk"
           color="secondary"
           href="/community"
-          variant="faded"
           target="_blank"
+          className="rounded-xl border bg-gray-700 bg-opacity-50 p-2"
         >
           Topluluğumuza Katılın
-        </Button>
+        </Link>
       </main>
       <FeaturesSectionDemo />
       {contents && contents.length > 0 ? (

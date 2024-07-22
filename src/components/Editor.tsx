@@ -88,7 +88,7 @@ export default function Editor() {
                   type="text"
                   placeholder="Dosya adı"
                   value={component.filename}
-                  maxLength={50}
+                  maxLength={25}
                   onFocus={() => {
                     setFileTitleFocused(index);
                   }}
