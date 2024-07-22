@@ -49,9 +49,7 @@ export default function ContactListModal({
       try {
         const promises = userIds.map(fetchProfile);
         const profilesData = await Promise.all(promises);
-        console.log(profilesData);
         setProfiles(profilesData);
-        console.log(profiles);
       } catch (err) {
         console.error(err);
       }
@@ -63,7 +61,6 @@ export default function ContactListModal({
     } else if (action === "followings") {
       setProfiles([]);
       fetchProfiles(followings);
-      console.log(profiles);
     }
   }, [id, action, followers, followings]);
 
