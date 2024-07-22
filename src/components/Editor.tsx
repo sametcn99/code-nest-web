@@ -18,7 +18,6 @@ export default function Editor() {
     value: "",
     filename: "",
   });
-  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const focusedComponent = components[fileTitleFocused];
@@ -40,15 +39,9 @@ export default function Editor() {
   };
 
   const saveComponents = () => {
-    setIsSaving(true);
     postData(components, title, description).then((res) => {
-      if (res !== null) {
-        setIsSaving(false);
-        router.push(res.pathname);
-      } else {
-        setIsSaving(false);
-        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-      }
+      if (res !== null) router.push(res.pathname);
+      else alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     });
   };
 
