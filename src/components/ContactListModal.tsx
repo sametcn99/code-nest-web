@@ -119,14 +119,14 @@ export default function ContactListModal({ id }: { id: string }) {
             className="m-0 w-fit bg-transparent p-0 font-bold hover:underline"
             onPress={onOpen}
           >
-            {`Takipçiler ${followings.length}`}
+            {`Takip Edilenler ${followings.length}`}
           </Button>
           <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
             <ModalContent>
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
-                    {`Takipçiler ${followings.length}`}
+                    {`Takip Edilenler ${followings.length}`}
                   </ModalHeader>
                   <ModalBody>
                     <ul className="flex flex-col gap-1">
