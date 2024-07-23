@@ -7,9 +7,9 @@ export default function SignOut() {
   /**
    * Handles the sign out process.
    */
-  const handleSignOut = async () => {
+  function handleSignOut() {
     redirect("/auth/signout");
-  };
+  }
 
   return (
     <button type="button" onClick={handleSignOut} className="text-xl">
