@@ -330,7 +330,7 @@ export default function ProfileCard({
             </Button>
           )}
           <Link
-            href="/signout"
+            href="/api/signout"
             className="w-fit rounded-full pb-2 pl-6 pr-6 pt-2 text-sm transition-all duration-300 hover:bg-red-900"
           >
             Çıkış Yap
