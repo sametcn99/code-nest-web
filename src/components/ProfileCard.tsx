@@ -21,8 +21,8 @@ import { RiUserAddLine, RiUserFollowLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
-import ContactListModal from "./ContactListModal";
 import RichTextRender from "./RichTextRender";
+import ContactListModal from "./ContactListModal";
 
 /**
  * Props for the ProfileCard component.
@@ -39,6 +39,7 @@ type ProfileCardProps = {
 
   /** The component class name. */
   className?: React.HtmlHTMLAttributes<HTMLDivElement>["className"];
+  views: number;
 };
 
 /**
@@ -53,6 +54,7 @@ export default function ProfileCard({
   auth,
   viewerID,
   className,
+  views,
 }: ProfileCardProps) {
   const [userData, setUserData] = useState(user);
   const [bannerUrl, setBannerUrl] = useState(user.banner_url);
@@ -265,6 +267,7 @@ export default function ProfileCard({
                 {user.full_name}
               </Link>
             </p>
+            <p>Profil Görüntülenme sayısı: {views}</p>
           </div>
           {auth && isBioEditing && (
             <Textarea

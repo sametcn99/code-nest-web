@@ -2,6 +2,7 @@ import Loading from "@/app/Loading";
 import ContentCard from "@/components/ContentCard";
 import ProfileCard from "@/components/ProfileCard";
 import { createClient } from "@/utils/server";
+import { fetchViews } from "@/utils/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";
@@ -64,12 +65,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   if (contentsres) contents = contentsres;
 
-  await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=profiles`,
-    {
-      method: "POST",
-    },
-  );
+  const views = await fetchViews(user.id, "profiles");
 
   return (
     <main className="container mx-auto">
@@ -78,6 +74,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           user={user}
           auth={false}
           viewerID={authUser.data.user?.id}
+          views={views}
         />
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
