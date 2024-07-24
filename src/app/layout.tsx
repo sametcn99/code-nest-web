@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { Providers } from "@/lib/providers";
 
 const font = Montserrat({ subsets: ["latin"] });
 
@@ -63,14 +64,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${font.className} dark`}>
         <NextUIProvider>
-          <BackgroundCellCore />
-          <section className="relative flex min-h-screen flex-col gap-20 px-2">
-            <Navbar />
-            {children}
-            <Toaster theme="dark" />
-          </section>
-          <Footer />
-          <Analytics />
+          <Providers>
+            <BackgroundCellCore />
+            <section className="relative flex min-h-screen flex-col gap-20 px-2">
+              <Navbar />
+              {children}
+              <Toaster theme="dark" />
+            </section>
+            <Footer />
+            <Analytics />
+          </Providers>
         </NextUIProvider>
       </body>
       <GoogleAnalytics gaId="G-6BSGH2FJGV" />
