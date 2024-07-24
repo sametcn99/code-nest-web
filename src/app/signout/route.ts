@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const { origin } = new URL(request.url);
     const supabase = createClient();
