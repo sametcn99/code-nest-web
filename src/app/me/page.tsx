@@ -4,6 +4,7 @@ import ProfileCard from "@/components/ProfileCard";
 import { createClient } from "@/utils/server";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../types/supabase";
+import { fetchViews } from "@/utils/utils";
 
 export default async function Page() {
   const supabase = createClient();
@@ -26,9 +27,13 @@ export default async function Page() {
 
   if (!user) return notFound();
 
+  const views = await fetchViews(user.id, "profiles");
+
   return (
     <main className="container mx-auto">
-      {user && <ProfileCard user={user} auth={true} viewerID={user.id} />}
+      {user && (
+        <ProfileCard user={user} auth={true} viewerID={user.id} views={views} />
+      )}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {contents &&
           contents.map((content, index) => (
