@@ -63,6 +63,23 @@ export default function ProfileCard({
   const [isBioEditing, setIsBioEditing] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [views, setViews] = useState(null);
+
+  useEffect(() => {
+    const fetchViews = async () => {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=files`;
+      const res = await fetch(url, { method: "POST" });
+      if (!res.ok) {
+        return;
+      }
+      const data = await res.json();
+
+      setViews(data.count);
+    };
+    if (!views) {
+      fetchViews();
+    }
+  }, []);
 
   useEffect(() => {
     if (!viewerID) return;

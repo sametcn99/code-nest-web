@@ -116,6 +116,27 @@ export type Database = {
           },
         ]
       }
+      views: {
+        Row: {
+          _id: string | null
+          count: number
+          id: string
+          table: string | null
+        }
+        Insert: {
+          _id?: string | null
+          count: number
+          id?: string
+          table?: string | null
+        }
+        Update: {
+          _id?: string | null
+          count?: number
+          id?: string
+          table?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

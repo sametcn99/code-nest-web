@@ -10,7 +10,7 @@ import { formatDate } from "@/utils/utils";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiDownload } from "react-icons/hi";
 import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
 import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
@@ -54,32 +54,23 @@ export default function CodeView({
   );
   const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0);
   const [isFollowed, setIsFollowed] = useState(false);
+  const [views, setViews] = useState(null);
 
-  const postData = async (
-    components: FileTypes[],
-    title: string,
-    description: string,
-  ) => {
-    try {
-      const response = await fetch("/api/post-data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ components, title, description }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save components");
+  useEffect(() => {
+    const fetchViews = async () => {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${content.id}&table=files`;
+      const res = await fetch(url, { method: "POST" });
+      if (!res.ok) {
+        return;
       }
+      const data = await res.json();
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-      return null;
+      setViews(data.count);
+    };
+    if (!views) {
+      fetchViews();
     }
-  };
+  },[]);
 
   useEffect(() => {
     if (!viewerID) return;
