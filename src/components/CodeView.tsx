@@ -64,13 +64,11 @@ export default function CodeView({
         return;
       }
       const data = await res.json();
-
+  
       setViews(data.count);
     };
-    if (!views) {
-      fetchViews();
-    }
-  },[]);
+    fetchViews();
+  }, []);
 
   useEffect(() => {
     if (!viewerID) return;

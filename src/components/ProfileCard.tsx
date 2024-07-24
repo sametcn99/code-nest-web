@@ -67,7 +67,7 @@ export default function ProfileCard({
 
   useEffect(() => {
     const fetchViews = async () => {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=files`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=profiles`;
       const res = await fetch(url, { method: "POST" });
       if (!res.ok) {
         return;
@@ -76,9 +76,7 @@ export default function ProfileCard({
 
       setViews(data.count);
     };
-    if (!views) {
-      fetchViews();
-    }
+    fetchViews();
   }, []);
 
   useEffect(() => {
