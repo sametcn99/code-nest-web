@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { LuPlus } from "react-icons/lu";
+import { toast } from "sonner";
 
 export default function Editor() {
   const router = useRouter();
@@ -34,11 +35,31 @@ export default function Editor() {
   };
 
   const addComponent = () => {
-    if (components.length >= 5) return;
+    if (components.length >= 7) return;
     setComponents([...components, { value: "", filename: "" }]);
   };
 
   const saveComponents = () => {
+    if (title === "") {
+      toast.error("Başlık alanı boş bırakılamaz.");
+      return;
+    }
+    if (components.some((component) => component.value === "")) {
+      toast.error("Dosya içeriği boş bırakılamaz.");
+      return;
+    }
+    if (components.some((component) => component.filename === "")) {
+      toast.error("Dosya adı boş bırakılamaz.");
+      return;
+    }
+    if (components.some((component) => component.filename.length > 25)) {
+      toast.error("Dosya adı 25 karakterden uzun olamaz.");
+      return;
+    }
+    if (components.some((component) => component.value.length > 10000)) {
+      toast.error("Dosya içeriği 10000 karakterden uzun olamaz.");
+      return;
+    }
     postData(components, title, description).then((res) => {
       if (res !== null) router.push(res.pathname);
       else alert("Bir hata oluştu. Lütfen tekrar deneyin.");

@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/server";
-import { generateRandomNumber } from "@/utils/utils";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
@@ -14,6 +13,37 @@ export async function POST(req: NextRequest) {
 
     const supabase = createClient();
     const auth = await supabase.auth.getUser();
+
+    // validate the components and the title
+    if (components.length === 0) {
+      return NextResponse.json({
+        response: "Components cannot be empty",
+        status: 400,
+      });
+    }
+
+    if (title === "") {
+      return NextResponse.json({
+        response: "Title cannot be empty",
+        status: 400,
+      });
+    }
+
+    if (
+      components.some(
+        (component: FileTypes) =>
+          component.value === "" ||
+          component.filename === "" ||
+          component.filename.length > 25 ||
+          component.value.length > 10000 ||
+          components.length > 7,
+      )
+    ) {
+      return NextResponse.json({
+        response: "Invalid components",
+        status: 400,
+      });
+    }
 
     const data = {
       user_id: auth.data.user?.id,
