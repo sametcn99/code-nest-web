@@ -127,3 +127,13 @@ export function debounce(callback: (...args: any[]) => void, delay: number) {
     }, delay);
   };
 }
+
+export async function fetchViews(id: string, table: string): Promise<number> {
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${id}&table=${table}`;
+  const res = await fetch(url, { method: "POST" });
+  if (!res.ok) {
+    return 0;
+  }
+  const data = await res.json();
+  return data.count || 0;
+}

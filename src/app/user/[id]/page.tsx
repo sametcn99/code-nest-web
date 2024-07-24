@@ -64,9 +64,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   if (contentsres) contents = contentsres;
 
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=profiles`, {
-    method: "POST",
-  });
+  await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=profiles`,
+    {
+      method: "POST",
+    },
+  );
 
   return (
     <main className="container mx-auto">

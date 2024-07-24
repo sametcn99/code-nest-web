@@ -5,6 +5,7 @@ import { createClient } from "@/utils/server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../../types/supabase";
+import { fetchViews } from "@/utils/utils";
 
 type Props = {
   params: { project: string; id: string };
@@ -113,6 +114,8 @@ export default async function Page({ params, searchParams }: Props) {
     };
   }
 
+  const views = await fetchViews(params.project, "files");
+
   return (
     <main className="mx-auto flex w-full flex-col gap-80">
       {data && user && (
@@ -123,6 +126,7 @@ export default async function Page({ params, searchParams }: Props) {
           isAuth={isAuth}
           viewerID={auth.data.user?.id}
           isRateLimitExceeded={isRateLimitExceeded}
+          views={views}
         />
       )}
       {!data && user && <Loading />}

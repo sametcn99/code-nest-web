@@ -21,8 +21,8 @@ import { RiUserAddLine, RiUserFollowLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
-import RichTextRender from "./RichTextRender";
 import ContactListModal from "./ContactListModal";
+import RichTextRender from "./RichTextRender";
 
 /**
  * Props for the ProfileCard component.
@@ -63,21 +63,6 @@ export default function ProfileCard({
   const [isBioEditing, setIsBioEditing] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [views, setViews] = useState(null);
-
-  useEffect(() => {
-    const fetchViews = async () => {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${user.id}&table=profiles`;
-      const res = await fetch(url, { method: "POST" });
-      if (!res.ok) {
-        return;
-      }
-      const data = await res.json();
-
-      setViews(data.count);
-    };
-    fetchViews();
-  }, []);
 
   useEffect(() => {
     if (!viewerID) return;
@@ -270,8 +255,8 @@ export default function ProfileCard({
           <div className="inline-flex gap-2">
             <ContactListModal id={user.id} />
           </div>
-          <div className="flex gap-4">
-            <h2>
+          <div className="flex flex-col">
+            <p>
               Discord Adı:{" "}
               <Link
                 href={`https://discord.com/users/${user.sub}`}
@@ -279,25 +264,7 @@ export default function ProfileCard({
               >
                 {user.full_name}
               </Link>
-            </h2>{" "}
-            {/* <h2>
-              Takipçiler:{" "}
-              <Link
-                href={`https://discord.com/users/${user.sub}`}
-                className="inline-flex text-muted hover:underline"
-              >
-                2
-              </Link>
-            </h2>{" "}
-            <h2>
-              Favorite:{" "}
-              <Link
-                href={`https://discord.com/users/${user.sub}`}
-                className="inline-flex text-muted hover:underline"
-              >
-                1
-              </Link>
-            </h2> */}
+            </p>
           </div>
           {auth && isBioEditing && (
             <Textarea

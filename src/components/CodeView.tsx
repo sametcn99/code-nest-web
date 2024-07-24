@@ -21,6 +21,7 @@ import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import AskAI from "./AskAI";
 import RateLimitExceeded from "./RateLimitExceeded";
+import { FaEye } from "react-icons/fa";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
@@ -38,6 +39,9 @@ type CodeViewProps = {
 
   /**Is Rate Limit Exceeded */
   isRateLimitExceeded: boolean;
+
+  /**View Count */
+  views: number;
 };
 
 export default function CodeView({
@@ -47,6 +51,7 @@ export default function CodeView({
   isAuth,
   viewerID,
   isRateLimitExceeded,
+  views,
 }: CodeViewProps) {
   const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
   const [isStarred, setIsStarred] = useState(
@@ -54,21 +59,6 @@ export default function CodeView({
   );
   const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0);
   const [isFollowed, setIsFollowed] = useState(false);
-  const [views, setViews] = useState(null);
-
-  useEffect(() => {
-    const fetchViews = async () => {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${content.id}&table=files`;
-      const res = await fetch(url, { method: "POST" });
-      if (!res.ok) {
-        return;
-      }
-      const data = await res.json();
-  
-      setViews(data.count);
-    };
-    fetchViews();
-  }, []);
 
   useEffect(() => {
     if (!viewerID) return;
@@ -148,6 +138,15 @@ export default function CodeView({
                         getFileExtension(file.filename) ?? "",
                       )}
                     </div>
+                    <Button
+                      title="Views"
+                      className="bg-transparent hover:text-blue-700"
+                      onClick={() =>
+                        toast.info(`Görüntülenme sayısı: ${views}`)
+                      }
+                    >
+                      <FaEye className="" /> {views}
+                    </Button>
                     <Button
                       title="Total Stars"
                       startContent={isStarred ? <LuStarOff /> : <LuStar />}
