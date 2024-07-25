@@ -51,7 +51,7 @@ export default function UserButton({ username, avatar_url }: UserButtonProps) {
                 </Link>
               </DropdownItem>
               <DropdownItem>
-                <Link href={"/signout"} className="text-xl font-bold">
+                <Link href={"/api/signout"} className="text-xl font-bold">
                   Çıkış Yap
                 </Link>
               </DropdownItem>

@@ -4,12 +4,7 @@ import { FloatingNavbar } from "./FloatingNavbar";
 export default async function Navbar() {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
-  return (
-    <FloatingNavbar
-      navItems={navItems}
-      id={data.user?.user_metadata.sub}
-    />
-  );
+  return <FloatingNavbar id={data.user?.user_metadata.sub} />;
 }
 
 /**

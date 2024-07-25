@@ -21,24 +21,20 @@ export async function POST(req: NextRequest) {
       contentId: string;
     } = await req.json();
     const supabase = createClient();
-    if (action === "Add") {
-      starredBy.push(userId);
-    } else if (action === "Remove") {
+    if (action === "Add") starredBy.push(userId);
+    else if (action === "Remove")
       starredBy.splice(starredBy.indexOf(userId), 1);
-    }
     const { error: e } = await supabase
       .from("files")
       .update({ starred_by: starredBy })
       .eq("id", contentId);
 
-    if (e) {
-      throw e;
-    } else {
+    if (e) throw e;
+    else
       return NextResponse.json({
         response: "success",
         status: 200,
       });
-    }
   } catch (error) {
     return NextResponse.json({
       response: "An unknown error occurred",

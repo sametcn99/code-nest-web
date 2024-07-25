@@ -13,12 +13,11 @@ export async function GET(request: NextRequest) {
       .eq("id", id)
       .single();
 
-    if (error) {
+    if (error)
       return NextResponse.json(
         { error: "An unexpected error occurred", details: error },
         { status: 500 },
       );
-    }
 
     return NextResponse.json(data, {
       headers: {

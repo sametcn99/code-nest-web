@@ -14,13 +14,6 @@ import Link from "next/link";
  * Props for the FloatingNavbar component.
  */
 type FloatingNavbarProps = {
-  /** The navigation items to display in the floating navbar. */
-  navItems: {
-    name: string;
-    link: string;
-    icon?: JSX.Element;
-  }[];
-
   /** The username of the authenticated user. */
   id: string | null;
 
@@ -32,31 +25,11 @@ type FloatingNavbarProps = {
  * FloatingNavbar component displays a floating navigation bar with customizable navigation items.
  *
  * @component
- * @example
- * // Usage
- * <FloatingNavbar
- *   navItems={[
- *     { name: "Home", link: "/home", icon: <HomeIcon /> },
- *     { name: "About", link: "/about", icon: <AboutIcon /> },
- *     { name: "Contact", link: "/contact", icon: <ContactIcon /> },
- *   ]}
- *   username="JohnDoe"
- *   className="my-navbar"
- * />
- *
- * @param {Object[]} navItems - The navigation items to display in the floating navbar.
- * @param {string} navItems[].name - The name of the navigation item.
- * @param {string} navItems[].link - The link of the navigation item.
- * @param {JSX.Element} [navItems[].icon] - The icon element for the navigation item.
  * @param {string | null} username - The username of the authenticated user.
  * @param {string} [className] - Additional CSS class names for the component.
  * @returns {JSX.Element} The rendered FloatingNavbar component.
  */
-export const FloatingNavbar = ({
-  navItems,
-  id,
-  className,
-}: FloatingNavbarProps) => {
+export const FloatingNavbar = ({ id, className }: FloatingNavbarProps) => {
   const visible = true;
 
   return (
@@ -127,7 +100,7 @@ export const FloatingNavbar = ({
                 key="logout"
                 className="text-danger"
                 color="danger"
-                href="/signout"
+                href="/api/signout"
               >
                 Çıkış Yap
               </DropdownItem>

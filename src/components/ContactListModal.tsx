@@ -49,13 +49,8 @@ export default function ContactListModal({ id }: { id: string }) {
       }
     };
 
-    if (followers && followers.length > 0) {
-      fetchProfiles(followers);
-    }
-
-    if (followings && followings.length > 0) {
-      fetchProfiles(followings);
-    }
+    if (followers && followers.length > 0) fetchProfiles(followers);
+    if (followings && followings.length > 0) fetchProfiles(followings);
   }, [id, followers, followings]);
 
   return (

@@ -17,12 +17,11 @@ export async function GET(request: NextRequest) {
       ?.toString()
       .toLowerCase() as string | null;
 
-    if (!searchQuery || !table) {
+    if (!searchQuery || !table)
       return NextResponse.json(
         { error: "Missing some query name." },
         { status: 400 },
       );
-    }
 
     const supabase = createClient();
 
@@ -37,12 +36,11 @@ export async function GET(request: NextRequest) {
       .select(columns)
       .textSearch("description", searchQuery, { type: "phrase" });
 
-    if (e1 || e2) {
+    if (e1 || e2)
       return NextResponse.json(
         { error: "An error occurred while fetching data", details: e1 || e2 },
         { status: 500 },
       );
-    }
     const data = [...titleData, ...descriptionData];
 
     // Remove duplicates using Set

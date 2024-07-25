@@ -1,14 +1,11 @@
 import { createClient } from "@/utils/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { origin } = new URL(request.url);
     const supabase = createClient();
-
-    // Fetch the current user
     const authUser = await supabase.auth.getUser();
     const { data: user, error: userError } = await supabase
       .from("profiles")
@@ -16,16 +13,10 @@ export async function GET(request: NextRequest) {
       .eq("id", authUser.data.user?.id)
       .single();
 
-    if (userError || !user) {
-      throw Error("User not found");
-    }
-
-    // Sign out the user
+    if (userError || !user) throw Error("User not found");
     const { error: signOutError } = await supabase.auth.signOut();
 
-    if (signOutError) {
-      throw Error("Sign out failed");
-    }
+    if (signOutError) throw Error("Sign out failed");
 
     // Prepare the payload for Discord webhook
     const payload = {
@@ -38,9 +29,8 @@ export async function GET(request: NextRequest) {
       ],
     };
 
-    if (!DISCORD_WEBHOOK_URL) {
-      throw Error("Discord webhook URL is missing");
-    }
+    if (!DISCORD_WEBHOOK_URL) throw Error("Discord webhook URL is missing");
+
     // Send the log to Discord webhook
     await fetch(DISCORD_WEBHOOK_URL, {
       method: "POST",

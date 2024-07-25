@@ -10,7 +10,8 @@ import { formatDate } from "@/utils/utils";
 import { Button, Card, Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
 import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
@@ -20,8 +21,7 @@ import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import AskAI from "./AskAI";
-import RateLimitExceeded from "./RateLimitExceeded";
-import { FaEye } from "react-icons/fa";
+import RateLimitExceeded from "./ui/RateLimitExceeded";
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */

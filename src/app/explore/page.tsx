@@ -1,10 +1,10 @@
 "use client";
 import ContentCard from "@/components/ContentCard";
+import { debounce } from "@/utils/utils";
 import { Input } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { Tables } from "../../../types/supabase";
 import Loading from "../Loading";
-import { debounce } from "@/utils/utils";
 
 const Page = () => {
   const [contents, setContents] = useState<Tables<"files">[]>([]);

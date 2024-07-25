@@ -1,12 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.GEMINI_API_KEY || "YOUR_API_KEY";
+const apiKey = process.env.GEMINI_API_KEY;
 
-if (!apiKey) {
+if (!apiKey)
   throw Error(
     "API key is missing. Please set NEXT_PUBLIC_GEMINI_API_KEY in your environment variables.",
   );
-}
 
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -22,11 +21,8 @@ const prePrompot =
 export async function generateText(prompt: string) {
   try {
     const response = await model.generateContent(`${prePrompot}\n${prompt}`);
-
-    if (!response || !response.response || !response.response.text) {
+    if (!response || !response.response || !response.response.text)
       throw Error("Invalid response structure from Generative AI model.");
-    }
-
     return response.response.text();
   } catch (error) {
     console.error("Error generating text:", error);

@@ -12,26 +12,21 @@ export async function POST(request: NextRequest) {
     const content = await request.json();
     const supabase = createClient();
     const auth = await supabase.auth.getUser();
-    if (auth.data.user === null) {
+    if (auth.data.user === null)
       return NextResponse.json({
         response: "You must be logged in to access this route.",
         status: 401,
       });
-    }
-    if (!content) {
-      throw new Error("Content is required.");
-    }
-
+    if (!content) throw new Error("Content is required.");
     const response = await generateText(JSON.stringify(content));
     return NextResponse.json({ response, status: 200 });
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof Error)
       return NextResponse.json({ error: error, status: 500 });
-    } else {
+    else
       return NextResponse.json({
         error: error,
         status: 500,
       });
-    }
   }
 }

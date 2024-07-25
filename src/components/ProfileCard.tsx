@@ -21,8 +21,8 @@ import { RiUserAddLine, RiUserFollowLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
-import RichTextRender from "./RichTextRender";
 import ContactListModal from "./ContactListModal";
+import RichTextRender from "./ui/RichTextRender";
 
 /**
  * Props for the ProfileCard component.
@@ -58,7 +58,6 @@ export default function ProfileCard({
 }: ProfileCardProps) {
   const [userData, setUserData] = useState(user);
   const [bannerUrl, setBannerUrl] = useState(user.banner_url);
-  const [dummyBannerUrl, setDummyBannerUrl] = useState(user.banner_url);
   const [isUserNameEditing, setIsUserNameEditing] = useState(false);
   const [isBannerUrlEditing, setIsBannerUrlEditing] = useState(false);
   const [isChangesSaved, setIsChangesSaved] = useState(true);
@@ -78,7 +77,7 @@ export default function ProfileCard({
   }, [isUserNameEditing, isBannerUrlEditing, isBioEditing]);
 
   const handleBannerUrlChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setDummyBannerUrl(e.target.value);
+    setBannerUrl(e.target.value);
 
   const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, bio: e.target.value });
@@ -99,18 +98,17 @@ export default function ProfileCard({
   };
 
   const handleSaveBannerUrl = async () => {
-    if (!dummyBannerUrl) {
-      setDummyBannerUrl(bannerUrl);
+    if (!bannerUrl) {
+      setBannerUrl(bannerUrl);
       alert("Banner URL boş bırakılamaz.");
       return;
     }
-    const isValid = await isValidBannerUrl(dummyBannerUrl);
+    const isValid = await isValidBannerUrl(bannerUrl);
     if (!isValid) {
-      setDummyBannerUrl(bannerUrl);
+      setBannerUrl(bannerUrl);
       return;
     }
-    console.log("Banner URL is valid:", dummyBannerUrl);
-    setUserData({ ...userData, banner_url: dummyBannerUrl });
+    setUserData({ ...userData, banner_url: bannerUrl });
     setIsBannerUrlEditing(true);
   };
 
@@ -141,7 +139,7 @@ export default function ProfileCard({
                 <ModalBody>
                   <Textarea
                     placeholder="Banner URL"
-                    value={dummyBannerUrl || ""}
+                    value={bannerUrl || ""}
                     onChange={handleBannerUrlChange}
                     className="w-full"
                   />
@@ -315,7 +313,7 @@ export default function ProfileCard({
             </Button>
           )}
           <Link
-            href="/signout"
+            href="/api/signout"
             className="w-fit rounded-full pb-2 pl-6 pr-6 pt-2 text-sm transition-all duration-300 hover:bg-red-900"
           >
             Çıkış Yap

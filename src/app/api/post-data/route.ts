@@ -10,24 +10,21 @@ import path from "path";
 export async function POST(req: NextRequest) {
   try {
     const { components, title, description } = await req.json();
-
     const supabase = createClient();
     const auth = await supabase.auth.getUser();
 
     // validate the components and the title
-    if (components.length === 0) {
+    if (components.length === 0)
       return NextResponse.json({
         response: "Components cannot be empty",
         status: 400,
       });
-    }
 
-    if (title === "") {
+    if (title === "")
       return NextResponse.json({
         response: "Title cannot be empty",
         status: 400,
       });
-    }
 
     if (
       components.some(
@@ -38,12 +35,11 @@ export async function POST(req: NextRequest) {
           component.value.length > 10000 ||
           components.length > 7,
       )
-    ) {
+    )
       return NextResponse.json({
         response: "Invalid components",
         status: 400,
       });
-    }
 
     const data = {
       user_id: auth.data.user?.id,
@@ -61,9 +57,8 @@ export async function POST(req: NextRequest) {
     } = await supabase.from("files").insert(data).select("*");
     console.log(res);
 
-    if (error) {
+    if (error)
       throw new Error("An error occurred while saving the components" + error);
-    }
 
     return NextResponse.json({
       response: "Components saved successfully",

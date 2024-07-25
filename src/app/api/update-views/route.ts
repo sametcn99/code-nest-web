@@ -9,12 +9,11 @@ export async function POST(Request: NextRequest) {
     const table = reqURL.searchParams.get("table");
     let count = 0;
 
-    if (!id || !table) {
+    if (!id || !table)
       return NextResponse.json(
         { error: "Please provide an id and table" },
         { status: 400 },
       );
-    }
 
     const { data, error } = await supabase
       .from("views")
@@ -26,12 +25,11 @@ export async function POST(Request: NextRequest) {
       const { data: insertData, error: insertError } = await supabase
         .from("views")
         .insert([{ _id: id, count: 1, table: table }]);
-      if (insertError) {
+      if (insertError)
         return NextResponse.json(
           { error: "An unexpected error occurred", details: insertError },
           { status: 500 },
         );
-      }
       count = 1;
       NextResponse.json({ count: count, status: 200 });
     } else if (error) {

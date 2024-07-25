@@ -32,6 +32,8 @@ export async function visitMiddleware(request: NextRequest) {
     // do some validation
     const supabase = createClient();
     const { data: user } = await supabase.auth.getUser();
+    if (user.user !== null) return visitResponse;
+
     if (user.user === null) {
       const cookieStore = cookies().getAll();
 

@@ -1,10 +1,9 @@
-import FeaturesSectionDemo from "@/components/Features";
-import { InfiniteMovingCards } from "@/components/InfiniteMovingCards";
+import FeaturesSectionDemo from "@/components/ui/Features";
 import { createClient } from "@/utils/server";
-import { Button } from "@nextui-org/react";
+import Link from "next/link";
 import { Tables } from "../../types/supabase";
 import Loading from "./Loading";
-import Link from "next/link";
+import { InfiniteMovingCards } from "@/components/ui/InfiniteMovingCards";
 
 export default async function Home() {
   const supabase = createClient();

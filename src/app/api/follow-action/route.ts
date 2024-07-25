@@ -20,9 +20,7 @@ export async function POST(req: NextRequest) {
     let followingList: string[] = [];
     let followersList: string[] = user.followers ?? [];
     if (action === "Follow") {
-      if (viewerData) {
-        followingList = viewerData.followings ?? [];
-      }
+      if (viewerData) followingList = viewerData.followings ?? [];
       followingList.push(user.id);
 
       const { error } = await supabase

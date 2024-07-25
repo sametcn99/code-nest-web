@@ -1,6 +1,6 @@
 import Loading from "@/app/Loading";
 import { createClient } from "@/utils/server";
-import { Tables } from "../../types/supabase";
+import { Tables } from "../../../types/supabase";
 import { InfiniteMovingCards } from "./InfiniteMovingCards";
 
 export default async function RandomContents() {

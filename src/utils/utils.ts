@@ -1,5 +1,3 @@
-import JSZip from "jszip";
-
 /**
  * Generates a random number with the specified number of digits.
  * @param digitCount The number of digits in the generated random number.
@@ -46,63 +44,6 @@ export const formatDate = (date: Date): string => {
 };
 
 /**
- * Handles the downloading of files.
- *
- * @param files An array of files to download.
- */
-export const downloadFiles = (files: FileTypes[]): void => {
-  if (files.length === 1) {
-    downloadSingleFile(files[0]);
-  } else {
-    downloadMultipleFilesAsZip(files);
-  }
-};
-
-/**
- * Downloads a single file.
- *
- * @param file The file to download.
- */
-export const downloadSingleFile = (file: FileTypes): void => {
-  const url = URL.createObjectURL(new Blob([file.value]));
-  triggerDownload(url, file.filename);
-};
-
-/**
- * Downloads multiple files as a ZIP.
- *
- * @param files An array of files to download.
- */
-export const downloadMultipleFilesAsZip = (files: FileTypes[]): void => {
-  const zipName = `${new Date().toDateString()}_codenest_project.zip`;
-
-  const zip = new JSZip();
-  files.forEach((file) => {
-    zip.file(file.filename, file.value);
-  });
-  zip.generateAsync({ type: "blob" }).then((content) => {
-    const url = URL.createObjectURL(content);
-    triggerDownload(url, "content.zip");
-  });
-};
-
-/**
- * Triggers the download of a file.
- *
- * @param url The URL of the file to download.
- * @param filename The name of the file to use for the download.
- */
-export const triggerDownload = (url: string, filename: string): void => {
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a); // Append to body to ensure visibility in all browsers
-  a.click();
-  URL.revokeObjectURL(url);
-  document.body.removeChild(a); // Clean up
-};
-
-/**
  * Truncates a string if it exceeds a certain length.
  * If the input string is longer than 100 characters, it will be truncated and "..." will be appended.
  * If the input string is shorter than or equal to 100 characters, it will be returned as is.
@@ -111,13 +52,16 @@ export const triggerDownload = (url: string, filename: string): void => {
  * @returns The truncated string.
  */
 export function truncateString(input: string): string {
-  if (input.length > 100) {
-    return input.substring(0, 100) + "...";
-  } else {
-    return input;
-  }
+  if (input.length > 100) return input.substring(0, 100) + "...";
+  else return input;
 }
 
+/**
+ * Debounces a callback function.
+ * @param callback The callback function to be debounced.
+ * @param delay The delay in milliseconds before invoking the callback.
+ * @returns A debounced version of the callback function.
+ */
 export function debounce(callback: (...args: any[]) => void, delay: number) {
   let timeoutId: ReturnType<typeof setTimeout>;
   return (...args: any[]) => {
@@ -128,7 +72,16 @@ export function debounce(callback: (...args: any[]) => void, delay: number) {
   };
 }
 
+/**
+ * Fetches the number of views for a specific ID and table.
+ *
+ * @param id - The ID of the item.
+ * @param table - The table name.
+ * @returns A promise that resolves to the number of views.
+ */
 export async function fetchViews(id: string, table: string): Promise<number> {
+  if (process.env.NODE_ENV !== "production") return 0; // Return a default value or handle as needed
+
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${id}&table=${table}`;
   const res = await fetch(url, { method: "POST" });
   if (!res.ok) {
