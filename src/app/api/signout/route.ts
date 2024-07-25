@@ -40,7 +40,7 @@ export async function GET() {
       body: JSON.stringify(payload),
     });
 
-    return NextResponse.redirect(`${origin}/`);
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/`);
   } catch (error) {
     console.error("Error during sign out:", error);
     return new Response("Error processing your request", { status: 500 });
