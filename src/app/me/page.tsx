@@ -1,4 +1,3 @@
-```tsx
 import Loading from "@/app/Loading";
 import ContentCard from "@/components/ContentCard";
 import ProfileCard from "@/components/ProfileCard";
@@ -49,4 +48,4 @@ export default async function Page() {
       {!user && !contents && <Loading />}
     </main>
   );
-}```
+}

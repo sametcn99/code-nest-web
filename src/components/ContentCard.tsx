@@ -13,6 +13,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Skeleton,
   useDisclosure,
 } from "@nextui-org/react";
 import Image from "next/image";
@@ -76,6 +77,7 @@ export default function ContentCard({
                 src={user.avatar_url || "/images/default_avatar.png"}
                 width={55}
                 height={55}
+                unoptimized
                 alt={`${user.username || user.full_name || user.id}'s avatar`}
                 className="h-22 w-22 pointer-events-none select-none rounded-full border-8 border-[#18181B]"
               />
