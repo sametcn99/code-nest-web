@@ -1,3 +1,4 @@
+```tsx
 import Loading from "@/app/Loading";
 import ContentCard from "@/components/ContentCard";
 import ProfileCard from "@/components/ProfileCard";
@@ -5,13 +6,9 @@ import { createClient } from "@/utils/server";
 import { notFound } from "next/navigation";
 import { Tables } from "../../../types/supabase";
 import { fetchViews } from "@/utils/utils";
-import PaginationControls from "./PaginationControls";
 
-export default async function Page({ searchParams }: { searchParams: { page?: string } }) {
+export default async function Page() {
   const supabase = createClient();
-  const pageSize = 15; // Number of items per page
-  const page = parseInt(searchParams.page || "1", 10); // Current page, default to 1
-
   let contents: Tables<"files">[] = [];
   const authUser = await supabase.auth.getUser();
 
@@ -21,25 +18,15 @@ export default async function Page({ searchParams }: { searchParams: { page?: st
     .eq("id", authUser.data.user?.id)
     .single();
 
-  if (!user) return notFound();
-
-  // Fetch the data for the current page
   const { data: contentsres } = await supabase
     .from("files")
     .select("*")
     .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
-    .range((page - 1) * pageSize, page * pageSize - 1);
+    .order("created_at", { ascending: false });
 
   if (contentsres) contents = contentsres;
 
-  // Fetch total count of items for pagination
-  const { count: totalItems } = await supabase
-    .from("files")
-    .select("id", { count: "exact" })
-    .eq("user_id", user.id);
-
-  const totalPages = Math.ceil((totalItems || 1) / pageSize);
+  if (!user) return notFound();
 
   const views = await fetchViews(user.id, "profiles");
 
@@ -59,8 +46,7 @@ export default async function Page({ searchParams }: { searchParams: { page?: st
             />
           ))}
       </div>
-      {!contents.length && <Loading />}
-      <PaginationControls totalPages={totalPages} currentPage={page} />
+      {!user && !contents && <Loading />}
     </main>
   );
-}
+}```
