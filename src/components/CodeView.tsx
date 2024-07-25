@@ -17,7 +17,7 @@ import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
 import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
 import Markdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { irBlack, monokai } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import AskAI from "./AskAI";
@@ -216,7 +216,7 @@ export default function CodeView({
                         language={getLangFromFileExtension(
                           getFileExtension(file.filename) ?? "",
                         )}
-                        style={irBlack}
+                        style={monokai}
                         // showLineNumbers bunu ekleyince responsive bozuluyor daha sonra düzelt
                       >
                         {file.value}
