@@ -23,7 +23,7 @@ export default function ClientSideComponent({ users }: ClientSideComponentProps)
 
   return (
     <div className="w-full flex flex-col items-center">
-      <Input type="email" label="Search Users..." className="w-[50%] mb-6 h-16	" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
+      <Input type="text" label="Search Users..." className="w-[50%] mb-6 h-16	" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user, index) => (
