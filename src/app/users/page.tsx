@@ -1,37 +1,32 @@
-import { createClient } from "@/utils/server";
+"use client";
+
+import { useState } from "react";
 import { Card, CardHeader } from "@nextui-org/react";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Tables } from "../../../types/supabase";
+import {Input} from "@nextui-org/react";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
-  title: "Kullanıcılar",
-  openGraph: {
-    title: "Kullanıcılar",
-  },
-};
+interface ClientSideComponentProps {
+  users: Tables<"profiles">[];
+}
 
-export default async function Page() {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("id, username, full_name, avatar_url, bio, roles");
-  if (error) return <div>Veriler yüklenirken bir hata oluştu.</div>;
-  const users = data as Tables<"profiles">[];
+export default function ClientSideComponent({ users }: ClientSideComponentProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredUsers = users.filter(user => {
+    const username = user.username?.toLowerCase() || "";
+    const fullName = user.full_name?.toLowerCase() || "";
+    const term = searchTerm.toLowerCase();
+    return username.includes(term) || fullName.includes(term);
+  });
 
   return (
-    <div className="container mx-auto flex w-full flex-col items-center justify-center gap-4 p-4">
-      <h2 className="text-center text-3xl font-bold">Kullanıcılar</h2>
-      <p className="text-muted">
-        Bu sayfada yer alan Kullanıcılar, platformumuz üzerinde kayıtlı olan ve
-        paylaşımlarda bulunan kullanıcılardır.
-      </p>
+    <div className="w-full flex flex-col items-center">
+      <Input type="email" label="Search Users..." className="w-[50%] mb-6 h-16	" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {users &&
-          users.length > 0 &&
-          users.map((user, index) => (
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user, index) => (
             <Link href={`/user/${user.id}`} key={index}>
               <Card key={index} className="p-2 hover:scale-101">
                 <CardHeader className="inline-flex gap-3">
@@ -54,7 +49,10 @@ export default async function Page() {
                 </CardHeader>
               </Card>
             </Link>
-          ))}
+          ))
+        ) : (
+          <p>Kullanıcı bulunamadı.</p>
+        )}
       </div>
     </div>
   );
