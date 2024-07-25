@@ -7,15 +7,10 @@ import { Tables } from "../../../types/supabase";
 import { fetchViews } from "@/utils/utils";
 import PaginationControls from "./PaginationControls";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { page?: string; query?: string };
-}) {
+export default async function Page({ searchParams }: { searchParams: { page?: string } }) {
   const supabase = createClient();
   const pageSize = 15; // Number of items per page
   const page = parseInt(searchParams.page || "1", 10); // Current page, default to 1
-  const query = searchParams.query || ""; // Search query, default to empty string
 
   let contents: Tables<"files">[] = [];
   const authUser = await supabase.auth.getUser();
@@ -28,23 +23,21 @@ export default async function Page({
 
   if (!user) return notFound();
 
-  // Fetch the data for the current page with filtering
-  const { data: contentsres, error: contentsError } = await supabase
+  // Fetch the data for the current page
+  const { data: contentsres } = await supabase
     .from("files")
     .select("*")
     .eq("user_id", user.id)
-    .ilike("title", `%${query}%`) // Filter by title using ilike for case-insensitive search
     .order("created_at", { ascending: false })
     .range((page - 1) * pageSize, page * pageSize - 1);
 
   if (contentsres) contents = contentsres;
 
-  // Fetch total count of items for pagination with filtering
+  // Fetch total count of items for pagination
   const { count: totalItems } = await supabase
     .from("files")
     .select("id", { count: "exact" })
-    .eq("user_id", user.id)
-    .ilike("title", `%${query}%`); // Filter by title using ilike for case-insensitive search
+    .eq("user_id", user.id);
 
   const totalPages = Math.ceil((totalItems || 1) / pageSize);
 
