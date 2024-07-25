@@ -2,7 +2,7 @@
 import { followAction } from "@/actions/follow-actions";
 import { updateProfile } from "@/actions/user-actions";
 import { cn } from "@/utils/cn";
-import { isValidBannerUrl } from "@/utils/image-validate";
+import { isValidImageUrl } from "@/utils/image-validate";
 import {
   Button,
   Card,
@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import ContactListModal from "./ContactListModal";
 import RichTextRender from "./ui/RichTextRender";
+import useValidImage from "@/lib/hooks/useValidImage";
 
 /**
  * Props for the ProfileCard component.
@@ -64,6 +65,7 @@ export default function ProfileCard({
   const [isBioEditing, setIsBioEditing] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const isValidBannerUrl = useValidImage(bannerUrl || "");
 
   useEffect(() => {
     if (!viewerID) return;
@@ -103,7 +105,7 @@ export default function ProfileCard({
       alert("Banner URL boş bırakılamaz.");
       return;
     }
-    const isValid = await isValidBannerUrl(bannerUrl);
+    const isValid = await isValidImageUrl(bannerUrl);
     if (!isValid) {
       setBannerUrl(bannerUrl);
       return;
@@ -163,7 +165,11 @@ export default function ProfileCard({
           </ModalContent>
         </Modal>
         <Image
-          src={userData.banner_url || "/images/default_banner.gif"}
+          src={
+            isValidBannerUrl && bannerUrl
+              ? bannerUrl
+              : "/images/default_banner.gif"
+          }
           title={`${userData.username}'s banner`}
           alt={`${userData.username}'s banner`}
           fill

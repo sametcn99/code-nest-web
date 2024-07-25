@@ -12,7 +12,7 @@ const ACCEPTABLE_IMAGE_CONTENT_TYPES = [
  * @param url - The URL to validate.
  * @returns A promise that resolves to true if the URL points to a valid image, otherwise false.
  */
-export async function isValidBannerUrl(url: string = ""): Promise<boolean> {
+export async function isValidImageUrl(url: string = ""): Promise<boolean> {
   try {
     validateUrlFormat(url);
     const response = await fetch(url, { method: "HEAD" });

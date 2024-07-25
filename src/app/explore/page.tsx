@@ -140,7 +140,7 @@ const Page = () => {
       <div className="max-h-13 flex w-full flex-wrap pb-3 pl-3 pr-3 pt-3 sm:w-[30rem] md:w-[40rem] md:flex-nowrap">
         <Input
           type="text"
-          label="Search..."
+          label="Arama yap"
           onChange={(e) => setSearchQuery(e.target.value)}
           value={searchQuery}
         />
