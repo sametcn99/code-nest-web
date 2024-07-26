@@ -1,15 +1,12 @@
-import { combineReducers } from "@reduxjs/toolkit";
-
+import { combineReducers } from '@reduxjs/toolkit'
 
 /**
  * Root reducer function that combines all the individual reducers.
  * @returns The combined state object.
  */
-const rootReducer = combineReducers({
-
-});
+const rootReducer = combineReducers({})
 
 /**
  * The combined state object.
  */
-export default rootReducer;
+export default rootReducer

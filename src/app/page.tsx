@@ -1,34 +1,34 @@
-import FeaturesSectionDemo from "@/components/ui/Features";
-import { createClient } from "@/utils/server";
-import Link from "next/link";
-import { Tables } from "../../types/supabase";
-import Loading from "./Loading";
-import { InfiniteMovingCards } from "@/components/ui/InfiniteMovingCards";
+import FeaturesSectionDemo from '@/components/ui/Features'
+import { createClient } from '@/utils/server'
+import Link from 'next/link'
+import { Tables } from '../../types/supabase'
+import Loading from './Loading'
+import { InfiniteMovingCards } from '@/components/ui/InfiniteMovingCards'
 
 export default async function Home() {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  const user = data;
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.getUser()
+  const user = data
 
   const { data: contents } = await supabase
-    .from("files")
-    .select("*", { count: "exact" })
-    .order("created_at", { ascending: false })
-    .limit(10);
+    .from('files')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .limit(10)
 
-  const userMap: Record<string, Tables<"profiles">> = {};
+  const userMap: Record<string, Tables<'profiles'>> = {}
 
   if (contents) {
     // Fetch user data for each content
     for (const content of contents) {
       if (!userMap[content.user_id]) {
         const { data: userRes, error: userError } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", content.user_id)
-          .single();
+          .from('profiles')
+          .select('*')
+          .eq('id', content.user_id)
+          .single()
         if (!userError) {
-          userMap[content.user_id] = userRes as Tables<"profiles">;
+          userMap[content.user_id] = userRes as Tables<'profiles'>
         }
       }
     }
@@ -85,13 +85,13 @@ export default async function Home() {
       {contents && contents.length > 0 ? (
         <InfiniteMovingCards
           speed={80}
-          items={contents as Tables<"files">[]}
+          items={contents as Tables<'files'>[]}
           users={userMap}
-          title={"Son Paylaşılanlar"}
+          title={'Son Paylaşılanlar'}
         />
       ) : (
         <Loading />
       )}
     </section>
-  );
+  )
 }

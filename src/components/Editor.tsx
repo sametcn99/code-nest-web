@@ -1,66 +1,66 @@
-"use client";
-import { postData } from "@/actions/editor-actions";
-import useValidData from "@/lib/hooks/useValidData";
-import { Button, Textarea } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { IoClose } from "react-icons/io5";
-import { LuPlus } from "react-icons/lu";
-import { toast } from "sonner";
+'use client'
+import { postData } from '@/actions/editor-actions'
+import useValidData from '@/lib/hooks/useValidData'
+import { Button, Textarea } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { IoClose } from 'react-icons/io5'
+import { LuPlus } from 'react-icons/lu'
+import { toast } from 'sonner'
 
 export default function Editor() {
-  const router = useRouter();
+  const router = useRouter()
   const [components, setComponents] = useState<FileTypes[]>([
-    { value: "", filename: "" },
-  ]);
-  const [fileTitleFocused, setFileTitleFocused] = useState(0);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+    { value: '', filename: '' },
+  ])
+  const [fileTitleFocused, setFileTitleFocused] = useState(0)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [focusedComponent, setFocusedComponent] = useState<FileTypes>({
-    value: "",
-    filename: "",
-  });
+    value: '',
+    filename: '',
+  })
 
-  const { isValid, errors } = useValidData(components);
+  const { isValid, errors } = useValidData(components)
 
   useEffect(() => {
-    const focusedComponent = components[fileTitleFocused];
-    setFocusedComponent(focusedComponent);
-  }, [components, fileTitleFocused]);
+    const focusedComponent = components[fileTitleFocused]
+    setFocusedComponent(focusedComponent)
+  }, [components, fileTitleFocused])
 
   const handleFilenameChange = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const newComponents = [...components];
-    newComponents[index].filename = event.target.value;
-    setComponents(newComponents);
-  };
+    const newComponents = [...components]
+    newComponents[index].filename = event.target.value
+    setComponents(newComponents)
+  }
 
   const addComponent = () => {
-    if (components.length >= 7) return;
-    setComponents([...components, { value: "", filename: "" }]);
-    setFileTitleFocused(components.length);
-  };
+    if (components.length >= 7) return
+    setComponents([...components, { value: '', filename: '' }])
+    setFileTitleFocused(components.length)
+  }
 
   const saveComponents = () => {
     if (!isValid) {
-      toast.error(errors.join("\n"));
-      return;
+      toast.error(errors.join('\n'))
+      return
     }
     postData(components, title, description).then((res) => {
-      if (res !== null) router.push(res.pathname);
-      else alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-    });
-  };
+      if (res !== null) router.push(res.pathname)
+      else alert('Bir hata oluştu. Lütfen tekrar deneyin.')
+    })
+  }
 
   const handleRemove = (index: number) => {
-    if (components.length === 1) return;
-    const newComponents = [...components];
-    newComponents.splice(index, 1);
-    setComponents(newComponents);
-    setFileTitleFocused(newComponents.length - 1);
-  };
+    if (components.length === 1) return
+    const newComponents = [...components]
+    newComponents.splice(index, 1)
+    setComponents(newComponents)
+    setFileTitleFocused(newComponents.length - 1)
+  }
 
   return (
     <section className="container mx-auto min-w-[20rem] rounded-xl p-6 backdrop-blur-sm">
@@ -100,7 +100,7 @@ export default function Editor() {
                   value={component.filename}
                   maxLength={25}
                   onFocus={() => {
-                    setFileTitleFocused(index);
+                    setFileTitleFocused(index)
                   }}
                   onChange={(e) => handleFilenameChange(index, e)}
                   className="mb-[1px] h-10 w-full bg-transparent px-3 text-sm placeholder:text-sm focus:outline-none"
@@ -134,17 +134,17 @@ export default function Editor() {
           maxLength={10000}
           // Textarea bileşenindeki onChange handler'ını güncelleyin
           onChange={(e) => {
-            const newValue = e.target.value;
-            setFocusedComponent((prev) => ({ ...prev, value: newValue }));
+            const newValue = e.target.value
+            setFocusedComponent((prev) => ({ ...prev, value: newValue }))
             // Aynı zamanda components array'ini de güncelleyin
-            const newComponents = [...components];
-            newComponents[fileTitleFocused].value = newValue;
-            setComponents(newComponents);
+            const newComponents = [...components]
+            newComponents[fileTitleFocused].value = newValue
+            setComponents(newComponents)
           }}
           aria-label="Code Editor"
           classNames={{
-            base: "resize-y min-h-[25rem] ",
-            input: "resize-y min-h-[25rem] ",
+            base: 'resize-y min-h-[25rem] ',
+            input: 'resize-y min-h-[25rem] ',
           }}
         />
       </div>
@@ -153,5 +153,5 @@ export default function Editor() {
         Save
       </Button>
     </section>
-  );
+  )
 }

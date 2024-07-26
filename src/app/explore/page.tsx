@@ -1,82 +1,80 @@
-"use client";
-import ContentCard from "@/components/ContentCard";
-import { debounce } from "@/utils/utils";
-import { Input } from "@nextui-org/react";
-import { useEffect, useRef, useState } from "react";
-import { Tables } from "../../../types/supabase";
-import Loading from "../Loading";
+'use client'
+import ContentCard from '@/components/ContentCard'
+import { debounce } from '@/utils/utils'
+import { Input } from '@nextui-org/react'
+import { useEffect, useRef, useState } from 'react'
+import { Tables } from '../../../types/supabase'
+import Loading from '../Loading'
 
 const Page = () => {
-  const [contents, setContents] = useState<Tables<"files">[]>([]);
-  const [userMap, setUserMap] = useState<Record<string, Tables<"profiles">>>(
-    {},
-  );
-  const [page, setPage] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const mounted = useRef(false);
+  const [contents, setContents] = useState<Tables<'files'>[]>([])
+  const [userMap, setUserMap] = useState<Record<string, Tables<'profiles'>>>({})
+  const [page, setPage] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const [hasMore, setHasMore] = useState<boolean>(true)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const mounted = useRef(false)
 
   useEffect(() => {
     if (!mounted.current) {
-      mounted.current = true;
-      setPage(1);
+      mounted.current = true
+      setPage(1)
     }
-  }, []);
+  }, [])
 
   const fetchContents = async () => {
     if (page > 0 && hasMore && mounted.current) {
-      setLoading(true);
-      setError(null);
+      setLoading(true)
+      setError(null)
       try {
-        const url = `/api/get?table=files&count=20&page=${page}&sort=desc&columns=created_at,title,description,id,user_id&order=created_at`;
-        const res = await fetch(url);
-        const data = await res.json();
+        const url = `/api/get?table=files&count=20&page=${page}&sort=desc&columns=created_at,title,description,id,user_id&order=created_at`
+        const res = await fetch(url)
+        const data = await res.json()
         if (data.error) {
-          throw new Error(data.error);
+          throw new Error(data.error)
         }
-        setContents((prevContents) => [...prevContents, ...data]);
-        setHasMore(data.length > 0 ? true : false);
+        setContents((prevContents) => [...prevContents, ...data])
+        setHasMore(data.length > 0 ? true : false)
       } catch (error: unknown) {
-        setHasMore(false);
+        setHasMore(false)
         setError(
-          error instanceof Error ? error.message : "An unknown error occurred",
-        );
+          error instanceof Error ? error.message : 'An unknown error occurred'
+        )
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-  };
+  }
 
   useEffect(() => {
-    fetchContents();
-  }, [page, hasMore, mounted]);
+    fetchContents()
+  }, [page, hasMore, mounted])
 
   useEffect(() => {
     const fetchUserMap = async () => {
       try {
         contents.forEach((content) => {
           if (!userMap[content.user_id]) {
-            const url = `/api/get?table=profiles&columns=avatar_url, id, username, full_name&eq=${content.user_id}`;
+            const url = `/api/get?table=profiles&columns=avatar_url, id, username, full_name&eq=${content.user_id}`
             fetch(url)
               .then((res) => res.json())
               .then((data) => {
                 setUserMap((prevMap) => ({
                   ...prevMap,
                   [content.user_id]: data[0],
-                }));
-              });
+                }))
+              })
           }
-        });
+        })
       } catch (error) {
-        console.error("Failed to fetch user profiles:", error);
+        console.error('Failed to fetch user profiles:', error)
       }
-    };
-    if (contents.length > 0) {
-      fetchUserMap();
     }
-  }, [contents]);
+    if (contents.length > 0) {
+      fetchUserMap()
+    }
+  }, [contents])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,49 +83,47 @@ const Page = () => {
         !loading &&
         hasMore === true
       ) {
-        setPage((prevPage) => prevPage + 1);
+        setPage((prevPage) => prevPage + 1)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, hasMore]);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [loading, hasMore])
 
   useEffect(() => {
     const searchContents = async () => {
       if (searchQuery.length > 2) {
-        setContents([]);
-        setLoading(true);
-        setError(null);
+        setContents([])
+        setLoading(true)
+        setError(null)
         try {
-          const url = `/api/search?q=${searchQuery}&table=files`;
-          const res = await fetch(url);
-          const data = await res.json();
+          const url = `/api/search?q=${searchQuery}&table=files`
+          const res = await fetch(url)
+          const data = await res.json()
           if (data.error) {
-            throw new Error(data.error);
+            throw new Error(data.error)
           }
-          setContents(data);
+          setContents(data)
         } catch (error) {
           setError(
-            error instanceof Error
-              ? error.message
-              : "An unknown error occurred",
-          );
+            error instanceof Error ? error.message : 'An unknown error occurred'
+          )
         } finally {
-          setLoading(false);
+          setLoading(false)
         }
-      } else if (searchQuery.length <= 2 && searchQuery !== "") {
-        setContents([]);
-        setPage(1);
-        setHasMore(true);
-        fetchContents(); // Call the function to fetch initial contents
+      } else if (searchQuery.length <= 2 && searchQuery !== '') {
+        setContents([])
+        setPage(1)
+        setHasMore(true)
+        fetchContents() // Call the function to fetch initial contents
       }
-    };
-    const debouncedSearch = debounce(searchContents, 500);
-    debouncedSearch();
-  }, [searchQuery]);
+    }
+    const debouncedSearch = debounce(searchContents, 500)
+    debouncedSearch()
+  }, [searchQuery])
 
-  if (error && page === 1) return <div>Error loading files: {error}</div>;
+  if (error && page === 1) return <div>Error loading files: {error}</div>
 
   return (
     <section className="mx-auto flex flex-col place-items-center gap-5">
@@ -157,7 +153,7 @@ const Page = () => {
       </main>
       {loading && <Loading />}
     </section>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

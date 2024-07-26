@@ -10,22 +10,22 @@ export const addOrRemoveStarToContents = async (
   contentId: string,
   starredBy: string[],
   userId: string,
-  action: "Add" | "Remove",
+  action: 'Add' | 'Remove'
 ): Promise<boolean> => {
   try {
-    const response = await fetch("/api/star-action", {
-      method: "POST",
+    const response = await fetch('/api/star-action', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ contentId, starredBy, action, userId }),
-    });
+    })
     if (!response.ok) {
-      throw new Error("Failed to save components");
+      throw new Error('Failed to save components')
     }
-    return true;
+    return true
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(error)
+    return false
   }
-};
+}

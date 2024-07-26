@@ -1,23 +1,23 @@
-"use client";
-import { Avatar } from "@nextui-org/avatar";
+'use client'
+import { Avatar } from '@nextui-org/avatar'
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
-import Link from "next/link";
+} from '@nextui-org/react'
+import Link from 'next/link'
 
 /**
  * Props for the UserButton component.
  */
 type UserButtonProps = {
   /** User name */
-  username: string;
+  username: string
 
   /** User avatar */
-  avatar_url: string;
-};
+  avatar_url: string
+}
 
 /**
  * Renders a user button component.
@@ -46,12 +46,12 @@ export default function UserButton({ username, avatar_url }: UserButtonProps) {
             </DropdownTrigger>
             <DropdownMenu>
               <DropdownItem>
-                <Link href={"/me"} className="text-xl font-bold">
+                <Link href={'/me'} className="text-xl font-bold">
                   Profil
                 </Link>
               </DropdownItem>
               <DropdownItem>
-                <Link href={"/api/signout"} className="text-xl font-bold">
+                <Link href={'/api/signout'} className="text-xl font-bold">
                   Çıkış Yap
                 </Link>
               </DropdownItem>
@@ -59,10 +59,10 @@ export default function UserButton({ username, avatar_url }: UserButtonProps) {
           </Dropdown>
         </div>
       ) : (
-        <Link href={"/login"} className="nav-item">
+        <Link href={'/login'} className="nav-item">
           Giriş Yap
         </Link>
       )}
     </>
-  );
+  )
 }

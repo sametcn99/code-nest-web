@@ -1,16 +1,16 @@
-import NotFound from "@/app/not-found";
-import { permanentRedirect } from "next/navigation";
+import NotFound from '@/app/not-found'
+import { permanentRedirect } from 'next/navigation'
 
 export default async function Page({ params }: { params: { slug: string } }) {
   if (
-    params.slug === "community" ||
-    params.slug === "discord" ||
-    params.slug === "support" ||
-    params.slug === "destek"
+    params.slug === 'community' ||
+    params.slug === 'discord' ||
+    params.slug === 'support' ||
+    params.slug === 'destek'
   ) {
-    permanentRedirect("https://discord.gg/PtP372mA");
+    permanentRedirect('https://discord.gg/PtP372mA')
   } else {
-    return <NotFound />;
+    return <NotFound />
   }
-  return <></>;
+  return <></>
 }

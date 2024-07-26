@@ -1,28 +1,28 @@
 const ACCEPTABLE_IMAGE_CONTENT_TYPES = [
-  "image/gif",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/avif",
-  "image/apng",
-];
+  'image/gif',
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/avif',
+  'image/apng',
+]
 
 /**
  * Validates whether a given URL points to a valid image.
  * @param url - The URL to validate.
  * @returns A promise that resolves to true if the URL points to a valid image, otherwise false.
  */
-export async function isValidImageUrl(url: string = ""): Promise<boolean> {
+export async function isValidImageUrl(url: string = ''): Promise<boolean> {
   try {
-    validateUrlFormat(url);
-    const response = await fetch(url, { method: "HEAD" });
-    validateResponse(response);
+    validateUrlFormat(url)
+    const response = await fetch(url, { method: 'HEAD' })
+    validateResponse(response)
 
-    return true;
+    return true
   } catch (error) {
-    alert(error);
-    console.error("Error:", error);
-    return false;
+    alert(error)
+    console.error('Error:', error)
+    return false
   }
 }
 
@@ -34,7 +34,7 @@ export async function isValidImageUrl(url: string = ""): Promise<boolean> {
  */
 function validateUrlFormat(url: string): void {
   if (!url) {
-    throw new Error("URL cannot be empty");
+    throw new Error('URL cannot be empty')
   }
 }
 
@@ -46,9 +46,9 @@ function validateUrlFormat(url: string): void {
  * @throws Error - If the response is not OK or if the content type is not acceptable.
  */
 function validateResponse(response: Response): void {
-  if (!response.ok) throw new Error("Invalid resource");
+  if (!response.ok) throw new Error('Invalid resource')
 
-  const contentType = response.headers.get("Content-Type");
+  const contentType = response.headers.get('Content-Type')
   if (!contentType || !ACCEPTABLE_IMAGE_CONTENT_TYPES.includes(contentType))
-    throw new Error("Invalid file type");
+    throw new Error('Invalid file type')
 }

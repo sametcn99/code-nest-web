@@ -1,5 +1,5 @@
-"use client";
-import Loading from "@/app/Loading";
+'use client'
+import Loading from '@/app/Loading'
 import {
   Button,
   Modal,
@@ -7,44 +7,44 @@ import {
   ModalContent,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import { RiQuestionnaireFill } from "react-icons/ri";
-import Markdown from "react-markdown";
-import { toast } from "sonner";
-import { Json } from "../../types/supabase";
+} from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import { RiQuestionnaireFill } from 'react-icons/ri'
+import Markdown from 'react-markdown'
+import { toast } from 'sonner'
+import { Json } from '../../types/supabase'
 
 export default function AskAI({
   content,
   isAuth,
 }: {
-  content: Json;
-  isAuth: boolean;
+  content: Json
+  isAuth: boolean
 }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [data, setData] = useState("");
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [data, setData] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/ai", {
-          method: "POST",
+        const response = await fetch('/api/ai', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ content: content }),
-        });
-        const data = await response.json();
-        setData(data.response);
+        })
+        const data = await response.json()
+        setData(data.response)
       } catch (error) {
-        console.error("Failed to fetch data:", error);
-        toast.error("Failed to fetch data. Please try again later.");
+        console.error('Failed to fetch data:', error)
+        toast.error('Failed to fetch data. Please try again later.')
       }
-    };
-    if (data === "" && isOpen) {
-      fetchData();
     }
-  }, [content, data, isOpen]);
+    if (data === '' && isOpen) {
+      fetchData()
+    }
+  }, [content, data, isOpen])
 
   return (
     <>
@@ -54,7 +54,7 @@ export default function AskAI({
         onClick={async () => {
           isAuth
             ? onOpen()
-            : toast.error("Bu özelliği kullanabilmek için giriş yapmalısınız.");
+            : toast.error('Bu özelliği kullanabilmek için giriş yapmalısınız.')
         }}
       >
         <RiQuestionnaireFill size={22} />
@@ -84,5 +84,5 @@ export default function AskAI({
         </ModalContent>
       </Modal>
     </>
-  );
+  )
 }

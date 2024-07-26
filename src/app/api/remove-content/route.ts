@@ -1,5 +1,5 @@
-import { createClient } from "@/utils/server";
-import { NextRequest, NextResponse } from "next/server";
+import { createClient } from '@/utils/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Handles the POST request to remove content.
@@ -8,20 +8,17 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function POST(req: NextRequest) {
   try {
-    const { id }: { id: string } = await req.json();
-    const supabase = createClient();
-    const { error: e } = await supabase
-      .from("files")
-      .delete()
-      .eq("id", id);
-    if (e) throw Error(`Error removing content: ${e}`);
-    if (e) throw e;
-    else return NextResponse.json({ response: "success", status: 200 });
+    const { id }: { id: string } = await req.json()
+    const supabase = createClient()
+    const { error: e } = await supabase.from('files').delete().eq('id', id)
+    if (e) throw Error(`Error removing content: ${e}`)
+    if (e) throw e
+    else return NextResponse.json({ response: 'success', status: 200 })
   } catch (error) {
     return NextResponse.json({
-      response: "An unknown error occurred",
+      response: 'An unknown error occurred',
       error: error,
       status: 500,
-    });
+    })
   }
 }

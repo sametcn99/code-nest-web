@@ -1,48 +1,48 @@
-"use client";
-import { downloadContents } from "@/actions/download-content";
-import { followAction } from "@/actions/follow-actions";
-import { addOrRemoveStarToContents } from "@/actions/star-actions";
+'use client'
+import { downloadContents } from '@/actions/download-content'
+import { followAction } from '@/actions/follow-actions'
+import { addOrRemoveStarToContents } from '@/actions/star-actions'
 import {
   getFileExtension,
   getLangFromFileExtension,
-} from "@/utils/file-extensions-by-langs";
-import { formatDate } from "@/utils/utils";
-import { Button, Card, Tab, Tabs } from "@nextui-org/react";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { FaEye } from "react-icons/fa";
-import { HiDownload } from "react-icons/hi";
-import { LuCopy, LuStar, LuStarOff } from "react-icons/lu";
-import { SlUserFollow, SlUserFollowing } from "react-icons/sl";
-import Markdown from "react-markdown";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { irBlack, monokai } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { toast } from "sonner";
-import { Tables } from "../../types/supabase";
-import AskAI from "./AskAI";
-import RateLimitExceeded from "./ui/RateLimitExceeded";
+} from '@/utils/file-extensions-by-langs'
+import { formatDate } from '@/utils/utils'
+import { Button, Card, Tab, Tabs } from '@nextui-org/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { FaEye } from 'react-icons/fa'
+import { HiDownload } from 'react-icons/hi'
+import { LuCopy, LuStar, LuStarOff } from 'react-icons/lu'
+import { SlUserFollow, SlUserFollowing } from 'react-icons/sl'
+import Markdown from 'react-markdown'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { irBlack, monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { toast } from 'sonner'
+import { Tables } from '../../types/supabase'
+import AskAI from './AskAI'
+import RateLimitExceeded from './ui/RateLimitExceeded'
 
 type CodeViewProps = {
   /**content` represents the data related to a file, using the "files" table structure. */
-  content: Tables<"files">;
+  content: Tables<'files'>
   /**user` represents the data related to a user, using the "profiles" table structure. */
-  user: Tables<"profiles">;
+  user: Tables<'profiles'>
   /**isUserDeleted` indicates if the user has been deleted. */
-  isUserDeleted: boolean;
+  isUserDeleted: boolean
 
   //**Is user authenticated */
-  isAuth: boolean;
+  isAuth: boolean
 
   //**Viewer ID */
-  viewerID?: string;
+  viewerID?: string
 
   /**Is Rate Limit Exceeded */
-  isRateLimitExceeded: boolean;
+  isRateLimitExceeded: boolean
 
   /**View Count */
-  views: number;
-};
+  views: number
+}
 
 export default function CodeView({
   content,
@@ -53,18 +53,18 @@ export default function CodeView({
   isRateLimitExceeded,
   views,
 }: CodeViewProps) {
-  const files: FileTypes[] = JSON.parse(JSON.stringify(content.content));
+  const files: FileTypes[] = JSON.parse(JSON.stringify(content.content))
   const [isStarred, setIsStarred] = useState(
-    content.starred_by?.includes(viewerID ? viewerID : "") ?? false,
-  );
-  const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0);
-  const [isFollowed, setIsFollowed] = useState(false);
+    content.starred_by?.includes(viewerID ? viewerID : '') ?? false
+  )
+  const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0)
+  const [isFollowed, setIsFollowed] = useState(false)
 
   useEffect(() => {
-    if (!viewerID) return;
-    if (user.followers?.includes(viewerID)) setIsFollowed(true);
-    else setIsFollowed(false);
-  }, [user.followers, viewerID]);
+    if (!viewerID) return
+    if (user.followers?.includes(viewerID)) setIsFollowed(true)
+    else setIsFollowed(false)
+  }, [user.followers, viewerID])
 
   return (
     <div className="place-items-left container mx-auto flex w-full flex-col justify-center gap-4">
@@ -74,7 +74,7 @@ export default function CodeView({
           className="inline-flex gap-2 rounded-2xl p-2 px-4 text-lg font-bold transition-all duration-500 hover:bg-white/20"
           onClick={(e) => {
             if (isUserDeleted) {
-              e.preventDefault();
+              e.preventDefault()
             }
           }}
         >
@@ -82,7 +82,7 @@ export default function CodeView({
             alt="User Avatar"
             className="pointer-events-none cursor-pointer select-none rounded-full object-cover"
             height={50}
-            src={user.avatar_url || "/images/default_avatar.png"}
+            src={user.avatar_url || '/images/default_avatar.png'}
             width={50}
           />
           <div className="ml-2 flex flex-col font-medium">
@@ -95,18 +95,18 @@ export default function CodeView({
           className="bg-transparent hover:text-blue-500"
           onClick={(e) => {
             if (isUserDeleted) {
-              toast.error("Bu kullanıcı silinmiş.");
+              toast.error('Bu kullanıcı silinmiş.')
             }
             if (!isAuth || !viewerID) {
-              toast.error("Bu özelliği kullanabilmek için giriş yapmalısınız.");
-              return;
+              toast.error('Bu özelliği kullanabilmek için giriş yapmalısınız.')
+              return
             }
             if (!isUserDeleted && user.id !== viewerID) {
-              followAction(user, viewerID, isFollowed ? "Unfollow" : "Follow");
-              setIsFollowed(!isFollowed);
+              followAction(user, viewerID, isFollowed ? 'Unfollow' : 'Follow')
+              setIsFollowed(!isFollowed)
             }
             if (user.id === viewerID) {
-              toast.error("Kendinizi takip edemezsiniz.");
+              toast.error('Kendinizi takip edemezsiniz.')
             }
           }}
         >
@@ -122,20 +122,20 @@ export default function CodeView({
           {content.title}
         </p>
         <p className="px-2 text-muted md:max-w-[60%]">
-          {content.description || "Açıklama eklenmemiş."}
+          {content.description || 'Açıklama eklenmemiş.'}
         </p>
         <p className="text-muted">{formatDate(new Date(content.created_at))}</p>
         {isRateLimitExceeded && <RateLimitExceeded />}
         {!isRateLimitExceeded && (
           <>
             <AskAI content={content.content} isAuth={isAuth} />
-            <Tabs aria-label="Options" variant={"underlined"}>
+            <Tabs aria-label="Options" variant={'underlined'}>
               {files?.map((file, index) => (
                 <Tab key={index} title={file.filename} className="container">
                   <div className="inline-flex w-full flex-wrap place-items-center justify-center gap-2 rounded-xl border-b border-b-gray-500 py-2 pl-4 font-bold">
                     <div className="cursor-default hover:text-yellow-400">
                       {getLangFromFileExtension(
-                        getFileExtension(file.filename) ?? "",
+                        getFileExtension(file.filename) ?? ''
                       )}
                     </div>
                     <Button
@@ -154,18 +154,18 @@ export default function CodeView({
                       onClick={() => {
                         if (!isAuth || !viewerID) {
                           toast.error(
-                            "Bu özelliği kullanabilmek için giriş yapmalısınız.",
-                          );
-                          return;
+                            'Bu özelliği kullanabilmek için giriş yapmalısınız.'
+                          )
+                          return
                         }
                         addOrRemoveStarToContents(
                           content.id,
                           content.starred_by ?? [],
                           viewerID,
-                          isStarred ? "Remove" : "Add",
-                        );
-                        setIsStarred(!isStarred);
-                        setStarCount(isStarred ? starCount - 1 : starCount + 1);
+                          isStarred ? 'Remove' : 'Add'
+                        )
+                        setIsStarred(!isStarred)
+                        setStarCount(isStarred ? starCount - 1 : starCount + 1)
                       }}
                     >
                       {starCount}
@@ -175,8 +175,8 @@ export default function CodeView({
                       isIconOnly
                       className="bg-transparent hover:text-green-600"
                       onClick={() => {
-                        navigator.clipboard.writeText(file.value);
-                        toast.success("Kopyalandı");
+                        navigator.clipboard.writeText(file.value)
+                        toast.success('Kopyalandı')
                       }}
                     >
                       <LuCopy size={22} className="cursor-pointer" />
@@ -186,7 +186,7 @@ export default function CodeView({
                       isIconOnly
                       className="bg-transparent hover:text-purple-600"
                       onClick={async () => {
-                        const res = await downloadContents(files);
+                        const res = await downloadContents(files)
                       }}
                     >
                       <HiDownload size={22} className="cursor-pointer" />
@@ -194,8 +194,8 @@ export default function CodeView({
                   </div>
                   <div className="min-w-96">
                     {getLangFromFileExtension(
-                      getFileExtension(file.filename) ?? "",
-                    ) === "markdown" ? (
+                      getFileExtension(file.filename) ?? ''
+                    ) === 'markdown' ? (
                       <Markdown>{file.value}</Markdown>
                     ) : (
                       <SyntaxHighlighter
@@ -203,18 +203,18 @@ export default function CodeView({
                         CodeTag={Card}
                         codeTagProps={{
                           style: {
-                            backgroundColor: "transparent",
-                            backdropFilter: "blur(0.253rem)",
-                            padding: "1.3rem",
+                            backgroundColor: 'transparent',
+                            backdropFilter: 'blur(0.253rem)',
+                            padding: '1.3rem',
                           },
                         }}
                         wrapLongLines={true}
                         customStyle={{
-                          backgroundColor: "transparent",
+                          backgroundColor: 'transparent',
                         }}
                         useInlineStyles={true}
                         language={getLangFromFileExtension(
-                          getFileExtension(file.filename) ?? "",
+                          getFileExtension(file.filename) ?? ''
                         )}
                         style={monokai}
                         // showLineNumbers bunu ekleyince responsive bozuluyor daha sonra düzelt
@@ -230,5 +230,5 @@ export default function CodeView({
         )}
       </div>
     </div>
-  );
+  )
 }

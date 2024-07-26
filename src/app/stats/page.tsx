@@ -1,8 +1,8 @@
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from '@nextui-org/react'
 
 export default async function Page() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stats`);
-  const stats = await data.json();
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stats`)
+  const stats = await data.json()
   return (
     <main className="container mx-auto">
       <Card className="min-h-[25rem]">
@@ -15,11 +15,11 @@ export default async function Page() {
             Total Content: <span>{stats.totalContent}</span>
           </p>
           <p>
-            Last Uploaded File:{" "}
+            Last Uploaded File:{' '}
             <span>{stats.lastUploadedFile[0].created_at}</span>
           </p>
         </CardBody>
       </Card>
     </main>
-  );
+  )
 }

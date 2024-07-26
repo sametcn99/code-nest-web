@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { FaDiscord, FaGithub } from "react-icons/fa";
-import { TbWorld } from "react-icons/tb";
+import Link from 'next/link'
+import { FaDiscord, FaGithub } from 'react-icons/fa'
+import { TbWorld } from 'react-icons/tb'
 
 export default function Footer() {
   return (
@@ -52,27 +52,27 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }
 const items = [
   {
-    title: "Ana Sayfa",
-    link: "/",
+    title: 'Ana Sayfa',
+    link: '/',
   },
   {
-    title: "Keşfet",
-    link: "/explore",
+    title: 'Keşfet',
+    link: '/explore',
   },
   {
-    title: "Topluluk",
-    link: "/community",
+    title: 'Topluluk',
+    link: '/community',
   },
   {
-    title: "Kullanıcılar",
-    link: "/users",
+    title: 'Kullanıcılar',
+    link: '/users',
   },
   {
-    title: "Geliştiriciler",
-    link: "/developers",
+    title: 'Geliştiriciler',
+    link: '/developers',
   },
-];
+]

@@ -1,33 +1,33 @@
-import { createClient } from "@/utils/server";
-import { NextRequest, NextResponse } from "next/server";
+import { createClient } from '@/utils/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
   try {
-    const requestUrl = new URL(request.url);
-    const id = requestUrl.searchParams.get("id");
-    const supabase = createClient();
+    const requestUrl = new URL(request.url)
+    const id = requestUrl.searchParams.get('id')
+    const supabase = createClient()
 
     const { data, error } = await supabase
-      .from("profiles")
-      .select("followings, followers")
-      .eq("id", id)
-      .single();
+      .from('profiles')
+      .select('followings, followers')
+      .eq('id', id)
+      .single()
 
     if (error)
       return NextResponse.json(
-        { error: "An unexpected error occurred", details: error },
-        { status: 500 },
-      );
+        { error: 'An unexpected error occurred', details: error },
+        { status: 500 }
+      )
 
     return NextResponse.json(data, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-    });
+    })
   } catch (err) {
     return NextResponse.json(
-      { error: "An unexpected error occurred", details: err },
-      { status: 500 },
-    );
+      { error: 'An unexpected error occurred', details: err },
+      { status: 500 }
+    )
   }
 }

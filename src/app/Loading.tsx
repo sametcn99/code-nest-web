@@ -1,13 +1,12 @@
-import React from "react";
-import {Spinner} from "@nextui-org/react";
+import React from 'react'
+import { Spinner } from '@nextui-org/react'
 
 export default function Loading() {
   return (
-    <div className="flex h-full mt-5 w-full flex-col place-items-center justify-center">
+    <div className="mt-5 flex h-full w-full flex-col place-items-center justify-center">
       <div>
-      <Spinner color="default" size={"lg"}/>
-
+        <Spinner color="default" size={'lg'} />
       </div>
     </div>
-  );
+  )
 }

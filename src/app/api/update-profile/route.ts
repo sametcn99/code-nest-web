@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/server";
-import { NextRequest, NextResponse } from "next/server";
-import { Tables } from "../../../../types/supabase";
+import { createClient } from '@/utils/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { Tables } from '../../../../types/supabase'
 
 /**
  * Handles the POST request to update a user's profile.
@@ -9,21 +9,21 @@ import { Tables } from "../../../../types/supabase";
  */
 export async function POST(req: NextRequest) {
   try {
-    const { user }: { user: Tables<"profiles"> } = await req.json();
-    const supabase = createClient();
+    const { user }: { user: Tables<'profiles'> } = await req.json()
+    const supabase = createClient()
 
     const { error: e } = await supabase
-      .from("profiles")
+      .from('profiles')
       .update(user)
-      .eq("id", user.id);
-    if (e) throw e;
+      .eq('id', user.id)
+    if (e) throw e
 
-    return NextResponse.json({ response: "success", status: 200 });
+    return NextResponse.json({ response: 'success', status: 200 })
   } catch (error) {
     return NextResponse.json({
-      response: "An unknown error occurred",
+      response: 'An unknown error occurred',
       error: error,
       status: 500,
-    });
+    })
   }
 }

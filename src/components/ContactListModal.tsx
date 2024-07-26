@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   Modal,
   ModalContent,
@@ -7,51 +7,51 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-} from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import { Tables } from "../../types/supabase";
-import Image from "next/image";
-import Link from "next/link";
+} from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import { Tables } from '../../types/supabase'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function ContactListModal({ id }: { id: string }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [followers, setFollowers] = useState<string[]>([]);
-  const [followings, setFollowings] = useState<string[]>([]);
-  const [profiles, setProfiles] = useState<Tables<"profiles">[]>();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [followers, setFollowers] = useState<string[]>([])
+  const [followings, setFollowings] = useState<string[]>([])
+  const [profiles, setProfiles] = useState<Tables<'profiles'>[]>()
 
   useEffect(() => {
     async function fetchContacts() {
       try {
-        const response = await fetch(`/api/contacts?id=${id}`);
-        const data = await response.json();
-        setFollowers(data.followers);
-        setFollowings(data.followings);
+        const response = await fetch(`/api/contacts?id=${id}`)
+        const data = await response.json()
+        setFollowers(data.followers)
+        setFollowings(data.followings)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
     }
-    fetchContacts();
-  }, [id]);
+    fetchContacts()
+  }, [id])
 
   useEffect(() => {
     const fetchProfile = async (userId: string) => {
-      const response = await fetch(`/api/user?id=${userId}`);
-      return response.json();
-    };
+      const response = await fetch(`/api/user?id=${userId}`)
+      return response.json()
+    }
 
     const fetchProfiles = async (userIds: string[]) => {
       try {
-        const promises = userIds.map(fetchProfile);
-        const profilesData = await Promise.all(promises);
-        setProfiles(profilesData);
+        const promises = userIds.map(fetchProfile)
+        const profilesData = await Promise.all(promises)
+        setProfiles(profilesData)
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
-    };
+    }
 
-    if (followers && followers.length > 0) fetchProfiles(followers);
-    if (followings && followings.length > 0) fetchProfiles(followings);
-  }, [id, followers, followings]);
+    if (followers && followers.length > 0) fetchProfiles(followers)
+    if (followings && followings.length > 0) fetchProfiles(followings)
+  }, [id, followers, followings])
 
   return (
     <>
@@ -82,7 +82,7 @@ export default function ContactListModal({ id }: { id: string }) {
                               <Image
                                 src={
                                   user.avatar_url ||
-                                  "/images/default_avatar.png"
+                                  '/images/default_avatar.png'
                                 }
                                 alt={`${user.username || user.full_name}'s Avatar`}
                                 width={60}
@@ -95,7 +95,7 @@ export default function ContactListModal({ id }: { id: string }) {
                                 <h2 className="text-2xl font-bold">
                                   {user.username || user.full_name}
                                 </h2>
-                                <p>{user.roles?.join(", ")}</p>
+                                <p>{user.roles?.join(', ')}</p>
                               </div>
                             </Link>
                           </li>
@@ -135,7 +135,7 @@ export default function ContactListModal({ id }: { id: string }) {
                               <Image
                                 src={
                                   user.avatar_url ||
-                                  "/images/default_avatar.png"
+                                  '/images/default_avatar.png'
                                 }
                                 alt={`${user.username || user.full_name}'s Avatar`}
                                 width={60}
@@ -148,7 +148,7 @@ export default function ContactListModal({ id }: { id: string }) {
                                 <h2 className="text-2xl font-bold">
                                   {user.username || user.full_name}
                                 </h2>
-                                <p>{user.roles?.join(", ")}</p>
+                                <p>{user.roles?.join(', ')}</p>
                               </div>
                             </Link>
                           </li>
@@ -162,5 +162,5 @@ export default function ContactListModal({ id }: { id: string }) {
         </>
       )}
     </>
-  );
+  )
 }

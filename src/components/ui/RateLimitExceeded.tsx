@@ -5,8 +5,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
-import Link from "next/link";
+} from '@nextui-org/react'
+import Link from 'next/link'
 
 export default function RateLimitExceeded() {
   return (
@@ -35,5 +35,5 @@ export default function RateLimitExceeded() {
         )}
       </ModalContent>
     </Modal>
-  );
+  )
 }

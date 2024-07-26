@@ -1,6 +1,6 @@
-"use client";
-import { cn } from "@/utils/cn";
-import { motion } from "framer-motion";
+'use client'
+import { cn } from '@/utils/cn'
+import { motion } from 'framer-motion'
 
 export const BackgroundCellCore = () => {
   return (
@@ -13,35 +13,35 @@ export const BackgroundCellCore = () => {
             WebkitMaskImage: `radial-gradient(
           white, transparent
         )`,
-            pointerEvents: "none",
-            maskRepeat: "no-repeat",
-            WebkitMaskRepeat: "no-repeat",
+            pointerEvents: 'none',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
           }}
         >
           <Pattern cellClassName="border-blue-950 relative z-[100]" />
         </div>
         <Pattern
           className="opacity-[0.5]"
-          cellClassName={"border-neutral-900"}
+          cellClassName={'border-neutral-900'}
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Pattern = ({
   className,
   cellClassName,
 }: {
-  className?: string;
-  cellClassName?: string;
+  className?: string
+  cellClassName?: string
 }) => {
-  const x = new Array(47).fill(0);
-  const y = new Array(30).fill(0);
-  const matrix = x.map((_, i) => y.map((_, j) => [i, j]));
+  const x = new Array(47).fill(0)
+  const y = new Array(30).fill(0)
+  const matrix = x.map((_, i) => y.map((_, j) => [i, j]))
 
   return (
-    <div className={cn("relative z-30 flex flex-row", className)}>
+    <div className={cn('relative z-30 flex flex-row', className)}>
       {matrix.map((row, rowIdx) => (
         <div
           key={`matrix-row-${rowIdx}`}
@@ -53,8 +53,8 @@ const Pattern = ({
               <div
                 key={`matrix-col-${colIdx}`}
                 className={cn(
-                  "border-b border-l border-neutral-600 bg-transparent",
-                  cellClassName,
+                  'border-b border-l border-neutral-600 bg-transparent',
+                  cellClassName
                 )}
               >
                 <motion.div
@@ -66,15 +66,15 @@ const Pattern = ({
                   }}
                   transition={{
                     duration: 0.5,
-                    ease: "backOut",
+                    ease: 'backOut',
                   }}
                   className="h-12 w-12 bg-[rgba(14,165,233,0.3)]" //  rgba(14, 165, 233, 0.15) for a more subtle effect
                 ></motion.div>
               </div>
-            );
+            )
           })}
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

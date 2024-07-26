@@ -1,7 +1,7 @@
-"use client";
-import { followAction } from "@/actions/follow-actions";
-import useProfileEditor from "@/lib/hooks/useProfileEditor";
-import { cn } from "@/utils/cn";
+'use client'
+import { followAction } from '@/actions/follow-actions'
+import useProfileEditor from '@/lib/hooks/useProfileEditor'
+import { cn } from '@/utils/cn'
 import {
   Button,
   Card,
@@ -11,34 +11,34 @@ import {
   ModalFooter,
   ModalHeader,
   Textarea,
-} from "@nextui-org/react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { RiUserAddLine, RiUserFollowLine } from "react-icons/ri";
-import { TbEdit } from "react-icons/tb";
-import { toast } from "sonner";
-import { Tables } from "../../types/supabase";
-import ContactListModal from "./ContactListModal";
-import RichTextRender from "./ui/RichTextRender";
+} from '@nextui-org/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import { RiUserAddLine, RiUserFollowLine } from 'react-icons/ri'
+import { TbEdit } from 'react-icons/tb'
+import { toast } from 'sonner'
+import { Tables } from '../../types/supabase'
+import ContactListModal from './ContactListModal'
+import RichTextRender from './ui/RichTextRender'
 
 /**
  * Props for the ProfileCard component.
  */
 type ProfileCardProps = {
   /** The user profile data. */
-  user: Tables<"profiles">;
+  user: Tables<'profiles'>
 
   /** Indicates whether the user is authenticated. */
-  auth: boolean;
+  auth: boolean
 
   /** The viewer ID. */
-  viewerID?: string;
+  viewerID?: string
 
   /** The component class name. */
-  className?: React.HtmlHTMLAttributes<HTMLDivElement>["className"];
-  views: number;
-};
+  className?: React.HtmlHTMLAttributes<HTMLDivElement>['className']
+  views: number
+}
 
 /**
  * Renders a profile card component.
@@ -70,13 +70,13 @@ export default function ProfileCard({
     onOpenChange,
     setIsFollowed,
     setIsChangesSaved,
-  } = useProfileEditor(user, viewerID);
+  } = useProfileEditor(user, viewerID)
 
   return (
     <Card
       className={cn(
         `flex flex-col justify-center gap-4 p-6 shadow-lg`,
-        className,
+        className
       )}
     >
       <div className="relative z-20 h-56 w-full overflow-visible rounded-lg">
@@ -99,7 +99,7 @@ export default function ProfileCard({
                 <ModalBody>
                   <Textarea
                     placeholder="Banner URL"
-                    value={bannerUrl || ""}
+                    value={bannerUrl || ''}
                     onChange={handleBannerUrlChange}
                     className="w-full"
                   />
@@ -112,7 +112,7 @@ export default function ProfileCard({
                     color="primary"
                     onPress={onClose}
                     onClick={async () => {
-                      await handleSaveBannerUrl();
+                      await handleSaveBannerUrl()
                     }}
                   >
                     Kaydet
@@ -126,7 +126,7 @@ export default function ProfileCard({
           src={
             isValidBannerUrl && bannerUrl
               ? bannerUrl
-              : "/images/default_banner.gif"
+              : '/images/default_banner.gif'
           }
           title={`${userData.username}'s banner`}
           alt={`${userData.username}'s banner`}
@@ -141,7 +141,7 @@ export default function ProfileCard({
         />
         <div className="absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center">
           <Image
-            src={user.avatar_url || "/images/default_avatar.png"}
+            src={user.avatar_url || '/images/default_avatar.png'}
             title={`${userData.username}'s avatar`}
             alt={`${userData.username}'s avatar`}
             unoptimized
@@ -160,12 +160,12 @@ export default function ProfileCard({
                   className="h-10 w-fit bg-transparent text-2xl font-semibold hover:outline-none"
                   placeholder="Kullanıcı adı"
                   onChange={handleUsernameChange}
-                  value={userData.username ?? ""}
+                  value={userData.username ?? ''}
                 />
               ) : (
                 <p className="inline-flex h-10 w-fit place-items-center bg-transparent text-2xl font-semibold hover:outline-none">
                   <Link className="hover:underline" href={`/user/${user.id}`}>
-                    {userData.username || user.full_name || "Kullanıcı adı"}
+                    {userData.username || user.full_name || 'Kullanıcı adı'}
                   </Link>
                   {auth && (
                     <Button
@@ -184,20 +184,20 @@ export default function ProfileCard({
                   className="mb-auto ml-5 bg-transparent hover:text-green-500"
                   onClick={(e) => {
                     if (user && viewerID && user.id !== viewerID) {
-                      console.log("Follow action:", user, viewerID, isFollowed);
+                      console.log('Follow action:', user, viewerID, isFollowed)
                       followAction(
                         user,
                         viewerID,
-                        isFollowed ? "Unfollow" : "Follow",
-                      );
-                      setIsFollowed(!isFollowed);
+                        isFollowed ? 'Unfollow' : 'Follow'
+                      )
+                      setIsFollowed(!isFollowed)
                     }
                     user.id === viewerID &&
-                      toast.error("Kendinizi takip edemezsiniz.");
+                      toast.error('Kendinizi takip edemezsiniz.')
                     !viewerID &&
                       toast.error(
-                        "Bu özelliği kullanabilmek için giriş yapmalısınız.",
-                      );
+                        'Bu özelliği kullanabilmek için giriş yapmalısınız.'
+                      )
                   }}
                 >
                   {isFollowed ? (
@@ -209,7 +209,7 @@ export default function ProfileCard({
               )}
             </div>
             {user.roles && (
-              <span className="text-muted">{user.roles?.join(", ")}</span>
+              <span className="text-muted">{user.roles?.join(', ')}</span>
             )}
           </div>
         </div>
@@ -221,7 +221,7 @@ export default function ProfileCard({
           </div>
           <div className="flex flex-col">
             <p>
-              Discord Adı:{" "}
+              Discord Adı:{' '}
               <Link
                 href={`https://discord.com/users/${user.sub}`}
                 className="inline-flex text-muted hover:underline"
@@ -233,7 +233,7 @@ export default function ProfileCard({
           </div>
           {auth && !isChangesSaved && (
             <Textarea
-              value={userData.bio ?? ""}
+              value={userData.bio ?? ''}
               onChange={handleBioChange}
               className="w-full"
               placeholder="Biyografi"
@@ -243,7 +243,7 @@ export default function ProfileCard({
             <Card className="min-h-24 w-full p-2 text-white">
               <div className="min-h-24 w-full p-2 text-white">
                 <RichTextRender
-                  content={userData.bio ?? ""}
+                  content={userData.bio ?? ''}
                   linkClassName="hover:underline"
                 />
               </div>
@@ -259,7 +259,7 @@ export default function ProfileCard({
           {auth === false && (
             <div className="min-h-24 w-full p-2 text-white">
               <RichTextRender
-                content={userData.bio ?? ""}
+                content={userData.bio ?? ''}
                 linkClassName="hover:underline"
               />
             </div>
@@ -285,5 +285,5 @@ export default function ProfileCard({
         </div>
       )}
     </Card>
-  );
+  )
 }

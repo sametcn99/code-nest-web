@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/server";
-import { NextRequest, NextResponse } from "next/server";
-import path from "path";
+import { createClient } from '@/utils/server'
+import { NextRequest, NextResponse } from 'next/server'
+import path from 'path'
 
 /**
  * Handles the POST request for saving components to the database.
@@ -9,37 +9,37 @@ import path from "path";
  */
 export async function POST(req: NextRequest) {
   try {
-    const { components, title, description } = await req.json();
-    const supabase = createClient();
-    const auth = await supabase.auth.getUser();
+    const { components, title, description } = await req.json()
+    const supabase = createClient()
+    const auth = await supabase.auth.getUser()
 
     // validate the components and the title
     if (components.length === 0)
       return NextResponse.json({
-        response: "Components cannot be empty",
+        response: 'Components cannot be empty',
         status: 400,
-      });
+      })
 
-    if (title === "")
+    if (title === '')
       return NextResponse.json({
-        response: "Title cannot be empty",
+        response: 'Title cannot be empty',
         status: 400,
-      });
+      })
 
     if (
       components.some(
         (component: FileTypes) =>
-          component.value === "" ||
-          component.filename === "" ||
+          component.value === '' ||
+          component.filename === '' ||
           component.filename.length > 25 ||
           component.value.length > 10000 ||
-          components.length > 7,
+          components.length > 7
       )
     )
       return NextResponse.json({
-        response: "Invalid components",
+        response: 'Invalid components',
         status: 400,
-      });
+      })
 
     const data = {
       user_id: auth.data.user?.id,
@@ -47,30 +47,30 @@ export async function POST(req: NextRequest) {
       created_at: new Date(),
       title: title,
       description: description,
-    };
+    }
 
     const {
       error,
       statusText,
       status,
       data: res,
-    } = await supabase.from("files").insert(data).select("*");
-    console.log(res);
+    } = await supabase.from('files').insert(data).select('*')
+    console.log(res)
 
     if (error)
-      throw new Error("An error occurred while saving the components" + error);
+      throw new Error('An error occurred while saving the components' + error)
 
     return NextResponse.json({
-      response: "Components saved successfully",
-      pathname: path.join("/code", res[0].id),
+      response: 'Components saved successfully',
+      pathname: path.join('/code', res[0].id),
       statusText: statusText,
       status: status,
-    });
+    })
   } catch (error) {
     return NextResponse.json({
-      response: "An unknown error occurred",
+      response: 'An unknown error occurred',
       error: error,
       status: 500,
-    });
+    })
   }
 }

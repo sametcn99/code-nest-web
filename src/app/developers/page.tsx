@@ -1,18 +1,18 @@
-import { createClient } from "@/utils/server";
-import { Card, CardHeader } from "@nextui-org/react";
-import Image from "next/image";
-import Link from "next/link";
-import { FaCrown } from "react-icons/fa6";
-import { Tables } from "../../../types/supabase";
+import { createClient } from '@/utils/server'
+import { Card, CardHeader } from '@nextui-org/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { FaCrown } from 'react-icons/fa6'
+import { Tables } from '../../../types/supabase'
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = createClient()
   const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .not("roles", "is", null);
-  if (error) return <div>Veriler yüklenirken bir hata oluştu.</div>;
-  const users = data as Tables<"profiles">[];
+    .from('profiles')
+    .select('*')
+    .not('roles', 'is', null)
+  if (error) return <div>Veriler yüklenirken bir hata oluştu.</div>
+  const users = data as Tables<'profiles'>[]
 
   return (
     <div className="container mx-auto flex w-full flex-col items-center justify-center gap-4 p-4">
@@ -28,7 +28,7 @@ export default async function Page() {
               <Card key={index} className="p-2 hover:scale-101">
                 <CardHeader className="inline-flex gap-3">
                   <Image
-                    src={user.avatar_url || "/images/default_avatar.png"}
+                    src={user.avatar_url || '/images/default_avatar.png'}
                     alt={`${user.username || user.full_name}'s Avatar`}
                     width={100}
                     height={100}
@@ -40,8 +40,8 @@ export default async function Page() {
                     <h2 className="text-2xl font-bold">
                       {user.username || user.full_name}
                     </h2>
-                    <p>{user.roles?.join(", ")}</p>
-                    <p>{user.bio || "Bio eklenmemiş."}</p>
+                    <p>{user.roles?.join(', ')}</p>
+                    <p>{user.bio || 'Bio eklenmemiş.'}</p>
                   </div>
                 </CardHeader>
               </Card>
@@ -52,5 +52,5 @@ export default async function Page() {
         )}
       </div>
     </div>
-  );
+  )
 }

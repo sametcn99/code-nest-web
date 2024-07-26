@@ -1,7 +1,7 @@
-"use client";
-import { removeContent } from "@/actions/remove-content-actions";
-import { cn } from "@/utils/cn";
-import { formatDate, truncateString } from "@/utils/utils";
+'use client'
+import { removeContent } from '@/actions/remove-content-actions'
+import { cn } from '@/utils/cn'
+import { formatDate, truncateString } from '@/utils/utils'
 import {
   Button,
   Card,
@@ -15,27 +15,27 @@ import {
   ModalHeader,
   Skeleton,
   useDisclosure,
-} from "@nextui-org/react";
-import Image from "next/image";
-import Link from "next/link";
-import { IoCloseCircleOutline } from "react-icons/io5";
-import { Tables } from "../../types/supabase";
+} from '@nextui-org/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { IoCloseCircleOutline } from 'react-icons/io5'
+import { Tables } from '../../types/supabase'
 
 /**
  * Defines the prop types for the ContentCard component.
  */
 type ContentCardProps = {
   /** Specifies the content type, using the structure of the "files" table from the database. */
-  content: Tables<"files">;
+  content: Tables<'files'>
 
   /** Specifies the user type, using the structure of the "profiles" table from the database. */
-  user: Tables<"profiles">;
+  user: Tables<'profiles'>
 
   /** Indicates whether the user is authenticated. */
-  auth: boolean;
+  auth: boolean
   /** Optional CSS class name for styling the component. */
-  className?: string;
-};
+  className?: string
+}
 
 /**
  * Represents a card component for displaying content.
@@ -47,23 +47,23 @@ export default function ContentCard({
   auth,
   className,
 }: ContentCardProps) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const onRemove = async () => {
-    const res = await removeContent(content.id);
+    const res = await removeContent(content.id)
     if (res) {
-      onOpenChange();
-      location.reload();
+      onOpenChange()
+      location.reload()
     }
-  };
+  }
 
   return (
     <>
       {user && (
         <Card
           className={cn(
-            "relative min-h-40 w-full cursor-pointer p-2 transition-all duration-700 hover:scale-101",
-            className,
+            'relative min-h-40 w-full cursor-pointer p-2 transition-all duration-700 hover:scale-101',
+            className
           )}
         >
           <CardHeader className="flex flex-row justify-between">
@@ -74,7 +74,7 @@ export default function ContentCard({
               className="flex w-full items-center rounded-xl transition-all duration-500"
             >
               <Image
-                src={user.avatar_url || "/images/default_avatar.png"}
+                src={user.avatar_url || '/images/default_avatar.png'}
                 width={55}
                 height={55}
                 unoptimized
@@ -95,7 +95,7 @@ export default function ContentCard({
                   onClick={onOpen}
                   className="h-fit w-fit place-self-center bg-transparent hover:text-red-600"
                 >
-                  <IoCloseCircleOutline size={"18.5"} className="" />
+                  <IoCloseCircleOutline size={'18.5'} className="" />
                 </button>
                 <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                   <ModalContent>
@@ -127,7 +127,7 @@ export default function ContentCard({
           <CardBody>
             <p className="text-lg font-semibold">{content.title}</p>
             <p className="text-sm text-muted">
-              {truncateString(content.description || "Açıklama eklenmemiş.")}
+              {truncateString(content.description || 'Açıklama eklenmemiş.')}
             </p>
           </CardBody>
           <CardFooter className="flex flex-col">
@@ -143,5 +143,5 @@ export default function ContentCard({
         </Card>
       )}
     </>
-  );
+  )
 }

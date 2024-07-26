@@ -3,92 +3,92 @@
  */
 type FileTypes = {
   /** The value or content of the file. */
-  value: string;
+  value: string
   /** The name of the file. */
-  filename: string;
-};
+  filename: string
+}
 
 /**
  * Describes the content structure including its metadata and associated files.
  */
 type Content = {
   /** Unique identifier for the content. */
-  id: number;
+  id: number
   /** The creation date of the content. */
-  created_at: string;
+  created_at: string
   /** The title of the content. */
-  title: string;
+  title: string
   /** The number of stars the content has received. */
-  star_count: number;
+  star_count: number
   /** The user ID of the content creator. */
-  user_id: number;
+  user_id: number
   /** A brief description of the content. */
-  description: string;
+  description: string
   /** An array of files associated with the content. */
-  content: FileTypes[];
-};
+  content: FileTypes[]
+}
 
 /**
  * Contains metadata about a user, including authentication and personal information.
  */
 type UserMetadata = {
   /** Issuer of the token. */
-  iss: string;
+  iss: string
   /** Subject of the token (usually user ID). */
-  sub: string;
+  sub: string
   /** Name of the user. */
-  name: string;
+  name: string
   /** Email address of the user. */
-  email: string;
+  email: string
   /** URL to the user's profile picture. */
-  picture: string;
+  picture: string
   /** Full name of the user. */
-  full_name: string;
+  full_name: string
   /** URL to the user's avatar. */
-  avatar_url: string;
+  avatar_url: string
   /** Provider-specific user ID. */
-  provider_id: string;
+  provider_id: string
   /** Custom claims attached to the user. */
   custom_claims: {
     /** A global name identifier for the user. */
-    global_name: string;
-  };
+    global_name: string
+  }
   /** Indicates if the user's email is verified. */
-  email_verified: boolean;
+  email_verified: boolean
   /** Indicates if the user's phone number is verified. */
-  phone_verified: boolean;
+  phone_verified: boolean
   /** Indicates if the user is a super admin. */
-  is_super_admin: boolean | null;
+  is_super_admin: boolean | null
   /** Creation date of the user record. */
-  created_at: any;
+  created_at: any
   /** Last update date of the user record. */
-  updated_at: string;
+  updated_at: string
   /** The user's phone number. */
-  phone: string | null;
+  phone: string | null
   /** Date when the phone number was confirmed. */
-  phone_confirmed_at: string | null;
+  phone_confirmed_at: string | null
   /** Pending phone number change. */
-  phone_change: string;
+  phone_change: string
   /** Token for phone number change verification. */
-  phone_change_token: string;
+  phone_change_token: string
   /** Date when the phone change token was sent. */
-  phone_change_sent_at: string | null;
+  phone_change_sent_at: string | null
   /** Date when the email was confirmed. */
-  confirmed_at: string;
+  confirmed_at: string
   /** Current token for email change verification. */
-  email_change_token_current: string;
+  email_change_token_current: string
   /** Status of the email change confirmation. */
-  email_change_confirm_status: number;
+  email_change_confirm_status: number
   /** Date until which the user is banned. */
-  banned_until: string | null;
+  banned_until: string | null
   /** Token for reauthentication. */
-  reauthentication_token: string;
+  reauthentication_token: string
   /** Date when the reauthentication token was sent. */
-  reauthentication_sent_at: string | null;
+  reauthentication_sent_at: string | null
   /** Indicates if the user is an SSO user. */
-  is_sso_user: boolean;
+  is_sso_user: boolean
   /** Date when the user was deleted, if applicable. */
-  deleted_at: string | null;
+  deleted_at: string | null
   /** Indicates if the user is anonymous. */
-  is_anonymous: boolean;
-};
+  is_anonymous: boolean
+}

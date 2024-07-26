@@ -5,23 +5,20 @@
  */
 export const removeContent = async (id: string): Promise<boolean> => {
   try {
-    const response = await fetch("/api/remove-content", {
-      method: "POST",
+    const response = await fetch('/api/remove-content', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ id }),
-    });
+    })
 
     if (!response.ok) {
-      throw new Error("Failed to save components");
+      throw new Error('Failed to save components')
     }
-    return true;
+    return true
   } catch (error) {
-    console.error(
-      "An unexpected error occurred while removing content:",
-      error,
-    );
-    return false;
+    console.error('An unexpected error occurred while removing content:', error)
+    return false
   }
-};
+}
