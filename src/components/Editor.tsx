@@ -1,5 +1,6 @@
 "use client";
 import { postData } from "@/actions/editor-actions";
+import useValidData from "@/lib/hooks/useValidData";
 import { Button, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +21,8 @@ export default function Editor() {
     filename: "",
   });
 
+  const { isValid, errors } = useValidData(components);
+
   useEffect(() => {
     const focusedComponent = components[fileTitleFocused];
     setFocusedComponent(focusedComponent);
@@ -37,27 +40,12 @@ export default function Editor() {
   const addComponent = () => {
     if (components.length >= 7) return;
     setComponents([...components, { value: "", filename: "" }]);
+    setFileTitleFocused(components.length);
   };
 
   const saveComponents = () => {
-    if (title === "") {
-      toast.error("Başlık alanı boş bırakılamaz.");
-      return;
-    }
-    if (components.some((component) => component.value === "")) {
-      toast.error("Dosya içeriği boş bırakılamaz.");
-      return;
-    }
-    if (components.some((component) => component.filename === "")) {
-      toast.error("Dosya adı boş bırakılamaz.");
-      return;
-    }
-    if (components.some((component) => component.filename.length > 25)) {
-      toast.error("Dosya adı 25 karakterden uzun olamaz.");
-      return;
-    }
-    if (components.some((component) => component.value.length > 10000)) {
-      toast.error("Dosya içeriği 10000 karakterden uzun olamaz.");
+    if (!isValid) {
+      toast.error(errors.join("\n"));
       return;
     }
     postData(components, title, description).then((res) => {
@@ -71,6 +59,7 @@ export default function Editor() {
     const newComponents = [...components];
     newComponents.splice(index, 1);
     setComponents(newComponents);
+    setFileTitleFocused(newComponents.length - 1);
   };
 
   return (

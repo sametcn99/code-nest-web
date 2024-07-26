@@ -1,8 +1,7 @@
 "use client";
 import { followAction } from "@/actions/follow-actions";
-import { updateProfile } from "@/actions/user-actions";
+import useProfileEditor from "@/lib/hooks/useProfileEditor";
 import { cn } from "@/utils/cn";
-import { isValidImageUrl } from "@/utils/image-validate";
 import {
   Button,
   Card,
@@ -12,18 +11,16 @@ import {
   ModalFooter,
   ModalHeader,
   Textarea,
-  useDisclosure,
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { RiUserAddLine, RiUserFollowLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "sonner";
 import { Tables } from "../../types/supabase";
 import ContactListModal from "./ContactListModal";
 import RichTextRender from "./ui/RichTextRender";
-import useValidImage from "@/lib/hooks/useValidImage";
 
 /**
  * Props for the ProfileCard component.
@@ -57,62 +54,23 @@ export default function ProfileCard({
   className,
   views,
 }: ProfileCardProps) {
-  const [userData, setUserData] = useState(user);
-  const [bannerUrl, setBannerUrl] = useState(user.banner_url);
-  const [isUserNameEditing, setIsUserNameEditing] = useState(false);
-  const [isBannerUrlEditing, setIsBannerUrlEditing] = useState(false);
-  const [isChangesSaved, setIsChangesSaved] = useState(true);
-  const [isBioEditing, setIsBioEditing] = useState(false);
-  const [isFollowed, setIsFollowed] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const isValidBannerUrl = useValidImage(bannerUrl || "");
-
-  useEffect(() => {
-    if (!viewerID) return;
-    if (user.followers?.includes(viewerID)) setIsFollowed(true);
-    else setIsFollowed(false);
-  }, [user.followers, viewerID]);
-
-  useEffect(() => {
-    if (isUserNameEditing || isBannerUrlEditing || isBioEditing)
-      setIsChangesSaved(false);
-  }, [isUserNameEditing, isBannerUrlEditing, isBioEditing]);
-
-  const handleBannerUrlChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setBannerUrl(e.target.value);
-
-  const handleBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, bio: e.target.value });
-    setIsBioEditing(true);
-  };
-
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, username: e.target.value });
-    setIsUserNameEditing(true);
-  };
-
-  const handleSaveChanges = async () => {
-    updateProfile(userData);
-    setIsChangesSaved(true);
-    setIsBioEditing(false);
-    setIsUserNameEditing(false);
-    setIsBannerUrlEditing(false);
-  };
-
-  const handleSaveBannerUrl = async () => {
-    if (!bannerUrl) {
-      setBannerUrl(bannerUrl);
-      alert("Banner URL boş bırakılamaz.");
-      return;
-    }
-    const isValid = await isValidImageUrl(bannerUrl);
-    if (!isValid) {
-      setBannerUrl(bannerUrl);
-      return;
-    }
-    setUserData({ ...userData, banner_url: bannerUrl });
-    setIsBannerUrlEditing(true);
-  };
+  const {
+    userData,
+    bannerUrl,
+    isOpen,
+    isChangesSaved,
+    isFollowed,
+    isValidBannerUrl,
+    handleBannerUrlChange,
+    handleBioChange,
+    handleUsernameChange,
+    handleSaveChanges,
+    handleSaveBannerUrl,
+    onOpen,
+    onOpenChange,
+    setIsFollowed,
+    setIsChangesSaved,
+  } = useProfileEditor(user, viewerID);
 
   return (
     <Card
@@ -197,7 +155,7 @@ export default function ProfileCard({
           />
           <div className="flex flex-col overflow-x-scroll scrollbar-hide">
             <div className="mb-[-0.625rem] inline-flex gap-2">
-              {auth && isUserNameEditing ? (
+              {auth && !isChangesSaved ? (
                 <input
                   className="h-10 w-fit bg-transparent text-2xl font-semibold hover:outline-none"
                   placeholder="Kullanıcı adı"
@@ -213,7 +171,7 @@ export default function ProfileCard({
                     <Button
                       isIconOnly
                       className="bg-transparent hover:text-blue-600"
-                      onClick={() => setIsUserNameEditing(true)}
+                      onClick={() => setIsChangesSaved(false)}
                     >
                       <TbEdit size={20} />
                     </Button>
@@ -273,7 +231,7 @@ export default function ProfileCard({
             </p>
             <p>Profil Görüntülenme sayısı: {views}</p>
           </div>
-          {auth && isBioEditing && (
+          {auth && !isChangesSaved && (
             <Textarea
               value={userData.bio ?? ""}
               onChange={handleBioChange}
@@ -281,7 +239,7 @@ export default function ProfileCard({
               placeholder="Biyografi"
             />
           )}
-          {auth && !isBioEditing && (
+          {auth && isChangesSaved && (
             <Card className="min-h-24 w-full p-2 text-white">
               <div className="min-h-24 w-full p-2 text-white">
                 <RichTextRender
@@ -292,7 +250,7 @@ export default function ProfileCard({
               <Button
                 isIconOnly
                 className="absolute right-1 top-1 mr-2 mt-2 bg-transparent hover:text-blue-600"
-                onClick={() => setIsBioEditing(true)}
+                onClick={() => setIsChangesSaved(false)}
               >
                 <TbEdit size={20} />
               </Button>
