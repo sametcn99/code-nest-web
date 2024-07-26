@@ -3,102 +3,102 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: rgb(255, 255, 255);
-  --background-rgb: rgb(9, 9, 12);
-  --color-text-muted: rgb(233, 233, 233);
-  --selection-color: rgb(222, 237, 255);
-  --selection-background: rgb(0, 31, 65);
-  color: var(--foreground-rgb);
-  background: var(--background-rgb);
+	--foreground-rgb: rgb(255, 255, 255);
+	--background-rgb: rgb(9, 9, 12);
+	--color-text-muted: rgb(233, 233, 233);
+	--selection-color: rgb(222, 237, 255);
+	--selection-background: rgb(0, 31, 65);
+	color: var(--foreground-rgb);
+	background: var(--background-rgb);
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  .hide-first-letter::first-letter {
-    @apply invisible;
-  }
+	.text-balance {
+		text-wrap: balance;
+	}
+	.hide-first-letter::first-letter {
+		@apply invisible;
+	}
 }
 
 .nav-item {
-  @apply cursor-pointer select-none text-2xl font-bold transition-all duration-500 hover:scale-105;
+	@apply cursor-pointer select-none text-2xl font-bold transition-all duration-500 hover:scale-105;
 }
 
 ::-moz-selection {
-  /* Code for Firefox */
-  color: var(--selection-color);
-  background: var(--selection-background);
+	/* Code for Firefox */
+	color: var(--selection-color);
+	background: var(--selection-background);
 }
 
 ::selection {
-  color: var(--selection-color);
-  background: var(--selection-background);
+	color: var(--selection-color);
+	background: var(--selection-background);
 }
 
 @media (max-width: 768px) {
-  .syntax-highlighter {
-    font-size: 12px; /* Smaller font size on smaller screens */
-  }
+	.syntax-highlighter {
+		font-size: 12px; /* Smaller font size on smaller screens */
+	}
 }
 
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
 /**
  * Loader styles start
  */
 .loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #fff;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  position: relative;
-  animation: pulse 1s linear infinite;
+	width: 48px;
+	height: 48px;
+	border: 5px solid #fff;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	position: relative;
+	animation: pulse 1s linear infinite;
 }
 .loader:after {
-  content: '';
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border: 5px solid #fff;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  animation: scaleUp 1s linear infinite;
+	content: '';
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	border: 5px solid #fff;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	animation: scaleUp 1s linear infinite;
 }
 
 @keyframes scaleUp {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-  }
-  60%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
+	0% {
+		transform: translate(-50%, -50%) scale(0);
+	}
+	60%,
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+	}
 }
 @keyframes pulse {
-  0%,
-  60%,
-  100% {
-    transform: scale(1);
-  }
-  80% {
-    transform: scale(1.2);
-  }
+	0%,
+	60%,
+	100% {
+		transform: scale(1);
+	}
+	80% {
+		transform: scale(1.2);
+	}
 }
 /**
  * Loader styles end

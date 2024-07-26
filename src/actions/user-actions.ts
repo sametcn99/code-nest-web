@@ -6,23 +6,23 @@ import { Tables } from '../../types/supabase'
  * @returns A Promise that resolves to the updated user profile data, or null if an error occurs.
  */
 export const updateProfile = async (user: Tables<'profiles'>) => {
-  try {
-    const response = await fetch('/api/update-profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user }),
-    })
+	try {
+		const response = await fetch('/api/update-profile', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ user }),
+		})
 
-    if (!response.ok) {
-      throw new Error('Failed to save components')
-    }
+		if (!response.ok) {
+			throw new Error('Failed to save components')
+		}
 
-    const data = await response.json()
-    return data
-  } catch (error) {
-    console.error(error)
-    return null
-  }
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+		return null
+	}
 }

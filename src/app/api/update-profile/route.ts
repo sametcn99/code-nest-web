@@ -8,22 +8,22 @@ import { Tables } from '../../../../types/supabase'
  * @returns A NextResponse object with the updated profile information or an error message.
  */
 export async function POST(req: NextRequest) {
-  try {
-    const { user }: { user: Tables<'profiles'> } = await req.json()
-    const supabase = createClient()
+	try {
+		const { user }: { user: Tables<'profiles'> } = await req.json()
+		const supabase = createClient()
 
-    const { error: e } = await supabase
-      .from('profiles')
-      .update(user)
-      .eq('id', user.id)
-    if (e) throw e
+		const { error: e } = await supabase
+			.from('profiles')
+			.update(user)
+			.eq('id', user.id)
+		if (e) throw e
 
-    return NextResponse.json({ response: 'success', status: 200 })
-  } catch (error) {
-    return NextResponse.json({
-      response: 'An unknown error occurred',
-      error: error,
-      status: 500,
-    })
-  }
+		return NextResponse.json({ response: 'success', status: 200 })
+	} catch (error) {
+		return NextResponse.json({
+			response: 'An unknown error occurred',
+			error: error,
+			status: 500,
+		})
+	}
 }

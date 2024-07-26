@@ -9,5 +9,5 @@ import reduxStore from './redux/store'
  * @returns {JSX.Element} The Provider component wrapping the children with the Redux store.
  */
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <Provider store={reduxStore}>{children}</Provider>
+	return <Provider store={reduxStore}>{children}</Provider>
 }

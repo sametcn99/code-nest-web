@@ -7,42 +7,42 @@ import ContentCard from '../ContentCard'
 import { user } from '@nextui-org/theme'
 
 type InfiniteMovingCardsProps = {
-  /**
-   * Displayed items in the moving cards component.
-   */
-  items: Tables<'files'>[]
+	/**
+	 * Displayed items in the moving cards component.
+	 */
+	items: Tables<'files'>[]
 
-  /**
-   * User data for the moving cards.
-   */
-  users: Record<string, Tables<'profiles'>>
+	/**
+	 * User data for the moving cards.
+	 */
+	users: Record<string, Tables<'profiles'>>
 
-  /**
-   * Direction of the movement, can be 'left' or 'right'.
-   * @default "left"
-   */
-  direction?: 'left' | 'right'
+	/**
+	 * Direction of the movement, can be 'left' or 'right'.
+	 * @default "left"
+	 */
+	direction?: 'left' | 'right'
 
-  /**
-   * Speed of the animation in seconds.
-   */
-  speed: number
+	/**
+	 * Speed of the animation in seconds.
+	 */
+	speed: number
 
-  /**
-   * Whether the animation should pause when the mouse hovers over.
-   * @default true
-   */
-  pauseOnHover?: boolean
+	/**
+	 * Whether the animation should pause when the mouse hovers over.
+	 * @default true
+	 */
+	pauseOnHover?: boolean
 
-  /**
-   * Additional CSS class names for styling.
-   */
-  className?: string
+	/**
+	 * Additional CSS class names for styling.
+	 */
+	className?: string
 
-  /**
-   * Title of the moving cards.
-   */
-  title: string
+	/**
+	 * Title of the moving cards.
+	 */
+	title: string
 }
 
 /**
@@ -57,94 +57,94 @@ type InfiniteMovingCardsProps = {
  * @returns {JSX.Element} The rendered component.
  */
 export const InfiniteMovingCards = ({
-  items,
-  users,
-  direction = 'left',
-  speed,
-  pauseOnHover = true,
-  className,
-  title,
+	items,
+	users,
+	direction = 'left',
+	speed,
+	pauseOnHover = true,
+	className,
+	title,
 }: InfiniteMovingCardsProps) => {
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const scrollerRef = React.useRef<HTMLUListElement>(null)
+	const containerRef = React.useRef<HTMLDivElement>(null)
+	const scrollerRef = React.useRef<HTMLUListElement>(null)
 
-  useEffect(() => {
-    addAnimation()
-  })
+	useEffect(() => {
+		addAnimation()
+	})
 
-  const [start, setStart] = useState(false)
+	const [start, setStart] = useState(false)
 
-  /**
-   * Adds the animation to the scroller.
-   */
-  function addAnimation() {
-    if (containerRef.current && scrollerRef.current) {
-      const scrollerContent = Array.from(scrollerRef.current.children)
+	/**
+	 * Adds the animation to the scroller.
+	 */
+	function addAnimation() {
+		if (containerRef.current && scrollerRef.current) {
+			const scrollerContent = Array.from(scrollerRef.current.children)
 
-      scrollerContent.forEach((item) => {
-        const duplicatedItem = item.cloneNode(true)
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem)
-        }
-      })
+			scrollerContent.forEach((item) => {
+				const duplicatedItem = item.cloneNode(true)
+				if (scrollerRef.current) {
+					scrollerRef.current.appendChild(duplicatedItem)
+				}
+			})
 
-      containerRef.current.style.setProperty(
-        '--animation-duration',
-        `${speed}s`,
-      )
+			containerRef.current.style.setProperty(
+				'--animation-duration',
+				`${speed}s`
+			)
 
-      getDirection()
-      setStart(true)
-    }
-  }
+			getDirection()
+			setStart(true)
+		}
+	}
 
-  /**
-   * Sets the animation direction based on the specified direction prop.
-   */
-  const getDirection = () => {
-    if (containerRef.current) {
-      if (direction === 'left') {
-        containerRef.current.style.setProperty(
-          '--animation-direction',
-          'forwards',
-        )
-      } else {
-        containerRef.current.style.setProperty(
-          '--animation-direction',
-          'reverse',
-        )
-      }
-    }
-  }
+	/**
+	 * Sets the animation direction based on the specified direction prop.
+	 */
+	const getDirection = () => {
+		if (containerRef.current) {
+			if (direction === 'left') {
+				containerRef.current.style.setProperty(
+					'--animation-direction',
+					'forwards'
+				)
+			} else {
+				containerRef.current.style.setProperty(
+					'--animation-direction',
+					'reverse'
+				)
+			}
+		}
+	}
 
-  return (
-    <div
-      ref={containerRef}
-      className={cn(
-        'scroller container relative mx-auto flex w-full flex-col place-items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]',
-        className,
-      )}
-    >
-      <h2 className="text-2xl font-bold">{title}</h2>
-      <ul
-        ref={scrollerRef}
-        className={cn(
-          'flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4',
-          start && 'animate-scroll',
-          pauseOnHover && 'hover:[animation-play-state:paused]',
-        )}
-      >
-        {items.map((item, idx) => (
-          <li key={idx}>
-            <ContentCard
-              content={item}
-              auth={false}
-              user={users[item.user_id] as Tables<'profiles'>}
-              className="min-h-80 w-80"
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+	return (
+		<div
+			ref={containerRef}
+			className={cn(
+				'scroller container relative mx-auto flex w-full flex-col place-items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]',
+				className
+			)}
+		>
+			<h2 className='text-2xl font-bold'>{title}</h2>
+			<ul
+				ref={scrollerRef}
+				className={cn(
+					'flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4',
+					start && 'animate-scroll',
+					pauseOnHover && 'hover:[animation-play-state:paused]'
+				)}
+			>
+				{items.map((item, idx) => (
+					<li key={idx}>
+						<ContentCard
+							content={item}
+							auth={false}
+							user={users[item.user_id] as Tables<'profiles'>}
+							className='min-h-80 w-80'
+						/>
+					</li>
+				))}
+			</ul>
+		</div>
+	)
 }

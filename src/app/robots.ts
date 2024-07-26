@@ -5,12 +5,12 @@ import { MetadataRoute } from 'next'
  * @return {*}  {MetadataRoute.Robots}
  */
 export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-      },
-    ],
-  }
+	return {
+		rules: [
+			{
+				userAgent: '*',
+				allow: '/',
+			},
+		],
+	}
 }

@@ -7,25 +7,25 @@
  * @returns A promise that resolves to a boolean indicating whether the action was successful.
  */
 export const addOrRemoveStarToContents = async (
-  contentId: string,
-  starredBy: string[],
-  userId: string,
-  action: 'Add' | 'Remove',
+	contentId: string,
+	starredBy: string[],
+	userId: string,
+	action: 'Add' | 'Remove'
 ): Promise<boolean> => {
-  try {
-    const response = await fetch('/api/star-action', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ contentId, starredBy, action, userId }),
-    })
-    if (!response.ok) {
-      throw new Error('Failed to save components')
-    }
-    return true
-  } catch (error) {
-    console.error(error)
-    return false
-  }
+	try {
+		const response = await fetch('/api/star-action', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ contentId, starredBy, action, userId }),
+		})
+		if (!response.ok) {
+			throw new Error('Failed to save components')
+		}
+		return true
+	} catch (error) {
+		console.error(error)
+		return false
+	}
 }

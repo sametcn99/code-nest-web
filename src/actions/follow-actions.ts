@@ -9,26 +9,26 @@ import { Tables } from '../../types/supabase'
  * @returns A promise that resolves to a boolean indicating whether the action was successful.
  */
 export const followAction = async (
-  user: Tables<'profiles'>,
-  viewerId: string,
-  action: 'Follow' | 'Unfollow',
+	user: Tables<'profiles'>,
+	viewerId: string,
+	action: 'Follow' | 'Unfollow'
 ): Promise<boolean> => {
-  try {
-    const response = await fetch('/api/follow-action', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user, viewerId, action }),
-    })
+	try {
+		const response = await fetch('/api/follow-action', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ user, viewerId, action }),
+		})
 
-    if (!response.ok) {
-      throw new Error('Failed to save components')
-    }
+		if (!response.ok) {
+			throw new Error('Failed to save components')
+		}
 
-    return true
-  } catch (error) {
-    console.error(error)
-    return false
-  }
+		return true
+	} catch (error) {
+		console.error(error)
+		return false
+	}
 }

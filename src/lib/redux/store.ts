@@ -6,11 +6,11 @@ import rootReducer from './root-reducer'
  * configureStore is a function provided by Redux Toolkit that simplifies the store setup.
  */
 const reduxStore = configureStore({
-  /**
-   * Set the root reducer for the store.
-   * @type {Function}
-   */
-  reducer: rootReducer,
+	/**
+	 * Set the root reducer for the store.
+	 * @type {Function}
+	 */
+	reducer: rootReducer,
 })
 
 /**
