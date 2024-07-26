@@ -23,7 +23,7 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setBannerUrl(e.target.value)
     },
-    []
+    [],
   )
 
   const handleBioChange = useCallback(
@@ -31,7 +31,7 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
       setUserData((prevData) => ({ ...prevData, bio: e.target.value }))
       setIsChangesSaved(false)
     },
-    []
+    [],
   )
 
   const handleUsernameChange = useCallback(
@@ -39,7 +39,7 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
       setUserData((prevData) => ({ ...prevData, username: e.target.value }))
       setIsChangesSaved(false)
     },
-    []
+    [],
   )
 
   const handleSaveChanges = useCallback(async () => {

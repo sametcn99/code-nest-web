@@ -39,7 +39,7 @@ const Page = () => {
       } catch (error: unknown) {
         setHasMore(false)
         setError(
-          error instanceof Error ? error.message : 'An unknown error occurred'
+          error instanceof Error ? error.message : 'An unknown error occurred',
         )
       } finally {
         setLoading(false)
@@ -107,7 +107,9 @@ const Page = () => {
           setContents(data)
         } catch (error) {
           setError(
-            error instanceof Error ? error.message : 'An unknown error occurred'
+            error instanceof Error
+              ? error.message
+              : 'An unknown error occurred',
           )
         } finally {
           setLoading(false)

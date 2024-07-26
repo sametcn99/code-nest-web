@@ -55,7 +55,7 @@ export default function CodeView({
 }: CodeViewProps) {
   const files: FileTypes[] = JSON.parse(JSON.stringify(content.content))
   const [isStarred, setIsStarred] = useState(
-    content.starred_by?.includes(viewerID ? viewerID : '') ?? false
+    content.starred_by?.includes(viewerID ? viewerID : '') ?? false,
   )
   const [starCount, setStarCount] = useState(content.starred_by?.length ?? 0)
   const [isFollowed, setIsFollowed] = useState(false)
@@ -135,7 +135,7 @@ export default function CodeView({
                   <div className="inline-flex w-full flex-wrap place-items-center justify-center gap-2 rounded-xl border-b border-b-gray-500 py-2 pl-4 font-bold">
                     <div className="cursor-default hover:text-yellow-400">
                       {getLangFromFileExtension(
-                        getFileExtension(file.filename) ?? ''
+                        getFileExtension(file.filename) ?? '',
                       )}
                     </div>
                     <Button
@@ -154,7 +154,7 @@ export default function CodeView({
                       onClick={() => {
                         if (!isAuth || !viewerID) {
                           toast.error(
-                            'Bu özelliği kullanabilmek için giriş yapmalısınız.'
+                            'Bu özelliği kullanabilmek için giriş yapmalısınız.',
                           )
                           return
                         }
@@ -162,7 +162,7 @@ export default function CodeView({
                           content.id,
                           content.starred_by ?? [],
                           viewerID,
-                          isStarred ? 'Remove' : 'Add'
+                          isStarred ? 'Remove' : 'Add',
                         )
                         setIsStarred(!isStarred)
                         setStarCount(isStarred ? starCount - 1 : starCount + 1)
@@ -194,7 +194,7 @@ export default function CodeView({
                   </div>
                   <div className="min-w-96">
                     {getLangFromFileExtension(
-                      getFileExtension(file.filename) ?? ''
+                      getFileExtension(file.filename) ?? '',
                     ) === 'markdown' ? (
                       <Markdown>{file.value}</Markdown>
                     ) : (
@@ -214,7 +214,7 @@ export default function CodeView({
                         }}
                         useInlineStyles={true}
                         language={getLangFromFileExtension(
-                          getFileExtension(file.filename) ?? ''
+                          getFileExtension(file.filename) ?? '',
                         )}
                         style={monokai}
                         // showLineNumbers bunu ekleyince responsive bozuluyor daha sonra düzelt

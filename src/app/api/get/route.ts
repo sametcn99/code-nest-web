@@ -23,7 +23,7 @@ export async function GET(request: Request) {
       if (error) {
         return NextResponse.json(
           { error: 'An error occurred while fetching data', details: error },
-          { status: 500 }
+          { status: 500 },
         )
       }
       if (!data || data.length === 0)
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
       if (error) {
         return NextResponse.json(
           { error: 'An error occurred while fetching data', details: error },
-          { status: 500 }
+          { status: 500 },
         )
       }
 
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
   } catch (err) {
     return NextResponse.json(
       { error: 'An unexpected error occurred', details: err },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }

@@ -89,7 +89,7 @@ const RichTextRender: React.FC<RichTextRenderProps> = ({
             </a>
           ) : (
             renderText(item)
-          )
+          ),
         )}
       </p>
     ))

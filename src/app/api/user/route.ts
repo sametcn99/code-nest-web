@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     if (error)
       return NextResponse.json(
         { error: 'An unexpected error occurred', details: error },
-        { status: 500 }
+        { status: 500 },
       )
 
     return NextResponse.json(data, {
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: 'An unexpected error occurred', details: err },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }

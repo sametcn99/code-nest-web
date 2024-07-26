@@ -38,7 +38,7 @@ export async function GET(request: Request) {
           error: 'An error occurred while fetching data',
           details: e1 || e2 || e3,
         },
-        { status: 500 }
+        { status: 500 },
       )
     }
 
@@ -56,7 +56,7 @@ export async function GET(request: Request) {
   } catch (err) {
     return NextResponse.json(
       { error: 'An unexpected error occurred', details: err },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }

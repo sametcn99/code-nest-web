@@ -26,14 +26,14 @@ export async function GET(request: Request) {
               name: string
               value: string
               options: CookieOptions
-            }[]
+            }[],
           ) => {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, options),
             )
           },
         },
-      }
+      },
     )
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     console.log('error', error)

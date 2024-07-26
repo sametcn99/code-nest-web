@@ -11,7 +11,7 @@ import { Tables } from '../../types/supabase'
 export const followAction = async (
   user: Tables<'profiles'>,
   viewerId: string,
-  action: 'Follow' | 'Unfollow'
+  action: 'Follow' | 'Unfollow',
 ): Promise<boolean> => {
   try {
     const response = await fetch('/api/follow-action', {

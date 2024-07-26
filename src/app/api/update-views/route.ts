@@ -12,7 +12,7 @@ export async function POST(Request: NextRequest) {
     if (!id || !table)
       return NextResponse.json(
         { error: 'Please provide an id and table' },
-        { status: 400 }
+        { status: 400 },
       )
 
     const { data, error } = await supabase
@@ -28,14 +28,14 @@ export async function POST(Request: NextRequest) {
       if (insertError)
         return NextResponse.json(
           { error: 'An unexpected error occurred', details: insertError },
-          { status: 500 }
+          { status: 500 },
         )
       count = 1
       NextResponse.json({ count: count, status: 200 })
     } else if (error) {
       return NextResponse.json(
         { error: 'An unexpected error occurred', details: error },
-        { status: 500 }
+        { status: 500 },
       )
     }
 
@@ -49,7 +49,7 @@ export async function POST(Request: NextRequest) {
     if (updateError) {
       return NextResponse.json(
         { error: 'An unexpected error occurred', details: updateError },
-        { status: 500 }
+        { status: 500 },
       )
     }
 
@@ -57,7 +57,7 @@ export async function POST(Request: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: 'An unexpected error occurred', details: err },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }

@@ -76,7 +76,7 @@ export default function ProfileCard({
     <Card
       className={cn(
         `flex flex-col justify-center gap-4 p-6 shadow-lg`,
-        className
+        className,
       )}
     >
       <div className="relative z-20 h-56 w-full overflow-visible rounded-lg">
@@ -188,7 +188,7 @@ export default function ProfileCard({
                       followAction(
                         user,
                         viewerID,
-                        isFollowed ? 'Unfollow' : 'Follow'
+                        isFollowed ? 'Unfollow' : 'Follow',
                       )
                       setIsFollowed(!isFollowed)
                     }
@@ -196,7 +196,7 @@ export default function ProfileCard({
                       toast.error('Kendinizi takip edemezsiniz.')
                     !viewerID &&
                       toast.error(
-                        'Bu özelliği kullanabilmek için giriş yapmalısınız.'
+                        'Bu özelliği kullanabilmek için giriş yapmalısınız.',
                       )
                   }}
                 >

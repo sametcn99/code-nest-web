@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
           component.filename === '' ||
           component.filename.length > 25 ||
           component.value.length > 10000 ||
-          components.length > 7
+          components.length > 7,
       )
     )
       return NextResponse.json({

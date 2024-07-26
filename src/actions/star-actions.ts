@@ -10,7 +10,7 @@ export const addOrRemoveStarToContents = async (
   contentId: string,
   starredBy: string[],
   userId: string,
-  action: 'Add' | 'Remove'
+  action: 'Add' | 'Remove',
 ): Promise<boolean> => {
   try {
     const response = await fetch('/api/star-action', {

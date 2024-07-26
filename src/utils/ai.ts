@@ -4,7 +4,7 @@ const apiKey = process.env.GEMINI_API_KEY
 
 if (!apiKey)
   throw Error(
-    'API key is missing. Please set NEXT_PUBLIC_GEMINI_API_KEY in your environment variables.'
+    'API key is missing. Please set NEXT_PUBLIC_GEMINI_API_KEY in your environment variables.',
   )
 
 const genAI = new GoogleGenerativeAI(apiKey)

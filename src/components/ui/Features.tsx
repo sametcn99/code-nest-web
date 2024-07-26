@@ -71,7 +71,7 @@ const Feature = ({
       className={cn(
         'group/feature relative flex flex-col py-10 dark:border-neutral-800 lg:border-r',
         (index === 0 || index === 3) && 'dark:border-neutral-800 lg:border-l',
-        index < 3 && 'dark:border-neutral-800 lg:border-b'
+        index < 3 && 'dark:border-neutral-800 lg:border-b',
       )}
     >
       {index < 3 && (

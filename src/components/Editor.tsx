@@ -30,7 +30,7 @@ export default function Editor() {
 
   const handleFilenameChange = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newComponents = [...components]
     newComponents[index].filename = event.target.value

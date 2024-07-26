@@ -54,7 +54,7 @@ const Pattern = ({
                 key={`matrix-col-${colIdx}`}
                 className={cn(
                   'border-b border-l border-neutral-600 bg-transparent',
-                  cellClassName
+                  cellClassName,
                 )}
               >
                 <motion.div

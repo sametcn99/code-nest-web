@@ -38,7 +38,7 @@ async function downloadSingleFile(file: FileTypes): Promise<boolean> {
  * @returns A Promise that resolves to a boolean indicating whether the download was successful.
  */
 async function downloadMultipleFilesAsZip(
-  files: FileTypes[]
+  files: FileTypes[],
 ): Promise<boolean> {
   const zip = new JSZip()
   files.forEach((file) => {

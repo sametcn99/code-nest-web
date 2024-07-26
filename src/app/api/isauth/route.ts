@@ -14,7 +14,7 @@ export async function GET() {
   } catch (err) {
     return NextResponse.json(
       { error: 'An unexpected error occurred', details: err },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }

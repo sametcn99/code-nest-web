@@ -63,7 +63,7 @@ export default function ContentCard({
         <Card
           className={cn(
             'relative min-h-40 w-full cursor-pointer p-2 transition-all duration-700 hover:scale-101',
-            className
+            className,
           )}
         >
           <CardHeader className="flex flex-row justify-between">

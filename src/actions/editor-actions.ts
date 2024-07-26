@@ -8,7 +8,7 @@
 export const postData = async (
   components: FileTypes[],
   title: string,
-  description: string
+  description: string,
 ) => {
   try {
     const response = await fetch('/api/post-data', {

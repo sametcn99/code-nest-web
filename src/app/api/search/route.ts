@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     if (!searchQuery || !table)
       return NextResponse.json(
         { error: 'Missing some query name.' },
-        { status: 400 }
+        { status: 400 },
       )
 
     const supabase = createClient()
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     if (e1 || e2)
       return NextResponse.json(
         { error: 'An error occurred while fetching data', details: e1 || e2 },
-        { status: 500 }
+        { status: 500 },
       )
     const data = [...titleData, ...descriptionData]
 
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: 'An unexpected error occurred', details: err },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
