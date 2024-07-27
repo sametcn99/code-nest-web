@@ -46,7 +46,7 @@ export async function GET(request: Request) {
 				const payload: WebHookPayload = {
 					embeds: [
 						{
-							color: 0x282a2e,
+							color: 65280, // green
 							title: `${data.user.user_metadata.full_name} giriş yaptı. <a:GiriGif:1263073468782477322>`,
 							description: `${data.user.user_metadata.full_name} adlı kullanıcı siteye giriş yaptı.`,
 						},
