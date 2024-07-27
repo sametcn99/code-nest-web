@@ -1,3 +1,5 @@
+import { runWebHook } from '@/utils/discord'
+import { createClient } from '@/utils/server'
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
@@ -38,6 +40,15 @@ export async function GET(request: Request) {
 		const { error } = await supabase.auth.exchangeCodeForSession(code)
 		console.log('error', error)
 		if (!error) {
+			const supabase = createClient()
+			const { data } = await supabase.auth.getUser()
+			if (data?.user) {
+				await runWebHook(
+					`${data.user.user_metadata.full_name} Giriş Yaptı <a:GiriGif:1263073468782477322>`,
+					`${data.user.user_metadata.full_name} adlı kullanıcı sitede oturum açtı.`,
+					`${origin}/user/${data.user.id}`
+				)
+			}
 			return NextResponse.redirect(`${origin}${next}`)
 		}
 	}

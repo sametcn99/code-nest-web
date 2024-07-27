@@ -1,7 +1,6 @@
+import { runWebHook } from '@/utils/discord'
 import { createClient } from '@/utils/server'
 import { NextResponse } from 'next/server'
-
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
 
 export async function GET() {
 	try {
@@ -18,27 +17,11 @@ export async function GET() {
 
 		if (signOutError) throw Error('Sign out failed')
 
-		// Prepare the payload for Discord webhook
-		const payload = {
-			embeds: [
-				{
-					description: `${user.username} **adlı kullanıcı siteden çıkış yaptı** <a:kGif:1263073433533677568>`,
-					color: 0x2b2d31, // Dark color
-					timestamp: new Date().toISOString(), // Add timestamp if needed
-				},
-			],
-		}
-
-		if (!DISCORD_WEBHOOK_URL) throw Error('Discord webhook URL is missing')
-
-		// Send the log to Discord webhook
-		await fetch(DISCORD_WEBHOOK_URL, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(payload),
-		})
+		await runWebHook(
+			`${user.full_name} Çıkış Yaptı  <a:kGif:1263073433533677568>`,
+			`${user.full_name} (@${user.username}) adlı kullanıcı siteden çıkış yaptı.`,
+			`${process.env.NEXT_PUBLIC_BASE_URL}/user/${user.id}`
+		)
 
 		return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/`)
 	} catch (error) {

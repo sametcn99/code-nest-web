@@ -1,3 +1,4 @@
+import { runWebHook } from '@/utils/discord'
 import { createClient } from '@/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
@@ -60,6 +61,11 @@ export async function POST(req: NextRequest) {
 		if (error)
 			throw new Error('An error occurred while saving the components' + error)
 
+		await runWebHook(
+			'Yeni kod eklendi',
+			`${auth.data.user?.user_metadata.full_name} ${title} başlıklı bir kod paylaştı. [Göz at](${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id})`,
+			`${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id}`
+		)
 		return NextResponse.json({
 			response: 'Components saved successfully',
 			pathname: path.join('/code', res[0].id),

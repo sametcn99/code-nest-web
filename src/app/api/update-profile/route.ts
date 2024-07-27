@@ -1,3 +1,4 @@
+import { runWebHook } from '@/utils/discord'
 import { createClient } from '@/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { Tables } from '../../../../types/supabase'
@@ -17,7 +18,11 @@ export async function POST(req: NextRequest) {
 			.update(user)
 			.eq('id', user.id)
 		if (e) throw e
-
+		await runWebHook(
+			`${user.full_name} Profilini Güncelledi. <a:AteGif:1263073399811604490>`,
+			`${user.full_name} (@${user.username}) adlı kullanıcı profil bilgileri güncellendi.`,
+			`${process.env.NEXT_PUBLIC_BASE_URL}/user/${user.id}`
+		)
 		return NextResponse.json({ response: 'success', status: 200 })
 	} catch (error) {
 		return NextResponse.json({
