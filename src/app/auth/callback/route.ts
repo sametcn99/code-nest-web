@@ -43,32 +43,19 @@ export async function GET(request: Request) {
 			const supabase = createClient()
 			const { data } = await supabase.auth.getUser()
 			if (data?.user) {
-				const payload = {
+				const payload: WebHookPayload = {
 					embeds: [
 						{
 							color: 0x282A2E,
-							description: `\`${data.user.user_metadata.full_name}\` **adlı kullanıcı siteye giriş yaptı** <a:GiriGif:1263073468782477322>`,
-							url: `${origin}/user/${data.user.id}`,
-						},
-					],
-					components: [
-						{
-							type: 1, // Action Row
-							components: [
-								{
-									type: 2, // Button
-									label: "İncele",
-									style: 5, // Link button
-									url: `${process.env.NEXT_PUBLIC_BASE_URL}/code/${data.user.id}`
-								},
-							],
+							description: \${data.user.user_metadata.full_name}\ **adlı kullanıcı siteye giriş yaptı** <a:GiriGif:1263073468782477322>,
+							url: ${origin}/user/${data.user.id},
 						},
 					],
 				}
 				await runWebHook(payload)
 			}
-			return NextResponse.redirect(`${origin}${next}`)
+			return NextResponse.redirect(${origin}${next})
 		}
 	}
-	return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+	return NextResponse.redirect(${origin}/auth/auth-code-error)
 }
