@@ -61,11 +61,18 @@ export async function POST(req: NextRequest) {
 		if (error)
 			throw new Error('An error occurred while saving the components' + error)
 
-		await runWebHook(
-			'Yeni kod eklendi',
-			`${auth.data.user?.user_metadata.full_name} ${title} başlıklı bir kod paylaştı. [Göz at](${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id})`,
-			`${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id}`
-		)
+		const payload: WebHookPayload = {
+			embeds: [
+				{
+					title: 'Yeni kod eklendi',
+					description: `${auth.data.user?.user_metadata.full_name} ${title} başlıklı bir kod paylaştı. [Göz at](${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id})`,
+					url: `${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id}`,
+					color: 0x00ff00,
+				},
+			],
+		}
+
+		await runWebHook(payload)
 		return NextResponse.json({
 			response: 'Components saved successfully',
 			pathname: path.join('/code', res[0].id),

@@ -17,12 +17,18 @@ export async function GET() {
 
 		if (signOutError) throw Error('Sign out failed')
 
-		await runWebHook(
-			`${user.full_name} Çıkış Yaptı  <a:kGif:1263073433533677568>`,
-			`${user.full_name} (@${user.username}) adlı kullanıcı siteden çıkış yaptı.`,
-			`${process.env.NEXT_PUBLIC_BASE_URL}/user/${user.id}`
-		)
+		const payload: WebHookPayload = {
+			embeds: [
+				{
+					color: 0xff0000,
+					title: `${user.full_name} Çıkış Yaptı  <a:kGif:1263073433533677568>`,
+					description: `${user.full_name} (@${user.username}) adlı kullanıcı siteden çıkış yaptı.`,
+					url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/${user.id}`,
+				},
+			],
+		}
 
+		await runWebHook(payload)
 		return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/`)
 	} catch (error) {
 		console.error('Error during sign out:', error)

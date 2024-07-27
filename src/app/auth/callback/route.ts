@@ -43,11 +43,17 @@ export async function GET(request: Request) {
 			const supabase = createClient()
 			const { data } = await supabase.auth.getUser()
 			if (data?.user) {
-				await runWebHook(
-					`${data.user.user_metadata.full_name} Giriş Yaptı <a:GiriGif:1263073468782477322>`,
-					`${data.user.user_metadata.full_name} adlı kullanıcı sitede oturum açtı.`,
-					`${origin}/user/${data.user.id}`
-				)
+				const payload: WebHookPayload = {
+					embeds: [
+						{
+							color: 0x00ff00,
+							title: `${data.user.user_metadata.full_name} Giriş Yaptı <a:GiriGif:1263073468782477322>`,
+							description: `${data.user.user_metadata.full_name} adlı kullanıcı sitede oturum açtı.`,
+							url: `${origin}/user/${data.user.id}`,
+						},
+					],
+				}
+				await runWebHook(payload)
 			}
 			return NextResponse.redirect(`${origin}${next}`)
 		}
