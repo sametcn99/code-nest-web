@@ -1,3 +1,7 @@
+import {
+	getFileExtension,
+	getLangFromFileExtension,
+} from '@/utils/file-extensions-by-langs'
 import { createClient } from '@/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { Tables } from '../../../../types/supabase'
@@ -46,13 +50,33 @@ export async function GET(request: NextRequest) {
 			(acc, content) => acc + (content.starred_by?.length || 0),
 			0
 		)
-		const totalViews = views.reduce((acc, view) => acc + view.count, 0)
+		const totalViews = views.map((view) => view.count).reduce((a, b) => a + b, 0)
+
+		const languageData: { [key: string]: number } = {}
+
+		totalContent.forEach((content) => {
+			if (content.content) {
+				const contentArr = content.content as FileTypes[]
+				contentArr.forEach((file) => {
+					const extension = getFileExtension(file.filename) || ''
+					const language = getLangFromFileExtension(extension)
+					if (language) {
+						if (!languageData[language]) {
+							languageData[language] = 0
+						}
+						languageData[language]++
+					}
+				})
+			}
+		})
 
 		const data = {
+			ID: ID,
 			profileViews: profileViews.count,
 			Contents: totalContent.length,
 			Stars: totalStars,
 			ContentViews: totalViews,
+			languageData: languageData,
 		}
 
 		return NextResponse.json(data, {
