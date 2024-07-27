@@ -10,9 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const supabase = createClient()
 	let contents: Tables<'files'>[] = []
 	let users: Tables<'profiles'>[] = []
-	const { data, error } = await supabase
-		.from('profiles')
-		.select('full_name, username')
+	const { data, error } = await supabase.from('profiles').select('id')
 	users = data as Tables<'profiles'>[]
 
 	if (error) {
