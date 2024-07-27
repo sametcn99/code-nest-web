@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
 			],
 		}
 
-		await runWebHook(payload)
+		await runWebHook(payload, 'share')
 		return NextResponse.json({
 			response: 'Components saved successfully',
 			pathname: path.join('/code', res[0].id),

@@ -28,7 +28,7 @@ export async function GET() {
 			],
 		}
 
-		await runWebHook(payload)
+		await runWebHook(payload, 'login')
 		return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/`)
 	} catch (error) {
 		console.error('Error during sign out:', error)

@@ -52,7 +52,7 @@ export async function GET(request: Request) {
 						},
 					],
 				}
-				await runWebHook(payload)
+				await runWebHook(payload, 'login')
 			}
 			return NextResponse.redirect(`${origin}${next}`)
 		}
