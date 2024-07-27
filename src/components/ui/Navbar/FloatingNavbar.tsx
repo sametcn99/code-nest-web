@@ -108,14 +108,14 @@ export const FloatingNavbar = ({ id, className }: FloatingNavbarProps) => {
 							>
 								Kod Paylaş
 							</DropdownItem>
-							<DropdownItem
+							{/* <DropdownItem
 								key='logout'
 								className='text-danger'
 								color='danger'
 								href='/api/signout'
 							>
 								Çıkış Yap
-							</DropdownItem>
+							</DropdownItem> */}
 						</DropdownMenu>
 					</Dropdown>
 				) : (

@@ -286,12 +286,12 @@ export default function ProfileCard({
 							Değişiklikleri kaydet
 						</Button>
 					)}
-					<Link
+					{/* <Link
 						href='/api/signout'
 						className='w-fit rounded-full pb-2 pl-6 pr-6 pt-2 text-sm transition-all duration-300 hover:bg-red-900'
 					>
 						Çıkış Yap
-					</Link>
+					</Link> */}
 				</div>
 			)}
 		</Card>
