@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 		const payload: WebHookPayload = {
 			embeds: [
 				{
-					color: 0xff0000,
+					color: 0xFF0CDD,
 					title: `${user.full_name} Profilini Güncelledi. <a:AteGif:1263073399811604490>`,
 					description: `${user.full_name} (@${user.username}) adlı kullanıcı profil bilgileri güncellendi.`,
 					url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/${user.id}`,

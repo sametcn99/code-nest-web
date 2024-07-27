@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
 		const payload: WebHookPayload = {
 			embeds: [
 				{
+					title: `${auth.data.user?.user_metadata.full_name} Kod Paylaştı.`,
 					description: `${auth.data.user?.user_metadata.full_name} \`${title}\` **başlıklı bir kod paylaştı* [İncele](${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id})`,
 					url: `${process.env.NEXT_PUBLIC_BASE_URL}/code/${res[0].id}`,
 					color: 0x00ff00,
