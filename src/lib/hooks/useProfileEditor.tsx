@@ -5,6 +5,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { Tables } from '../../../types/supabase'
 import useValidImage from './useValidImage'
 
+/**
+ * Custom hook for managing profile editing functionality.
+ * @param user - The user profile data.
+ * @param viewerID - The ID of the viewer (optional).
+ * @returns An object containing various functions and state variables for profile editing.
+ */
 const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 	const [userData, setUserData] = useState(user)
 	const [bannerUrl, setBannerUrl] = useState(user.banner_url)
@@ -19,6 +25,10 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 		}
 	}, [user.followers, viewerID])
 
+	/**
+	 * Handles the change event for the banner URL input field.
+	 * @param e - The change event.
+	 */
 	const handleBannerUrlChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			setBannerUrl(e.target.value)
@@ -26,6 +36,10 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 		[]
 	)
 
+	/**
+	 * Handles the change event for the bio input field.
+	 * @param e - The change event.
+	 */
 	const handleBioChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			setUserData((prevData) => ({ ...prevData, bio: e.target.value }))
@@ -34,6 +48,10 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 		[]
 	)
 
+	/**
+	 * Handles the change event for the username input field.
+	 * @param e - The change event.
+	 */
 	const handleUsernameChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			setUserData((prevData) => ({ ...prevData, username: e.target.value }))
@@ -42,6 +60,9 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 		[]
 	)
 
+	/**
+	 * Handles the save changes action.
+	 */
 	const handleSaveChanges = useCallback(async () => {
 		try {
 			await updateProfile(userData)
@@ -51,6 +72,9 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 		}
 	}, [userData])
 
+	/**
+	 * Handles the save banner URL action.
+	 */
 	const handleSaveBannerUrl = useCallback(async () => {
 		if (!bannerUrl) {
 			alert('Banner URL cannot be empty.')

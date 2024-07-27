@@ -75,7 +75,7 @@ export default function ProfileCard({
 	return (
 		<Card
 			className={cn(
-				`flex flex-col justify-center gap-4 p-6 shadow-lg`,
+				`mb-4 flex flex-col justify-center gap-4 p-6 shadow-lg`,
 				className
 			)}
 		>

@@ -1,21 +1,4 @@
 /**
- * Generates a random number with the specified number of digits.
- * @param digitCount The number of digits in the generated random number.
- * @returns The generated random number.
- * @throws Error if digitCount is less than 1.
- */
-export function generateRandomNumber(digitCount: number): number {
-	if (digitCount < 1) {
-		throw new Error('Digit count must be at least 1')
-	}
-
-	const min = Math.pow(10, digitCount - 1)
-	const max = Math.pow(10, digitCount) - 1
-
-	return Math.floor(min + Math.random() * (max - min + 1))
-}
-
-/**
  * Formats a given date into a string representation.
  * @param date - The date to be formatted.
  * @returns The formatted date string.
@@ -26,21 +9,21 @@ export const formatDate = (date: Date): string => {
 	const diffInMs = now.getTime() - givenDate.getTime()
 	const diffInMinutes = Math.floor(diffInMs / 60000) // Convert milliseconds to minutes
 
-	if (diffInMinutes <= 5) {
-		return '5 dakika içinde'
-	} else if (diffInMinutes <= 10) {
-		return '10 dakika içinde'
-	} else if (diffInMinutes <= 30) {
-		return '30 dakika içinde'
-	} else if (diffInMinutes <= 1440) {
-		// 1440 minutes in a day
-		return '1 gün içinde'
-	} else if (diffInMinutes <= 2880) {
-		// 2880 minutes in two days
-		return '1 gün önce'
-	} else {
-		return givenDate.toISOString() // Return the date in ISO format
-	}
+	if (diffInMinutes <= 5) return '5 dakika içinde'
+	else if (diffInMinutes <= 10) return '10 dakika içinde'
+	else if (diffInMinutes <= 30) return '30 dakika içinde'
+	else if (diffInMinutes <= 60) return '1 saat içinde'
+	else if (diffInMinutes <= 120) return '2 saat içinde'
+	else if (diffInMinutes <= 180) return '3 saat içinde'
+	else if (diffInMinutes <= 240) return '4 saat içinde'
+	else if (diffInMinutes <= 300) return '5 saat içinde'
+	else if (diffInMinutes <= 360) return '6 saat içinde'
+	else if (diffInMinutes <= 720) return '12 saat içinde'
+	else if (diffInMinutes <= 1440) return '1 gün içinde'
+	else if (diffInMinutes <= 2880) return '1 gün önce'
+	else if (diffInMinutes <= 4320) return '2 gün önce'
+	else if (diffInMinutes <= 5760) return '3 gün önce'
+	else return givenDate.toDateString()
 }
 
 /**
@@ -81,12 +64,9 @@ export function debounce(callback: (...args: any[]) => void, delay: number) {
  */
 export async function fetchViews(id: string, table: string): Promise<number> {
 	if (process.env.NODE_ENV !== 'production') return 0 // Return a default value or handle as needed
-
 	const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${id}&table=${table}`
 	const res = await fetch(url, { method: 'POST' })
-	if (!res.ok) {
-		return 0
-	}
+	if (!res.ok) return 0
 	const data = await res.json()
 	return data.count || 0
 }

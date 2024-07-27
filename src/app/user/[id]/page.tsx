@@ -1,5 +1,5 @@
 import Loading from '@/app/Loading'
-import ContentCard from '@/components/ContentCard'
+import { ContentsWrapper } from '@/components/ContentsWrapper'
 import ProfileCard from '@/components/ProfileCard'
 import { createClient } from '@/utils/server'
 import { fetchViews } from '@/utils/utils'
@@ -77,17 +77,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 					views={views}
 				/>
 			)}
-			<div className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-				{contents &&
-					contents.map((content, index) => (
-						<ContentCard
-							content={content}
-							key={index}
-							auth={false}
-							user={user as Tables<'profiles'>}
-						/>
-					))}
-			</div>
+			<ContentsWrapper ID={user.id} />
 			{!user && !contents && <Loading />}
 		</main>
 	)
