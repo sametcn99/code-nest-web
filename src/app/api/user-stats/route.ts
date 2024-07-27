@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
 			(acc, content) => acc + (content.starred_by?.length || 0),
 			0
 		)
-		const totalViews = views.map((view) => view.count).reduce((a, b) => a + b, 0)
+		const totalViews = views.reduce((acc, view) => acc + view.count, 0)
 
 		const languageData: { [key: string]: number } = {}
 
