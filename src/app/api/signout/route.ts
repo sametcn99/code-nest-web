@@ -20,9 +20,8 @@ export async function GET() {
 		const payload: WebHookPayload = {
 			embeds: [
 				{
-					color: 0xff0000,
-					title: `${user.full_name} Çıkış Yaptı  <a:kGif:1263073433533677568>`,
-					description: `${user.full_name} (@${user.username}) adlı kullanıcı siteden çıkış yaptı.`,
+					color: 0x282A2E,
+					description: `\`${user.full_name}\` **adlı kullanıcı siteden çıkış yaptı.** <a:kGif:1263073433533677568>`,
 					url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/${user.id}`,
 				},
 			],
