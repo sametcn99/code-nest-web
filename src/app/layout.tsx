@@ -53,6 +53,10 @@ export const metadata: Metadata = {
 		creator: 'sametcn99',
 		creatorId: '@sametcn99',
 	},
+	appleWebApp: {
+		title: 'CodeNest',
+		statusBarStyle: 'black-translucent',
+	},
 }
 
 export default function RootLayout({
