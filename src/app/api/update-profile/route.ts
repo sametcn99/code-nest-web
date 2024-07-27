@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 				},
 			],
 		}
-		await runWebHook(payload)
+		await runWebHook(payload, 'edit')
 		return NextResponse.json({ response: 'success', status: 200 })
 	} catch (error) {
 		return NextResponse.json({
