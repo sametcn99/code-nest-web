@@ -1,17 +1,16 @@
 import { createClient } from '@/utils/server'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
 	try {
-		const reqURL = new URL(request.url)
-		const count = reqURL.searchParams.get('count') as number | null
-		const page = reqURL.searchParams.get('page') as number | null
-		const table = reqURL.searchParams.get('table') as string | null
-		const columns = reqURL.searchParams.get('columns') as string | null
-		const sort = reqURL.searchParams.get('sort') as string | null
-		const order = reqURL.searchParams.get('order') as string | null
-		const eq = reqURL.searchParams.get('eq') as string | null
-		const profileID = reqURL.searchParams.get('profileID') as string | null
+		const count = request.nextUrl.searchParams.get('count') as number | null
+		const page = request.nextUrl.searchParams.get('page') as number | null
+		const table = request.nextUrl.searchParams.get('table') as string | null
+		const columns = request.nextUrl.searchParams.get('columns') as string | null
+		const sort = request.nextUrl.searchParams.get('sort') as string | null
+		const order = request.nextUrl.searchParams.get('order') as string | null
+		const eq = request.nextUrl.searchParams.get('eq') as string | null
+		const profileID = request.nextUrl.searchParams.get('profileID') as string | null
 
 		// Initialize Supabase client
 		const supabase = createClient()
