@@ -48,7 +48,6 @@ export async function GET(request: Request) {
 						{
 							color: 0x282A2E,
 							description: \${data.user.user_metadata.full_name}\ **adlı kullanıcı siteye giriş yaptı** <a:GiriGif:1263073468782477322>,
-							url: ${origin}/user/${data.user.id},
 						},
 					],
 				}
