@@ -20,9 +20,7 @@ export const addOrRemoveStarToContents = async (
 			},
 			body: JSON.stringify({ contentId, starredBy, action, userId }),
 		})
-		if (!response.ok) {
-			throw new Error('Failed to save components')
-		}
+		if (!response.ok) throw new Error('Failed to save components')
 		return true
 	} catch (error) {
 		console.error(error)

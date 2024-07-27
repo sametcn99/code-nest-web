@@ -21,11 +21,7 @@ export const followAction = async (
 			},
 			body: JSON.stringify({ user, viewerId, action }),
 		})
-
-		if (!response.ok) {
-			throw new Error('Failed to save components')
-		}
-
+		if (!response.ok) throw new Error('Failed to save components')
 		return true
 	} catch (error) {
 		console.error(error)

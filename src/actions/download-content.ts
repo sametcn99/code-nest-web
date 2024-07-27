@@ -7,10 +7,7 @@ import JSZip from 'jszip'
  */
 export async function downloadContents(files: FileTypes[]): Promise<boolean> {
 	try {
-		if (files.length === 0) {
-			throw new Error('No files found in the content')
-		}
-
+		if (files.length === 0) throw new Error('No files found in the content')
 		return files.length === 1
 			? downloadSingleFile(files[0])
 			: downloadMultipleFilesAsZip(files)

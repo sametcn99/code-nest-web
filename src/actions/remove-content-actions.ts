@@ -12,10 +12,7 @@ export const removeContent = async (id: string): Promise<boolean> => {
 			},
 			body: JSON.stringify({ id }),
 		})
-
-		if (!response.ok) {
-			throw new Error('Failed to save components')
-		}
+		if (!response.ok) throw new Error('Failed to save components')
 		return true
 	} catch (error) {
 		console.error('An unexpected error occurred while removing content:', error)

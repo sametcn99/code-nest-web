@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
 	try {
-		const reqURL = new URL(request.url)
 		let data = {}
 
 		// Initialize Supabase client

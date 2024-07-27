@@ -18,11 +18,7 @@ export const postData = async (
 			},
 			body: JSON.stringify({ components, title, description }),
 		})
-
-		if (!response.ok) {
-			throw new Error('Failed to save components')
-		}
-
+		if (!response.ok) throw new Error('Failed to save components')
 		const data = await response.json()
 		return data
 	} catch (error) {

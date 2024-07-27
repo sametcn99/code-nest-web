@@ -1,97 +1,59 @@
 import { createClient } from '@/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { Tables } from '../../../../types/supabase'
+
+const COLUMNS = 'id, title, description, created_at, user_id'
+
+async function fetchData(
+	supabase: any,
+	table: string,
+	searchQuery: string,
+	profileID: string | null = null
+) {
+	const query = supabase.from(table).select(COLUMNS)
+	if (profileID) query.eq('user_id', profileID)
+	const { data: titleData, error: titleError } = await query.textSearch(
+		'title',
+		searchQuery,
+		{ type: 'phrase' }
+	)
+	const { data: descriptionData, error: descriptionError } =
+		await query.textSearch('description', searchQuery, { type: 'phrase' })
+
+	if (titleError || descriptionError)
+		throw new Error(titleError?.message || descriptionError?.message)
+
+	return [...titleData, ...descriptionData]
+}
+
+function removeDuplicates(data: Tables<'files'>[]) {
+	const uniqueIds = new Set()
+	return data.filter((item) => {
+		if (uniqueIds.has(item.id)) return false
+		uniqueIds.add(item.id)
+		return true
+	})
+}
 
 export async function GET(request: NextRequest) {
 	try {
 		const reqURL = new URL(request.url)
-		const table = reqURL.searchParams.get('table')?.toString().toLowerCase() as
-			| string
-			| null
+		const table = reqURL.searchParams.get('table')?.toLowerCase()
+		const searchQuery = reqURL.searchParams.get('q')?.toLowerCase()
+		const profileID = reqURL.searchParams.get('profileID')?.toLowerCase()
 
-		const page = reqURL.searchParams.get('page')?.toString().toLowerCase() as
-			| string
-			| null
-
-		const profileID = reqURL.searchParams
-			.get('profileID')
-			?.toString()
-			.toLowerCase() as string | null
-
-		const searchQuery = reqURL.searchParams
-			.get('q')
-			?.toString()
-			.toLowerCase() as string | null
-
-		if (!searchQuery || !table)
+		if (!table || !searchQuery)
 			return NextResponse.json(
 				{ error: 'Missing some query name.' },
 				{ status: 400 }
 			)
 
 		const supabase = createClient()
-
-		if (profileID) {
-			const columns = 'id, title, description, created_at, user_id'
-			const { data: titleData, error: e1 } = await supabase
-				.from(table)
-				.select(columns)
-				.eq('user_id', profileID)
-				.textSearch('title', searchQuery, { type: 'phrase' })
-
-			const { data: descriptionData, error: e2 } = await supabase
-				.from(table)
-				.select(columns)
-				.eq('user_id', profileID)
-				.textSearch('description', searchQuery, { type: 'phrase' })
-
-			if (e1 || e2)
-				return NextResponse.json(
-					{ error: 'An error occurred while fetching data', details: e1 || e2 },
-					{ status: 500 }
-				)
-			const data = [...titleData, ...descriptionData]
-
-			// Remove duplicates using Set
-			const uniqueData = Array.from(new Set(data.map((a) => a.id))).map(
-				(id) => {
-					return data.find((a) => a.id === id)
-				}
-			)
-
-			return NextResponse.json(uniqueData, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-		}
-
-		const columns = 'id, title, description, created_at, user_id'
-		const { data: titleData, error: e1 } = await supabase
-			.from(table)
-			.select(columns)
-			.textSearch('title', searchQuery, { type: 'phrase' })
-
-		const { data: descriptionData, error: e2 } = await supabase
-			.from(table)
-			.select(columns)
-			.textSearch('description', searchQuery, { type: 'phrase' })
-
-		if (e1 || e2)
-			return NextResponse.json(
-				{ error: 'An error occurred while fetching data', details: e1 || e2 },
-				{ status: 500 }
-			)
-		const data = [...titleData, ...descriptionData]
-
-		// Remove duplicates using Set
-		const uniqueData = Array.from(new Set(data.map((a) => a.id))).map((id) => {
-			return data.find((a) => a.id === id)
-		})
+		const data = await fetchData(supabase, table, searchQuery, profileID)
+		const uniqueData = removeDuplicates(data)
 
 		return NextResponse.json(uniqueData, {
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { 'Content-Type': 'application/json' },
 		})
 	} catch (err) {
 		return NextResponse.json(
