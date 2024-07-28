@@ -75,11 +75,11 @@ export default function ProfileCard({
 	return (
 		<Card
 			className={cn(
-				`mb-4 flex flex-col justify-center gap-4 p-6 shadow-lg`,
+				`mb-4 flex flex-col justify-center gap-4 p-6 shadow-lg bg-transparent backdrop-blur-sm border border-white/30 border-b-2`,
 				className
 			)}
 		>
-			<div className='relative z-20 h-56 w-full overflow-visible rounded-lg'>
+			<div className='relative z-20 h-60 w-full overflow-visible rounded-lg'>
 				{auth && (
 					<Button
 						isIconOnly

@@ -62,7 +62,7 @@ export default function ContentCard({
 			{user && (
 				<Card
 					className={cn(
-						'relative min-h-40 w-full cursor-pointer p-2 transition-all duration-700 hover:scale-101',
+						'relative min-h-40 w-full cursor-pointer border border-b-4 border-white/30 bg-transparent p-2 backdrop-blur-sm transition-all duration-700',
 						className
 					)}
 				>
@@ -143,7 +143,7 @@ export default function ContentCard({
 						<Link
 							title={`${content.title} adlı projeyi görüntüle`}
 							aria-label={`${content.title} adlı projeyi görüntüle`}
-							className='w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white'
+							className='w-full rounded-xl hover:scale-101 transition-all duration-300 bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white'
 							href={`/code/${content.id}`}
 						>
 							Kodu Görüntüle

@@ -39,7 +39,7 @@ export default async function Page() {
 						>
 							<Card
 								key={index}
-								className='p-2 hover:scale-101'
+								className='p-2 bg-transparent border border-white/30 rounded-xl cursor-pointer transition-all duration-700 hover:shadow-lg backdrop-blur-sm'
 							>
 								<CardHeader className='inline-flex gap-3'>
 									<Image

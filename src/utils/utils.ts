@@ -65,8 +65,13 @@ export function debounce(callback: (...args: any[]) => void, delay: number) {
 export async function fetchViews(id: string, table: string): Promise<number> {
 	if (process.env.NODE_ENV !== 'production') return 0 // Return a default value or handle as needed
 	const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-views?id=${id}&table=${table}`
-	const res = await fetch(url, { method: 'POST' })
-	if (!res.ok) return 0
-	const data = await res.json()
-	return data.count || 0
+	try {
+		const res = await fetch(url, { method: 'POST' })
+		if (!res.ok) return 0
+		const data = await res.json()
+		return data.count || 0
+	} catch (error) {
+		console.error('Error fetching views:', error)
+		return 0
+	}
 }

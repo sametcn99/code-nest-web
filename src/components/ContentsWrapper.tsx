@@ -11,12 +11,12 @@ export const ContentsWrapper = ({ ID }: { ID?: string }) => {
 
 	return (
 		<section className='flex w-full flex-col place-items-center gap-4'>
-			<Input
+			<input
+				placeholder='Arama Yap..'
 				type='text'
-				label='Arama yap'
 				onChange={(e) => setSearchQuery(e.target.value)}
 				value={searchQuery}
-				className='max-w-[40rem]'
+				className='max-w-[40rem] w-full p-3 rounded-xl focus:outline-none border border-b-2 border-white/30 bg-transparent backdrop-blur-sm'
 			/>
 			<main className='container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 				{contents.length > 0 &&
