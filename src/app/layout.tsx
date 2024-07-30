@@ -12,6 +12,8 @@ import './globals.css'
 import Head from 'next/head'
 import Clicky from '@/components/Clarity'
 import Clarity from '@/components/Clarity'
+import { PHProvider } from './Providers'
+import PostHogPageView from './PostHogPageView'
 
 const font = Montserrat({ subsets: ['latin'] })
 
@@ -69,21 +71,24 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${font.className} dark`}>
-				<NextUIProvider>
-					<Providers>
-						<section className='relative flex min-h-screen flex-col gap-20 px-2 antialiased'>
-							<Navbar />
-							{children}
-							<Toaster theme='dark' />
-						</section>
-						<Footer />
-						<Clarity />
-						<Analytics />
-					</Providers>
-				</NextUIProvider>
-				<BackgroundCellCore />
-			</body>
+			<PHProvider>
+				<body className={`${font.className} dark`}>
+					<NextUIProvider>
+						<Providers>
+							<section className='relative flex min-h-screen flex-col gap-20 px-2 antialiased'>
+								<Navbar />
+								{children}
+								<Toaster theme='dark' />
+							</section>
+							<Footer />
+							<Clarity />
+							<Analytics />
+						</Providers>
+					</NextUIProvider>
+					<BackgroundCellCore />
+					<PostHogPageView />
+				</body>
+			</PHProvider>
 			<GoogleAnalytics gaId='G-6BSGH2FJGV' />
 		</html>
 	)
