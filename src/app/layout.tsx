@@ -9,6 +9,9 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import { Toaster } from 'sonner'
 import './globals.css'
+import Head from 'next/head'
+import Clicky from '@/components/Clarity'
+import Clarity from '@/components/Clarity'
 
 const font = Montserrat({ subsets: ['latin'] })
 
@@ -75,6 +78,7 @@ export default function RootLayout({
 							<Toaster theme='dark' />
 						</section>
 						<Footer />
+						<Clarity />
 						<Analytics />
 					</Providers>
 				</NextUIProvider>
