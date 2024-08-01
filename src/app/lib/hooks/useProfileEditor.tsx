@@ -1,9 +1,9 @@
-import { updateProfile } from '@/actions/user-actions'
-import { isValidImageUrl } from '@/utils/image-validate'
+import { updateProfile } from '@/app/actions/user-actions'
+import { isValidImageUrl } from '@/app/utils/image-validate'
 import { useDisclosure } from '@nextui-org/react'
 import { useCallback, useEffect, useState } from 'react'
-import { Tables } from '../../../types/supabase'
 import useValidImage from './useValidImage'
+import { Tables } from '../../../../types/supabase'
 
 /**
  * Custom hook for managing profile editing functionality.

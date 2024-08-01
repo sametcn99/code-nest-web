@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/server'
+import { createClient } from '@/app/utils/server'
 import { cookies } from 'next/headers'
 import { NextResponse, type NextRequest } from 'next/server'
 

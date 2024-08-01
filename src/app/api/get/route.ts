@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/server'
+import { createClient } from '@/app/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
 		const sort = request.nextUrl.searchParams.get('sort') as string | null
 		const order = request.nextUrl.searchParams.get('order') as string | null
 		const eq = request.nextUrl.searchParams.get('eq') as string | null
-		const profileID = request.nextUrl.searchParams.get('profileID') as string | null
+		const profileID = request.nextUrl.searchParams.get('profileID') as
+			| string
+			| null
 
 		// Initialize Supabase client
 		const supabase = createClient()

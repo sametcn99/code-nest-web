@@ -1,4 +1,4 @@
-import UnderMaintance from '@/components/ui/UnderMaintance'
+import UnderMaintance from '@/app/components/ui/UnderMaintance'
 import React from 'react'
 
 export default function Page() {

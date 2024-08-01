@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/server'
+import { createClient } from '@/app/utils/server'
 import { Card, CardHeader } from '@nextui-org/react'
 import { Metadata } from 'next'
 import Image from 'next/image'
@@ -39,7 +39,7 @@ export default async function Page() {
 						>
 							<Card
 								key={index}
-								className='p-2 bg-transparent border border-white/30 rounded-xl cursor-pointer transition-all duration-700 hover:shadow-lg backdrop-blur-sm'
+								className='cursor-pointer rounded-xl border border-white/30 bg-transparent p-2 backdrop-blur-sm transition-all duration-700 hover:shadow-lg'
 							>
 								<CardHeader className='inline-flex gap-3'>
 									<Image

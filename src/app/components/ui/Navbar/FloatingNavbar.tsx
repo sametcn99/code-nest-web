@@ -1,5 +1,5 @@
 'use client'
-import { cn } from '@/utils/cn'
+import { cn } from '@/app/utils/cn'
 import {
 	Button,
 	Dropdown,

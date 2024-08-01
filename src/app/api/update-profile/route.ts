@@ -1,5 +1,5 @@
-import { runWebHook } from '@/utils/discord'
-import { createClient } from '@/utils/server'
+import { runWebHook } from '@/app/utils/discord'
+import { createClient } from '@/app/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { Tables } from '../../../../types/supabase'
 

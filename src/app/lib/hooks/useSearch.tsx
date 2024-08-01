@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { debounce } from '@/utils/utils'
-import { Tables } from '../../../types/supabase'
+import { debounce } from '@/app/utils/utils'
+import { Tables } from '../../../../types/supabase'
 
 /**
  * Custom hook for performing search functionality.

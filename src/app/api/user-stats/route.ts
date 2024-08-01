@@ -1,8 +1,8 @@
 import {
 	getFileExtension,
 	getLangFromFileExtension,
-} from '@/utils/file-extensions-by-langs'
-import { createClient } from '@/utils/server'
+} from '@/app/utils/file-extensions-by-langs'
+import { createClient } from '@/app/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { Tables } from '../../../../types/supabase'
 

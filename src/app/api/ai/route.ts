@@ -1,5 +1,5 @@
-import { generateText } from '@/utils/ai'
-import { createClient } from '@/utils/server'
+import { generateText } from '@/app/utils/ai'
+import { createClient } from '@/app/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**

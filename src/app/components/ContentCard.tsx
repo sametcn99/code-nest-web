@@ -1,7 +1,7 @@
 'use client'
-import { removeContent } from '@/actions/remove-content-actions'
-import { cn } from '@/utils/cn'
-import { formatDate, truncateString } from '@/utils/utils'
+import { removeContent } from '@/app/actions/remove-content-actions'
+import { cn } from '@/app/utils/cn'
+import { formatDate, truncateString } from '@/app/utils/utils'
 import {
 	Button,
 	Card,
@@ -19,7 +19,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoCloseCircleOutline } from 'react-icons/io5'
-import { Tables } from '../../types/supabase'
+import { Tables } from 'app/../../types/supabase'
 
 /**
  * Defines the prop types for the ContentCard component.
@@ -143,7 +143,7 @@ export default function ContentCard({
 						<Link
 							title={`${content.title} adlı projeyi görüntüle`}
 							aria-label={`${content.title} adlı projeyi görüntüle`}
-							className='w-full rounded-xl hover:scale-101 transition-all duration-300 bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white'
+							className='w-full rounded-xl bg-gradient-to-r from-indigo-800 via-blue-700 to-blue-900 px-4 py-2 text-center text-white transition-all duration-300 hover:scale-101'
 							href={`/code/${content.id}`}
 						>
 							Kodu Görüntüle

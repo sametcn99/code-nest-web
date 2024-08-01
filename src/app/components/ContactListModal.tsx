@@ -9,7 +9,7 @@ import {
 	useDisclosure,
 } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
-import { Tables } from '../../types/supabase'
+import { Tables } from '@app/../../types/supabase'
 import Image from 'next/image'
 import Link from 'next/link'
 

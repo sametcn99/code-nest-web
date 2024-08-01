@@ -1,4 +1,4 @@
-import { ContentsWrapper } from '@/components/ContentsWrapper'
+import { ContentsWrapper } from '@/app/components/ContentsWrapper'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 'use client'
 import Loading from '@/app/Loading'
-import ContentCard from '@/components/ContentCard'
-import usePaginatedContents from '@/lib/hooks/usePaginatedContents'
+import ContentCard from '@/app/components/ContentCard'
+import usePaginatedContents from '@/app/lib/hooks/usePaginatedContents'
 import { Input } from '@nextui-org/react'
 
 export const ContentsWrapper = ({ ID }: { ID?: string }) => {
@@ -16,7 +16,7 @@ export const ContentsWrapper = ({ ID }: { ID?: string }) => {
 				type='text'
 				onChange={(e) => setSearchQuery(e.target.value)}
 				value={searchQuery}
-				className='max-w-[40rem] w-full p-3 rounded-xl focus:outline-none border border-b-2 border-white/30 bg-transparent backdrop-blur-sm'
+				className='w-full max-w-[40rem] rounded-xl border border-b-2 border-white/30 bg-transparent p-3 backdrop-blur-sm focus:outline-none'
 			/>
 			<main className='container grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 				{contents.length > 0 &&

@@ -1,11 +1,11 @@
 import Loading from '@/app/Loading'
-import CodeView from '@/components/CodeView'
-import RandomContents from '@/components/ui/RandomContents'
-import { createClient } from '@/utils/server'
+import CodeView from '@/app/components/CodeView'
+import RandomContents from '@/app/components/ui/RandomContents'
+import { createClient } from '@/app/utils/server'
+import { fetchViews } from '@/app/utils/utils'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Tables } from '../../../../types/supabase'
-import { fetchViews } from '@/utils/utils'
 
 type Props = {
 	params: { project: string; id: string }

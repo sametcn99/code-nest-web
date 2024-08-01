@@ -1,7 +1,7 @@
 import Loading from '@/app/Loading'
-import { createClient } from '@/utils/server'
-import { Tables } from '../../../types/supabase'
 import { InfiniteMovingCards } from './InfiniteMovingCards'
+import { Tables } from '../../../../types/supabase'
+import { createClient } from '@/app/utils/server'
 
 export default async function RandomContents() {
 	const supabase = createClient()

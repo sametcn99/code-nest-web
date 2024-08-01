@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { Tables } from '../../../types/supabase'
 import useScroll from './useScroll'
 import useSearch from './useSearch'
+import { Tables } from '../../../../types/supabase'
 
 /**
  * Custom hook for fetching paginated contents.

@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/server'
+import { createClient } from '@/app/utils/server'
 import { FloatingNavbar } from './FloatingNavbar'
 
 export default async function Navbar() {

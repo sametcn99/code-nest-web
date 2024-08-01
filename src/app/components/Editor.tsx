@@ -1,6 +1,6 @@
 'use client'
-import { postData } from '@/actions/editor-actions'
-import useValidData from '@/lib/hooks/useValidData'
+import { postData } from '@/app/actions/editor-actions'
+import useValidData from '@/app/lib/hooks/useValidData'
 import { Button, Textarea } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'

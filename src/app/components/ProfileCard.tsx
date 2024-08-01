@@ -1,7 +1,7 @@
 'use client'
-import { followAction } from '@/actions/follow-actions'
-import useProfileEditor from '@/lib/hooks/useProfileEditor'
-import { cn } from '@/utils/cn'
+import { followAction } from '@/app/actions/follow-actions'
+import useProfileEditor from '@/app/lib/hooks/useProfileEditor'
+import { cn } from '@/app/utils/cn'
 import {
 	Button,
 	Card,
@@ -18,7 +18,7 @@ import React from 'react'
 import { RiUserAddLine, RiUserFollowLine } from 'react-icons/ri'
 import { TbEdit } from 'react-icons/tb'
 import { toast } from 'sonner'
-import { Tables } from '../../types/supabase'
+import { Tables } from 'app/../../types/supabase'
 import ContactListModal from './ContactListModal'
 import RichTextRender from './ui/RichTextRender'
 
@@ -75,7 +75,7 @@ export default function ProfileCard({
 	return (
 		<Card
 			className={cn(
-				`mb-4 flex flex-col justify-center gap-4 p-6 shadow-lg bg-transparent backdrop-blur-sm border border-white/30 border-b-2`,
+				`mb-4 flex flex-col justify-center gap-4 border border-b-2 border-white/30 bg-transparent p-6 shadow-lg backdrop-blur-sm`,
 				className
 			)}
 		>

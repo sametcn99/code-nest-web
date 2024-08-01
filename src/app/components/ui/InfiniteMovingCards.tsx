@@ -1,10 +1,8 @@
 'use client'
-
-import { cn } from '@/utils/cn'
+import { cn } from '@/app/utils/cn'
 import React, { useEffect, useState } from 'react'
-import { Tables } from '../../../types/supabase'
+import { Tables } from '../../../../types/supabase'
 import ContentCard from '../ContentCard'
-import { user } from '@nextui-org/theme'
 
 type InfiniteMovingCardsProps = {
 	/**

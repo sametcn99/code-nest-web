@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/server'
+import { createClient } from '@/app/utils/server'
 import { MetadataRoute } from 'next'
 import { Tables } from '../../types/supabase'
 

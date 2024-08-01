@@ -1,5 +1,5 @@
-import { runWebHook } from '@/utils/discord'
-import { createClient } from '@/utils/server'
+import { runWebHook } from '@/app/utils/discord'
+import { createClient } from '@/app/utils/server'
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
