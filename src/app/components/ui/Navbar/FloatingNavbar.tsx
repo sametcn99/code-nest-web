@@ -82,7 +82,7 @@ export const FloatingNavbar = ({ id, className }: FloatingNavbarProps) => {
 					</Dropdown>
 				</div>
 				{id ? (
-					<Dropdown className='bg-transparent'>
+					<Dropdown className='bg-transparent backdrop-blur-sm'>
 						<DropdownTrigger>
 							<Button
 								variant={'light'}
