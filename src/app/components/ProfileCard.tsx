@@ -21,6 +21,7 @@ import { toast } from 'sonner'
 import { Tables } from 'app/../../types/supabase'
 import ContactListModal from './ContactListModal'
 import RichTextRender from './ui/RichTextRender'
+import { formatCount } from '../utils/utils'
 
 /**
  * Props for the ProfileCard component.
@@ -239,7 +240,7 @@ export default function ProfileCard({
 								{user.full_name}
 							</Link>
 						</p>
-						<p>Profil Görüntülenme sayısı: {views}</p>
+						<p>Profil Görüntülenme sayısı: {formatCount(views)}</p>
 					</div>
 					{auth && !isChangesSaved && (
 						<Textarea
@@ -286,12 +287,6 @@ export default function ProfileCard({
 							Değişiklikleri kaydet
 						</Button>
 					)}
-					{/* <Link
-						href='/api/signout'
-						className='w-fit rounded-full pb-2 pl-6 pr-6 pt-2 text-sm transition-all duration-300 hover:bg-red-900'
-					>
-						Çıkış Yap
-					</Link> */}
 				</div>
 			)}
 		</Card>

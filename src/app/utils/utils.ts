@@ -75,3 +75,14 @@ export async function fetchViews(id: string, table: string): Promise<number> {
 		return 0
 	}
 }
+
+/**
+ * Formats the view count into a human-readable string.
+ * @param viewCount - The number of views.
+ * @returns A formatted string representing the view count.
+ */
+export function formatCount(viewCount: number): string {
+	if (viewCount < 1000) return viewCount.toString()
+	else if (viewCount < 1000000) return `${(viewCount / 1000).toFixed(1)}K`
+	else return `${(viewCount / 1000000).toFixed(1)}M`
+}

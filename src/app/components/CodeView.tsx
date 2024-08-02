@@ -6,7 +6,7 @@ import {
 	getFileExtension,
 	getLangFromFileExtension,
 } from '@/app/utils/file-extensions-by-langs'
-import { formatDate } from '@/app/utils/utils'
+import { formatCount, formatDate } from '@/app/utils/utils'
 import { Button, Card, Tab, Tabs } from '@nextui-org/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -155,7 +155,7 @@ export default function CodeView({
 												toast.info(`Görüntülenme sayısı: ${views}`)
 											}
 										>
-											<FaEye className='' /> {views}
+											<FaEye className='' /> {formatCount(views)}
 										</Button>
 										<Button
 											title='Total Stars'
@@ -178,7 +178,7 @@ export default function CodeView({
 												setStarCount(isStarred ? starCount - 1 : starCount + 1)
 											}}
 										>
-											{starCount}
+											{formatCount(starCount)}
 										</Button>
 										<Button
 											title='Copy'

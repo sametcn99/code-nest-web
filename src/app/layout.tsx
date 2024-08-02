@@ -2,7 +2,6 @@ import Clarity from '@/app/components/Clarity'
 import { BackgroundCellCore } from '@/app/components/ui/BackgroundRippleEffect'
 import Footer from '@/app/components/ui/Footer'
 import Navbar from '@/app/components/ui/Navbar/Navbar'
-import { Providers } from '@/app/lib/providers'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { NextUIProvider } from '@nextui-org/system'
 import { Analytics } from '@vercel/analytics/react'
@@ -10,8 +9,6 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import { Toaster } from 'sonner'
 import './globals.css'
-import PostHogPageView from './PostHogPageView'
-import { PHProvider } from './Providers'
 
 const font = Montserrat({ subsets: ['latin'] })
 
@@ -69,24 +66,19 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<PHProvider>
-				<body className={`${font.className} dark`}>
-					<NextUIProvider>
-						<Providers>
-							<section className='relative flex min-h-screen flex-col gap-20 px-2 antialiased'>
-								<Navbar />
-								{children}
-								<Toaster theme='dark' />
-							</section>
-							<Footer />
-							<Clarity />
-							<Analytics />
-						</Providers>
-					</NextUIProvider>
-					<BackgroundCellCore />
-					<PostHogPageView />
-				</body>
-			</PHProvider>
+			<body className={`${font.className} dark`}>
+				<NextUIProvider>
+					<section className='relative flex min-h-screen flex-col gap-20 px-2 antialiased'>
+						<Navbar />
+						{children}
+						<Toaster theme='dark' />
+					</section>
+					<Footer />
+					<Clarity />
+					<Analytics />
+				</NextUIProvider>
+				<BackgroundCellCore />
+			</body>
 			<GoogleAnalytics gaId='G-6BSGH2FJGV' />
 		</html>
 	)
