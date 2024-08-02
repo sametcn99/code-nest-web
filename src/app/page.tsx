@@ -51,7 +51,7 @@ export default async function Home() {
 						aria-label='Yeni bir proje paylaşın'
 						color='primary'
 						href='/new'
-						className='rounded-xl border bg-gray-700 bg-opacity-50 p-2'
+						className='rounded-xl border border-gray-900 bg-transparent p-2 backdrop-blur-sm transition-all duration-500 hover:bg-white/30'
 					>
 						Paylaşmaya Başlayın
 					</Link>
@@ -62,7 +62,7 @@ export default async function Home() {
 							aria-label='Giriş Yap'
 							color='success'
 							href='/login'
-							className='rounded-xl border bg-gray-700 bg-opacity-50 p-2'
+							className='rounded-xl border border-gray-900 bg-transparent p-2 backdrop-blur-sm transition-all duration-500 hover:bg-white/30'
 						>
 							Giriş Yap
 						</Link>
@@ -76,7 +76,7 @@ export default async function Home() {
 					color='secondary'
 					href='/community'
 					target='_blank'
-					className='rounded-xl border bg-gray-700 bg-opacity-50 p-2'
+					className='rounded-xl border border-gray-900 bg-transparent p-2 backdrop-blur-sm transition-all duration-500 hover:bg-white/30'
 				>
 					Topluluğumuza Katılın
 				</Link>

@@ -58,13 +58,13 @@ export const FloatingNavbar = ({ id, className }: FloatingNavbarProps) => {
 					>
 						Anasayfa
 					</Link>
-					<Dropdown>
+					<Dropdown className='bg-transparent backdrop-blur-sm'>
 						<DropdownTrigger>
 							<Button className='text-md bg-transparent'>Keşfet</Button>
 						</DropdownTrigger>
 						<DropdownMenu
 							aria-label='Dropdown Variants'
-							variant={'solid'}
+							variant={'flat'}
 						>
 							<DropdownItem
 								key='contents'
@@ -82,7 +82,7 @@ export const FloatingNavbar = ({ id, className }: FloatingNavbarProps) => {
 					</Dropdown>
 				</div>
 				{id ? (
-					<Dropdown>
+					<Dropdown className='bg-transparent'>
 						<DropdownTrigger>
 							<Button
 								variant={'light'}
@@ -94,7 +94,7 @@ export const FloatingNavbar = ({ id, className }: FloatingNavbarProps) => {
 						</DropdownTrigger>
 						<DropdownMenu
 							aria-label='Profile Menu'
-							variant={'solid'}
+							variant={'flat'}
 						>
 							<DropdownItem
 								key='account'
