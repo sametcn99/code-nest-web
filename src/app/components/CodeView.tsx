@@ -212,7 +212,9 @@ export default function CodeView({
 										{getLangFromFileExtension(
 											getFileExtension(file.filename) ?? ''
 										) === 'markdown' ? (
-											<Markdown>{file.value}</Markdown>
+											<article className='prose prose-invert prose-stone'>
+												<Markdown>{file.value}</Markdown>
+											</article>
 										) : (
 											<SyntaxHighlighter
 												key={index}
