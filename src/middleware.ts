@@ -1,5 +1,5 @@
 import { type NextRequest } from 'next/server'
-import { visitMiddleware } from './app/utils/visit_control/middleware'
+import { visitMiddleware } from './utils/visit_control/middleware'
 
 /**
  * Executes the middleware function for the given request.

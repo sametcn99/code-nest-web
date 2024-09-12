@@ -1,9 +1,9 @@
-import { createClient } from '@/app/utils/server'
 import { Card, CardHeader } from '@nextui-org/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaCrown } from 'react-icons/fa6'
 import { Tables } from '../../../types/supabase'
+import { createClient } from '@/utils/server'
 
 export default async function Page() {
 	const supabase = createClient()

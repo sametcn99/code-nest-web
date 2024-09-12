@@ -15,8 +15,7 @@ export default async function Page() {
 						Total Content: <span>{stats.totalContent}</span>
 					</p>
 					<p>
-						Last Uploaded File:{' '}
-						<span>{stats.lastUploadedFile[0].created_at}</span>
+						Last Uploaded File: <span>{stats.lastUploadedFile[0].created_at}</span>
 					</p>
 				</CardBody>
 			</Card>

@@ -1,4 +1,4 @@
-import { createClient } from '@/app/utils/server'
+import { createClient } from '@/utils/server'
 import { Card, CardHeader } from '@nextui-org/react'
 import { Metadata } from 'next'
 import Image from 'next/image'

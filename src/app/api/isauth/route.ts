@@ -1,4 +1,4 @@
-import { createClient } from '@/app/utils/server'
+import { createClient } from '@/utils/server'
 import { NextResponse } from 'next/server'
 
 export async function GET() {

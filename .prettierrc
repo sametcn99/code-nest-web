@@ -6,5 +6,10 @@
 	"plugins": ["prettier-plugin-tailwindcss"],
 	"jsxSingleQuote": true,
 	"useTabs": true,
-	"quoteProps": "as-needed"
+	"quoteProps": "as-needed",
+	"tabWidth": 1,
+	"bracketSpacing": true,
+	"endOfLine": "auto",
+	"arrowParens": "always",
+	"embeddedLanguageFormatting": "auto"
 }

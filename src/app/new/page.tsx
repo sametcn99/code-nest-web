@@ -1,5 +1,5 @@
-import Editor from '@/app/components/Editor'
-import { createClient } from '@/app/utils/server'
+import Editor from '@/components/Editor'
+import { createClient } from '@/utils/server'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 

@@ -1,5 +1,5 @@
 'use server'
-import { createClient } from '@/app/utils/server'
+import { createClient } from '@/utils/server'
 import { notFound, redirect } from 'next/navigation'
 
 export async function signInWithDiscord() {

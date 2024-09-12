@@ -1,9 +1,9 @@
-import FeaturesSectionDemo from '@/app/components/ui/Features'
-import { createClient } from '@/app/utils/server'
+import FeaturesSectionDemo from '@/components/ui/Features'
+import { createClient } from '@/utils/server'
 import Link from 'next/link'
 import { Tables } from '../../types/supabase'
 import Loading from './Loading'
-import { InfiniteMovingCards } from '@/app/components/ui/InfiniteMovingCards'
+import { InfiniteMovingCards } from '@/components/ui/InfiniteMovingCards'
 
 export default async function Home() {
 	const supabase = createClient()

@@ -1,10 +1,10 @@
 import Loading from '@/app/Loading'
-import ContentCard from '@/app/components/ContentCard'
-import ProfileCard from '@/app/components/ProfileCard'
-import { createClient } from '@/app/utils/server'
+import ContentCard from '@/components/ContentCard'
+import ProfileCard from '@/components/ProfileCard'
+import { createClient } from '@/utils/server'
 import { notFound } from 'next/navigation'
 import { Tables } from '../../../types/supabase'
-import { fetchViews } from '@/app/utils/utils'
+import { fetchViews } from '@/utils/utils'
 
 export default async function Page() {
 	const supabase = createClient()

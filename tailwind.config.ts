@@ -51,11 +51,7 @@ const config: Config = {
 		},
 	},
 	darkMode: 'class',
-	plugins: [
-		nextui(),
-		addVariablesForColors,
-		require('@tailwindcss/typography'),
-	],
+	plugins: [nextui(), addVariablesForColors, require('@tailwindcss/typography')],
 }
 
 /**

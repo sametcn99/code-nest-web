@@ -1,8 +1,8 @@
 import {
 	getFileExtension,
 	getLangFromFileExtension,
-} from '@/app/utils/file-extensions-by-langs'
-import { createClient } from '@/app/utils/server'
+} from '@/utils/file-extensions-by-langs'
+import { createClient } from '@/utils/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { Tables } from '../../../../types/supabase'
 
@@ -33,11 +33,7 @@ export async function GET(request: NextRequest) {
 		const profileViews = profileViewsRes.data as Tables<'views'>
 
 		const viewPromises = totalContent.map((content) =>
-			supabase
-				.from('views')
-				.select('*')
-				.eq('_id', content.id)
-				.eq('table', 'files')
+			supabase.from('views').select('*').eq('_id', content.id).eq('table', 'files')
 		)
 
 		const viewsResults = await Promise.all(viewPromises)
