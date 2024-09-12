@@ -49,6 +49,7 @@ export default function ContentCard({
 	className,
 }: ContentCardProps) {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure()
+	const isValidAvatar = useValidImage(user?.avatar_url ?? '')
 
 	const onRemove = async () => {
 		const res = await removeContent(content.id)
@@ -76,7 +77,7 @@ export default function ContentCard({
 						>
 							<Image
 								src={
-									useValidImage(user.avatar_url)
+									isValidAvatar
 										? (user.avatar_url ?? '/images/default_avatar.png')
 										: '/images/default_avatar.png'
 								}
