@@ -76,7 +76,7 @@ export default function ContentCard({
 						>
 							<Image
 								src={
-									useValidImage(user.avatar_url || '')
+									useValidImage(user.avatar_url)
 										? (user.avatar_url ?? '/images/default_avatar.png')
 										: '/images/default_avatar.png'
 								}

@@ -62,7 +62,6 @@ export default function ProfileCard({
 		isOpen,
 		isChangesSaved,
 		isFollowed,
-		isValidBannerUrl,
 		handleBannerUrlChange,
 		handleBioChange,
 		handleUsernameChange,
@@ -133,7 +132,9 @@ export default function ProfileCard({
 				</Modal>
 				<Image
 					src={
-						isValidBannerUrl && bannerUrl ? bannerUrl : '/images/default_banner.gif'
+						useValidImage(bannerUrl)
+							? (bannerUrl ?? '/images/default_banner.gif')
+							: '/images/default_banner.gif'
 					}
 					title={`${userData.username}'s banner`}
 					alt={`${userData.username}'s banner`}
@@ -149,7 +150,7 @@ export default function ProfileCard({
 				<div className='absolute bottom-0 z-50 inline-flex translate-y-3/4 place-items-center'>
 					<Image
 						src={
-							useValidImage(user.avatar_url || '')
+							useValidImage(user.avatar_url)
 								? (user.avatar_url ?? '/images/default_avatar.png')
 								: '/images/default_avatar.png'
 						}

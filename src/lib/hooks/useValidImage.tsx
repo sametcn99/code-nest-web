@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
-const useValidImage = (url: string): boolean => {
-	const [isValid, setIsValid] = useState<boolean >(false)
+const useValidImage = (url: string | null): boolean => {
+	if (!url) return false
+	const [isValid, setIsValid] = useState<boolean>(false)
 
 	const checkImageValidity = useCallback((imageUrl: string) => {
 		if (!imageUrl) {

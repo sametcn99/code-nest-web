@@ -2,7 +2,6 @@ import { updateProfile } from '@/actions/user-actions'
 import { isValidImageUrl } from '@/utils/image-validate'
 import { useDisclosure } from '@nextui-org/react'
 import { useCallback, useEffect, useState } from 'react'
-import useValidImage from './useValidImage'
 import { Tables } from '../../../types/supabase'
 
 /**
@@ -17,7 +16,6 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 	const [isChangesSaved, setIsChangesSaved] = useState(true)
 	const [isFollowed, setIsFollowed] = useState(false)
 	const { isOpen, onOpen, onOpenChange } = useDisclosure()
-	const isValidBannerUrl = useValidImage(bannerUrl || '')
 
 	useEffect(() => {
 		if (viewerID) {
@@ -95,7 +93,6 @@ const useProfileEditor = (user: Tables<'profiles'>, viewerID?: string) => {
 		isOpen,
 		isChangesSaved,
 		isFollowed,
-		isValidBannerUrl,
 		setIsChangesSaved,
 		handleBannerUrlChange,
 		handleBioChange,
